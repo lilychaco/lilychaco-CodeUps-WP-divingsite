@@ -1,0 +1,70 @@
+@use "global"as *;
+
+.button-send-container {
+  position: relative;
+  /* ボタンと画像を重ねるために relative を使用 */
+  display: inline-block;
+  /* ボタンをインラインブロックにすることで幅と高さを指定 */
+
+}
+
+.button-send-container::before {
+  content: "";
+  position: absolute;
+  width: 202px;
+  height: 54px;
+  top: 4px;
+  left: 4px;
+  border: 1px solid $greenaccent;
+  z-index: -1;
+}
+
+.button-send-container::after {
+  content: "";
+  position: absolute;
+  right: 56px;
+  top: 50%;
+  transform: translateY(calc(-50% - 3px)) skew(45deg);
+  width: 40px;
+  height: 6px;
+  border-bottom: 1px solid $white;
+  border-right: 1px solid $white;
+  z-index: 100;
+}
+
+.button-send {
+  position: relative;
+  /* 画像の位置をボタンに対して設定するために relative を使用 */
+  z-index: 1;
+  /* 画像より前面に表示 */
+  width: 202px;
+  vertical-align: bottom;
+  display: inline-block;
+  text-align: left;
+  padding: 16px 0 14px 56px;
+  background-color: $greenaccent;
+  color: white;
+  font-size: 14px;
+  font-family: $third-font-family;
+  font-weight: $regular;
+  line-height: 1.57;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition: ease 0.2s;
+  box-sizing: border-box;
+  /* ボックスサイジングを追加 */
+  border: 1px solid transparent;
+  /* ホバー前のボーダーを透明に設定 */
+}
+
+.button-send:hover {
+  background-color: #fff;
+  border: 1px solid $greenaccent;
+  color: $greenaccent;
+  z-index: 1;
+}
+
+.button-send-container:hover::after {
+  border-bottom: 1px solid $greenaccent;
+  border-right: 1px solid $greenaccent;
+}

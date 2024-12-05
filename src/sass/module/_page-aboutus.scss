@@ -1,0 +1,121 @@
+@use "global" as *;
+
+.page-aboutus {
+  margin-inline: auto;
+  width: 100%;
+}
+
+.page-aboutus__container {
+  width: 100%;
+	position: relative;
+  @include mq(md) {
+  }
+}
+.page-aboutus__sp-image {
+  margin-top: rem(28);
+  display: block;
+  width: 100%;
+	position: relative;
+}
+.page-aboutus__sp-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 345/228;
+}
+.page-aboutus__title {
+  font-size: rem(40);
+  font-family: $third-font-family;
+  font-weight: $regular;
+  line-height: 1;
+  letter-spacing: 0;
+  color: $greenaccent;
+
+  @include mq(md) {
+    font-size: rem(80);
+    line-height: 1.25;
+    color: $white;
+  }
+}
+.page-aboutus__title span {
+	text-transform: uppercase;
+}
+.page-aboutus__title--sp {
+	position: absolute;
+	top:rem(24);
+	left: rem(24);
+	color:$white;
+
+}
+.page-aboutus__pc-image {
+  display: none;
+  @include mq(md) {
+		width:100%;
+		height:rem(661);
+    display: block;
+		position: relative;
+  }
+}
+.page-aboutus__pc-image img:first-of-type {
+  @include mq(md) {
+    display: block;
+    max-width: rem(400);
+    height: auto;
+    object-fit: cover;
+		aspect-ratio: 400/606;
+		position: absolute;
+		top:0;
+		left:0;
+  }
+}
+.page-aboutus__pc-image img:nth-of-type(2) {
+  @include mq(md) {
+    display: block;
+    object-fit: cover;
+		aspect-ratio: 880/581;
+    max-width: rem(880);
+    position: absolute;
+    top: rem(80);
+    right: 0;
+		z-index:-1;
+  }
+}
+.page-aboutus__main-wrapper {
+  @include mq(md) {
+    position: absolute;
+    top: rem(200);
+    left: rem(198);
+    z-index: 10;
+  }
+}
+.page-aboutus__main {
+  margin-top: rem(40);
+  @include mq(md) {
+    width: 100%;
+    max-width: rem(841);
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(calc(41/841)*100%);
+  }
+}
+.page-aboutus__body {
+  margin-top: rem(16);
+  @include mq(md) {
+    margin-top: rem(26);
+	// padding-left: rem(6);
+	}
+}
+.page-aboutus__text {
+  font-size: rem(16);
+  font-family: $base-font-family;
+  font-weight: $regular;
+  line-height: 1.5;
+  letter-spacing: 0;
+
+  @include mq(md) {
+    color: $white;
+    max-height: rem(350);
+    overflow: auto;
+  }
+}

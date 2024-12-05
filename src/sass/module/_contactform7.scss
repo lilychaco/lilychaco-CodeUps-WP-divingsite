@@ -1,0 +1,222 @@
+@use "global"as *;
+
+//チェックボックス
+/* チェックボックス全体のラッパー */
+.wpcf7-form-control-wrap {
+  margin-top: 16px;
+}
+
+@media (min-width: 768px) {
+  .wpcf7-form-control-wrap {
+    margin-top: 0;
+  }
+}
+
+/* チェックボックスのラベルとチェックボックス自体 */
+.wpcf7-form-control.wpcf7-checkbox {
+  position: relative;
+  display: block;
+  /* チェックボックスを縦並びに */
+  padding-left: 10px;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.7;
+}
+
+/* チェックボックスの input 要素を非表示に */
+.wpcf7-form-control.wpcf7-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+/* チェックボックスマークのスタイル */
+.wpcf7-form-control.wpcf7-checkbox input[type="checkbox"]+.wpcf7-list-item-label::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  /* チェックボックスの中央に配置 */
+  transform: translateY(-50%);
+  left: 0;
+  height: 14px;
+  /* チェックボックスのサイズ */
+  width: 14px;
+  border: solid 2px #4CAF50;
+  /* 線の色（元の $greenaccent に相当） */
+  box-sizing: border-box;
+}
+
+/* エラー時のチェックボックスマーク */
+.wpcf7-form-control.wpcf7-checkbox input[type="checkbox"]+.wpcf7-list-item-label--error::before {
+  border-radius: 50%;
+}
+
+/* 選択時に表示するチェックマーク */
+.wpcf7-form-control.wpcf7-checkbox input[type="checkbox"]:checked+.wpcf7-list-item-label::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 8px;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%) rotate(45deg);
+  border-right: 2px solid #c94800;
+  /* チェックマークの色 */
+  border-bottom: 2px solid #c94800;
+  /* チェックマークの色 */
+  opacity: 1;
+  /* チェックされたときに表示 */
+}
+
+/* エラー時のチェックマーク */
+.wpcf7-form-control.wpcf7-checkbox input[type="checkbox"]:checked+.wpcf7-list-item-label--error::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: #408F95;
+  /* エラーチェック時の背景色 */
+  opacity: 1;
+  /* 表示する */
+}
+
+
+
+//セレクトボックス
+/* セレクトボックス全体のラッパー */
+.form__select {
+  margin-top: rem(16);
+
+  @include mq(md) {
+    margin-top: 0;
+  }
+}
+
+/* セレクトボックスのアイテムを包むdiv */
+.form__select-items {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: rem(40);
+
+  /* 高さはpxからremに変更 */
+  @include mq(md) {
+    height: rem(30);
+    /* メディアクエリで高さを調整 */
+  }
+
+  /* Contact Form 7の構造に対応 */
+  .wpcf7-form-control-wrap {
+    width: 100%;
+    /* 親要素と同じ幅に */
+  }
+}
+
+/* セレクトボックスの右側に表示される三角形アイコン */
+.form__select-items::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  /* 右端からの位置 */
+  top: 50%;
+  /* 中央に配置 */
+  transform: translateY(-50%);
+  /* Y軸中央揃え */
+  width: 12px;
+  height: calc(12px / 2 * tan(60deg));
+  /* 三角形の高さ */
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  /* 三角形のクリップ */
+  background: $greenaccent;
+  /* 三角形の色 */
+}
+
+/* 三角形アイコンを非表示にするクラス */
+.form__select-items.no-triangle::after {
+  display: none;
+}
+
+/* セレクトボックスのスタイル */
+.form__select-item,
+.wpcf7-select {
+  appearance: none;
+  /* デフォルトのセレクトボックスのスタイルを無効化 */
+  -webkit-appearance: none;
+  /* Chrome/Safari対応 */
+  -moz-appearance: none;
+  /* Firefox対応 */
+  background-color: white;
+  /* 背景色 */
+  border: 1px solid $greenaccent;
+  /* 枠線の色 */
+  width: 100%;
+  /* 幅は親要素にフィット */
+  height: inherit;
+  /* 親要素の高さに合わせる */
+  padding-left: rem(8);
+  /* テキストの左側の余白 */
+  font-size: rem(12);
+  /* 文字サイズ */
+  font-family: $base-font-family;
+  /* フォント */
+  font-weight: $regular;
+  /* フォントの重さ */
+  line-height: 3;
+  letter-spacing: 0;
+  /* 文字間の余白 */
+}
+
+/* レスポンシブ対応の行間 */
+.form__row.form__row--select {
+  @include mq(md) {
+    padding-top: rem(34);
+    /* レスポンシブ時の余白 */
+  }
+}
+
+/* レスポンシブ対応のdt要素のマージン */
+.form__row.form__row--select dt {
+  @include mq(md) {
+    margin-top: rem(4);
+    /* レスポンシブ時の余白 */
+  }
+}
+
+
+
+/* エラーページにのみ適用するスタイル */
+.wpcf7-form-invalid .wpcf7-form-control.wpcf7-not-valid {
+  background-color: rgba(255, 0, 0, 0.1);
+  /* 薄い赤 */
+}
+
+/* プレースホルダーの色を変更（任意） */
+.wpcf7-form-invalid input::placeholder,
+.wpcf7-form-invalid textarea::placeholder {
+  color: #d9534f;
+  /* 薄い赤 */
+}
+
+/* エラーメッセージの色を赤に */
+.wpcf7-form-invalid span.wpcf7-not-valid-tip {
+  color: #d9534f;
+  /* エラーメッセージのテキストを赤く */
+}
+
+
+//ボタン
+/*デフォルトのスタイルを無効化する*/
+input[type="submit"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+span.wpcf7-spinner {
+  display: none;
+}
+
+
+

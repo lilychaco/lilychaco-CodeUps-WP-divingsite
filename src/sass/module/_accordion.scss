@@ -1,0 +1,17 @@
+@use "global" as *;
+
+.accordion {
+  margin-inline: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: rem(40);
+  @include mq(md) {
+    gap: rem(38);
+  }
+}
+
+.accordion__item {
+  margin-inline: auto;
+  width: 100%;
+}

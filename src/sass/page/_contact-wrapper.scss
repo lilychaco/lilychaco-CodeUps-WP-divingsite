@@ -1,0 +1,62 @@
+@use "global" as *;
+
+.contact-wrapper {
+	margin-top: rem(80);
+	@include mq(md) {
+			margin-top: rem(140);
+	}
+}
+
+.contact-wrapper--archive-blog {
+	margin-top: rem(80);
+  @include mq(md) {
+    margin-top: rem(142);
+  }
+}
+.contact-wrapper--archive-campaign {
+	margin-top: rem(106);
+	@include mq(md) {
+		margin-top: rem(144);
+	}
+}
+.contact-wrapper--aboutus{
+	margin-top: rem(106);
+}
+.contact-wrapper--page-information {
+	margin-top: rem(108);
+		@include mq(md) {
+		margin-top: rem(142);
+	}
+}
+.contact-wrapper--archive-voice {
+	margin-top: rem(108);
+	@include mq(md) {
+	margin-top: rem(144);
+	}
+}
+
+.contact-wrapper--page-price {
+	margin-top: rem(109);
+}
+.contact-wrapper--page-faq{
+	margin-top: rem(106);
+	@include mq(md) {
+	margin-top: rem(145);
+	}
+}
+.contact-wrapper--single-blog {
+	margin-top: rem(109);
+}
+.contact-wrapper--page-privacy {
+	margin-top: rem(108);
+	@include mq(md) {
+			margin-top: rem(144);
+	}
+}
+
+.contact-wrapper--page-service {
+	margin-top: rem(108);
+	@include mq(md) {
+			margin-top: rem(144);
+	}
+}

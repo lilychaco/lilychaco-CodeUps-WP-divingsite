@@ -1,0 +1,50 @@
+@use "global"as *;
+
+.button2 {
+  position: relative;
+  width: rem(202);
+  vertical-align: bottom;
+  text-align: left;
+  padding: rem(18) 0 rem(14) rem(38);
+  background-color: $greenaccent;
+  color: $white;
+  font-size: rem(14);
+  font-family: $third-font-family;
+  font-weight: $regular;
+  line-height: 1.57;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition: ease 0.2s;
+  box-sizing: border-box;
+
+
+
+  //   border: 1px solid transparent;
+  //   /* ホバー前のボーダーを透明に設定 */
+  //   cursor: pointer;
+}
+
+.button2__text {
+  margin-right: 10px;
+}
+
+.button2__icon {
+  width: 20px;
+  height: auto;
+}
+
+.button2__border {
+  width: rem(202);
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: -1;
+  /* ボタンの下に枠線を配置 */
+}
+
+.button2__border img {
+  width: rem(202);
+  display: block;
+  // width: 100%;
+  height: auto;
+}

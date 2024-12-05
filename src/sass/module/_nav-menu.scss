@@ -1,0 +1,126 @@
+@use "global" as *;
+
+.nav-menu {
+	margin-inline:auto;
+	width:100%;
+	display: grid;
+	grid-template-areas:
+	"a b"
+	"c d";
+	grid-template-columns: rem(166) rem(150);
+	column-gap:calc(calc(7/323)*100%);
+	row-gap:rem(18);
+	@include mq(md) {
+		margin: 0;
+			display:flex;
+			justify-content: space-between;
+			gap:rem(120);
+			width:rem(1008);
+
+	}
+}
+
+.nav-menu__box {
+    display: flex;
+    flex-direction: column;
+		color:$white;
+		width: 100%;
+		height:inherit;
+}
+
+.nav-menu__box--01 {
+	grid-area: a;
+	padding-top:0;
+		@include mq(md) {
+		padding-top: rem(24);
+	}
+}
+
+
+.nav-menu__box--02 {
+	grid-area: c;
+	padding-top: 0;
+	padding-bottom: rem(14);
+	@include mq(md) {
+		padding-top: rem(24);
+	}
+	}
+
+
+.nav-menu__box--03 {
+		grid-area: b;
+		padding-top: 0;
+}
+
+.nav-menu__box--04 {
+		grid-area: d;
+			padding-bottom: rem(16);
+			@include mq(md) {
+		padding-top: rem(16);
+	}
+	}
+
+.nav-menu__box--05 {
+			padding-bottom: rem(16);
+			padding-left: rem(10);
+		@include mq(md) {
+			padding-top: rem(24);
+			padding-bottom: rem(16);
+			padding-left: 0;
+}}
+.nav-menu__box--06 {
+			padding-bottom: rem(16);
+			padding-left: rem(10);
+		@include mq(md) {
+				padding-top: rem(24);
+			padding-bottom: rem(16);
+			padding-left: 0;
+}}
+
+.nav-menu__item:not(:first-child) {
+	margin-top: rem(40);
+}
+.nav-menu__item {
+	width: 100%;
+	height:inherit;
+}
+
+.nav-menu__item p {
+		width: 100%;
+		height:inherit;
+		font-size: rem(16);
+			font-family: $base-font-family;
+			font-weight: $bold;
+			line-height: 1.1;
+			letter-spacing: 0;
+			white-space: nowrap;
+}
+.nav-menu__item ul{
+	width: 100%;
+	height:inherit;
+	padding-left: rem(22);
+}
+.nav-menu__item li {
+	width: 100%;
+	height:inherit;
+	margin-top: rem(20);
+
+}
+.nav-menu__item li a {
+		width: 100%;
+		height:inherit;
+		font-size: rem(16);
+			font-family: $base-font-family;
+			font-weight: $regular;
+			line-height: 1.125;
+			letter-spacing: 0;
+			display: inline-block;
+			white-space: nowrap;
+}
+
+.nav-menu__item:not(:first-child).nav-menu__item--01 {
+	margin-top: rem(36);
+}
+.nav-menu__item:not(:first-child).nav-menu__item--02 {
+	margin-top: rem(41);
+}
