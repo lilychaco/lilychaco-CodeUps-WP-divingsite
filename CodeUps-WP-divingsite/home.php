@@ -70,8 +70,9 @@
 					</div>
 				</div>
 			</div>
-
-			<?php get_template_part('content', 'side'); ?>
+			<div class="blog__side">
+				<?php get_template_part('content', 'side'); ?>
+			</div>
 			<!--blog__side終わり-->
 		</div>
 		<!--blog__container終わり-->

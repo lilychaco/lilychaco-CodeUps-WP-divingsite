@@ -14,17 +14,17 @@
 	<div class="information__inner inner">
 		<div class="information__tab tab fish-02">
 			<ul class="tab__list">
-				<li class="tab__menu js-tab current">
+				<li class="tab__menu js-tab" data-tab="license-training" current>
 					<p class="tab__text tab__text--01" id="license-training">
 						ライセンス<br class="u-mobile" />講習
 					</p>
 				</li>
-				<li class="tab__menu js-tab">
+				<li class="tab__menu js-tab" data-tab="fun-diving">
 					<p class="tab__text tab__text--02" id="fun-diving">
 						ファン<br class="u-mobile" />ダイビング
 					</p>
 				</li>
-				<li class="tab__menu js-tab">
+				<li class="tab__menu js-tab" data-tab="trial-diving">
 					<p class="tab__text tab__text--03" id="trial-diving">
 						体験<br class="u-mobile" />ダイビング
 					</p>

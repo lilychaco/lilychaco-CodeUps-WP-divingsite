@@ -105,13 +105,11 @@
 						<p class="starfish-icon">キャンペーン</p>
 					</a>
 					<ul>
-						<ul>
-							<li>
-								<a href="<?php echo esc_url(home_url('/campaign')); ?>">ライセンス取得</a>
-							</li>
-							<li><a href="<?php echo esc_url(home_url('/campaign')); ?>">貸切体験ダイビング</a></li>
-							<li><a href="<?php echo esc_url(home_url('/campaign')); ?>">ナイトダイビング</a></li>
-						</ul>
+						<li>
+							<a href="<?php echo esc_url(home_url('/campaign')); ?>">ライセンス取得</a>
+						</li>
+						<li><a href="<?php echo esc_url(home_url('/campaign')); ?>">貸切体験ダイビング</a></li>
+						<li><a href="<?php echo esc_url(home_url('/campaign')); ?>">ナイトダイビング</a></li>
 					</ul>
 				</div>
 				<div class="drawer-menu__item drawer-menu__item--01">
@@ -128,10 +126,11 @@
 						<p class="starfish-icon">ダイビング情報</p>
 					</a>
 					<ul>
-						<li><a href="<?php echo esc_url(home_url('/information#license-training')); ?>">ライセンス講習</a></li>
-						<li><a href="<?php echo esc_url(home_url('/information#trial-diving')); ?>">体験ダイビング</a></li>
-						<li><a href="<?php echo esc_url(home_url('/information#fun-diving')); ?>">ファンダイビング</a></li>
+						<li><a href="<?php echo esc_url(home_url('/information?tab=license-training')); ?>">ライセンス講習</a></li>
+						<li><a href="<?php echo esc_url(home_url('/information?tab=trial-diving')); ?>">体験ダイビング</a></li>
+						<li><a href="<?php echo esc_url(home_url('/information?tab=fun-diving')); ?>">ファンダイビング</a></li>
 					</ul>
+
 				</div>
 				<div class="drawer-menu__item drawer-menu__item--01">
 					<a href="<?php echo esc_url(home_url('/blog')); ?>">

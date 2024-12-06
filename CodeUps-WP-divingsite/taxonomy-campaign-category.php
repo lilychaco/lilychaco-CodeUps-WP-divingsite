@@ -25,17 +25,17 @@
 			</li>
 			<?php
     // 'campaign-category'タクソノミーの用語を取得
+    $taxonomy = 'campaign-category'; // タクソノミー名を変数に格納
     $terms = get_terms(array(
-        'taxonomy' => 'campaign-category',
+        'taxonomy' => $taxonomy,
         'hide_empty' => false,
     ));
 
-    if (!empty($terms)) :
-        foreach ($terms as $term) :
-    ?>
+    if (!empty($terms)) : ?>
+			<?php foreach ($terms as $term) : ?>
 			<li class="category-list__item">
 				<a href="<?php echo esc_url(get_term_link($term)); ?>"
-					class="category-list__link <?php echo (is_tax('campaign-category', $term->slug)) ? 'is-current' : ''; ?>">
+					class="category-list__link <?php echo (is_tax($taxonomy, $term->slug)) ? 'is-current' : ''; ?>">
 					<?php echo esc_html($term->name); ?>
 				</a>
 			</li>
@@ -44,38 +44,15 @@
 		</ul>
 
 		<!-- 投稿リスト部分 -->
+
+		<?php if (have_posts()) : ?>
 		<ul class="archive-campaign__content archive-campaign-cards">
-			<?php
-			// 現在のターム情報を取得
-			$current_term = get_queried_object();
-
-			// クエリの設定
-			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-			$args = array(
-				'post_type' => 'campaign', // カスタム投稿タイプ
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'campaign-category', // タクソノミー名
-						'field' => 'slug', // タームのフィールド（スラッグを使用）
-						'terms' => $current_term->slug, // 現在のタームのスラッグ
-					),
-				),
-				'posts_per_page' => 4, // 1ページあたりの投稿数
-				'paged' => $paged, // ページ番号
-			);
-
-			$query = new WP_Query($args);
-
-		/// ループ
-			if ($query->have_posts()) :
-				while ($query->have_posts()) : $query->the_post();
-					// カスタムフィールドの値を取得
-					$price_old = get_field('campaign-price_old');
-					$price_new = get_field('campaign-price_new');
-					$period = get_field('campaign-period');
-			?>
-
+			<?php while (have_posts()) : the_post();
+                    // ACFカスタムフィールドを取得
+                    $price_old = get_field('campaign-price_old') ?: '設定なし';
+                    $price_new = get_field('campaign-price_new') ?: '設定なし';
+                    $period = get_field('campaign-period') ?: '期間未定';
+                ?>
 			<li class="archive-campaign-cards__item archive-campaign-card">
 				<figure class="archive-campaign-card__img">
 					<?php if (has_post_thumbnail()) : the_post_thumbnail('full', array('alt' => get_the_title())); else : ?>
@@ -85,16 +62,7 @@
 				<div class="archive-campaign-card__body">
 					<div class="archive-campaign-card__top">
 						<div class="archive-campaign-card__category">
-							<?php
-                    $terms = get_the_terms(get_the_ID(), 'campaign-category');
-                    if (!empty($terms) && !is_wp_error($terms)) {
-                        foreach ($terms as $term) {
-                            echo '<span>' . esc_html($term->name) . '</span> ';
-                        }
-                    } else {
-                        echo '<span>カテゴリなし</span>';
-                    }
-                    ?>
+							<?php single_term_title(); // タクソノミー名を表示 ?>
 						</div>
 						<div class="archive-campaign-card__title"><?php the_title(); ?></div>
 					</div>
@@ -139,12 +107,11 @@
 				<?php
 				// ページナビの表示
 				if (function_exists('wp_pagenavi')) {
-					wp_pagenavi(array('query' => $query));
+					wp_pagenavi();
 				}
 				?>
 			</ul>
 		</div>
-		<?php wp_reset_postdata(); // クエリのリセット ?>
 
 	</div>
 </div>

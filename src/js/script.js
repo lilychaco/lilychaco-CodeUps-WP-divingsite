@@ -30,24 +30,54 @@ jQuery(function ($) {
       return false;
     });
 
+
+
+
     // ==================================
     // インフォメーションページのタブの動きを制御
     // ==================================
     $(document).ready(function () {
-      // 初期設定として一番目のタブを表示
-      $(".js-content").hide().first().show(); // すべて非表示にして最初だけ表示
-      $(".js-tab").first().addClass("current"); // 最初のタブに選択状態を付与
+      const urlParams = new URLSearchParams(window.location.search); // URLのクエリパラメータを取得
+      const tabParam = urlParams.get("tab"); // "tab"パラメータの値を取得
+      const $tabs = $(".js-tab"); // 全てのタブ
+      const $contents = $(".js-content"); // 全てのコンテンツ
+
+      if (tabParam) {
+        // パラメータが指定されている場合
+        const targetIndex = $tabs.filter(`[data-tab="${tabParam}"]`).index();
+        if (targetIndex !== -1) {
+          $tabs.removeClass("current").eq(targetIndex).addClass("current"); // 該当タブを選択状態に
+          $contents.hide().eq(targetIndex).fadeIn(300); // 対応コンテンツを表示
+        } else {
+          // 該当するタブがない場合、デフォルトタブを表示
+          showDefaultTab();
+        }
+      } else {
+        // パラメータが指定されていない場合、デフォルトタブを表示
+        showDefaultTab();
+      }
 
       // タブクリック時のイベント
-      $(".js-tab").on("click", function () {
+      $tabs.on("click", function () {
         const $clickedTab = $(this); // クリックされたタブを取得
         const index = $clickedTab.index(); // タブのインデックス番号を取得
+        const tabId = $clickedTab.data("tab"); // タブに設定したデータ属性からIDを取得
 
-        $(".js-tab").removeClass("current"); // 全てのタブの選択状態を解除
+        $tabs.removeClass("current"); // 全てのタブの選択状態を解除
         $clickedTab.addClass("current"); // クリックされたタブを選択状態に
 
-        $(".js-content").hide().eq(index).fadeIn(300); // 対応するコンテンツを表示
+        $contents.hide().eq(index).fadeIn(300); // 対応するコンテンツを表示
+
+        // URLにクエリパラメータを設定
+        const newUrl = `${window.location.origin}${window.location.pathname}?tab=${tabId}`;
+        window.history.replaceState(null, null, newUrl);
       });
+
+      // 初期タブ表示用の関数
+      function showDefaultTab() {
+        $tabs.first().addClass("current");
+        $contents.hide().first().show();
+      }
     });
 
     //================================

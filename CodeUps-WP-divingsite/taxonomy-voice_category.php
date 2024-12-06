@@ -27,18 +27,19 @@
 				</li>
 
 				<?php
-    // 'campaign-category'タクソノミーの用語を取得
-    $terms = get_terms(array(
-        'taxonomy' => 'voice_category',
-        'hide_empty' => false,
-    ));
+					// 'campaign-category'タクソノミーの用語を取得
+					$taxonomy = 'voice_category'; // タクソノミー名を変数に格納
+					$terms = get_terms(array(
+							'taxonomy' => $taxonomy,
+							'hide_empty' => false,
+					));
 
-    if (!empty($terms)) :
-        foreach ($terms as $term) :
-    ?>
+					if (!empty($terms)) :
+							foreach ($terms as $term) :
+					?>
 				<li class="category-list__item">
 					<a href="<?php echo esc_url(get_term_link($term)); ?>"
-						class="category-list__link <?php echo (is_tax('voice_category', $term->slug)) ? 'is-current' : ''; ?>">
+						class="category-list__link <?php echo (is_tax($taxonomy, $term->slug)) ? 'is-current' : ''; ?>">
 						<?php echo esc_html($term->name); ?>
 					</a>
 				</li>
@@ -47,32 +48,10 @@
 			</ul>
 
 			<!-- 投稿リスト部分 -->
+			<?php if (have_posts()) : ?>
 			<ul class="archive-voice__content voice-cards">
-				<?php
-			// 現在のターム情報を取得
-			$current_term = get_queried_object();
+				<?php while (have_posts()) : the_post();        ?>
 
-			// クエリの設定
-			$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-			$args = array(
-				'post_type' => 'voice', // カスタム投稿タイプ
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'voice_category', // タクソノミー名
-						'field' => 'slug', // タームのフィールド（スラッグを使用）
-						'terms' => $current_term->slug, // 現在のタームのスラッグ
-					),
-				),
-				'posts_per_page' => 4, // 1ページあたりの投稿数
-				'paged' => $paged, // ページ番号
-			);
-
-			$query = new WP_Query($args);
-			/// ループ
-			if ($query->have_posts()) :
-				while ($query->have_posts()) : $query->the_post();
-    ?>
 				<li class="voice-cards__item voice-card">
 					<a href="#" class="voice-card__link">
 						<div class="voice-card__body">
@@ -91,16 +70,9 @@
                             ?>
 									</div>
 									<div class="voice-card__category">
-										<?php
-                                $terms = get_the_terms( get_the_ID(), 'voice_category' );
-                                if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-                                    foreach( $terms as $term ) {
-                                        echo '<span>' . esc_html( $term->name ) . '</span> ';
-                                    }
-                                } else {
-                                    echo '<span>カテゴリなし</span>';
-                                }
-                                ?>
+										<span>
+											<?php single_term_title(); // タクソノミー名を表示 ?>
+										</span>
 									</div>
 								</div>
 								<div class="voice-card__title">
@@ -137,12 +109,12 @@
 				<?php
 				// ページナビの表示
 				if (function_exists('wp_pagenavi')) {
-					wp_pagenavi(array('query' => $query));
+					wp_pagenavi();
 				}
 				?>
 			</ul>
 		</div>
-		<?php wp_reset_postdata(); // クエリのリセット ?>
+
 	</div>
 </div>
 

@@ -43,17 +43,13 @@
     					<a href="<?php echo esc_url(home_url('/information')); ?>">
     						<p class="starfish-icon">ダイビング情報</p>
     					</a>
-    					<ul>
-    						<ul>
-    							<li><a href="<?php echo esc_url(home_url('/information#license-training')); ?>">ライセンス講習</a></li>
-    							<li><a href="<?php echo esc_url(home_url('/information#trial-diving')); ?>">体験ダイビング</a></li>
-    							<li><a href="<?php echo esc_url(home_url('/information#fun-diving')); ?>">ファンダイビング</a></li>
-    						</ul>
 
-    						<!-- <li><a href="<?php echo esc_url(home_url('/information')); ?>">ライセンス講習</a></li>
-    						<li><a href="<?php echo esc_url(home_url('/information')); ?>">体験ダイビング</a></li>
-    						<li><a href="<?php echo esc_url(home_url('/information')); ?>">ファンダイビング</a></li> -->
+    					<ul>
+    						<li><a href="<?php echo esc_url(home_url('/information?tab=license-training')); ?>">ライセンス講習</a></li>
+    						<li><a href="<?php echo esc_url(home_url('/information?tab=trial-diving')); ?>">体験ダイビング</a></li>
+    						<li><a href="<?php echo esc_url(home_url('/information?tab=fun-diving')); ?>">ファンダイビング</a></li>
     					</ul>
+
     				</div>
     				<div class="nav-menu__item nav-menu__item--01">
     					<a href="<?php echo esc_url(home_url('/blog')); ?>">

@@ -191,17 +191,42 @@ function include_campaign_in_main_query($query) {
 add_action('pre_get_posts', 'include_campaign_in_main_query');
 
 
+
+
 /*-----------------------------------
 // メインループで voice を取得するためのフィルター追加
 -----------------------------------*/
 function include_voice_in_main_query($query) {
-    // 管理画面ではなく、メインクエリかつ特定のアーカイブページでのみ処理
-    if (!is_admin() && $query->is_main_query() && is_post_type_archive('voice')) {
-        $query->set('post_type', 'voice'); // カスタム投稿タイプを指定
-        $query->set('posts_per_page', 6);    // 1ページあたりの投稿数
-    }
+// 管理画面ではなく、メインクエリかつ特定のアーカイブページでのみ処理
+if (!is_admin() && $query->is_main_query() && is_post_type_archive('voice')) {
+$query->set('post_type', 'voice'); // カスタム投稿タイプを指定
+$query->set('posts_per_page', 6); // 1ページあたりの投稿数
+}
 }
 add_action('pre_get_posts', 'include_voice_in_main_query');
+
+/*-----------------------------------
+//カスタムタクソノミーの投稿をメインループで表示する
+-----------------------------------*/
+
+function modify_main_query($query) {
+    if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    if ($query->is_post_type_archive('campaign') || $query->is_tax('campaign-category')) {
+        $query->set('post_type', 'campaign');
+        $query->set('posts_per_page', 4);
+        $query->set('orderby', 'date');
+        $query->set('order', 'DESC');
+    }
+
+    if ($query->is_post_type_archive('voice') || $query->is_tax('voice_category')) {
+        $query->set('post_type', 'voice');
+        $query->set('posts_per_page', 6);
+    }
+}
+add_action('pre_get_posts', 'modify_main_query');
 
 
 
@@ -210,35 +235,37 @@ add_action('pre_get_posts', 'include_voice_in_main_query');
 // カスタムタクソノミーをチェックボックスで表示する
 -----------------------------------*/
 function my_add_new_tags_metabox() {
-    add_meta_box('custom-tagsdiv', 'タグ', 'my_metabox_content', 'voice', 'side', 'default');
+add_meta_box('custom-tagsdiv', 'タグ', 'my_metabox_content', 'voice', 'side', 'default');
 }
 add_action('add_meta_boxes', 'my_add_new_tags_metabox');
 
 function my_metabox_content($post) {
-    $all_tags = get_terms(array('taxonomy' => 'voice_tag', 'hide_empty' => false));
-    $all_tags_of_post = get_the_terms($post->ID, 'voice_tag');
-    $ids = array();
+$all_tags = get_terms(array('taxonomy' => 'voice_tag', 'hide_empty' => false));
+$all_tags_of_post = get_the_terms($post->ID, 'voice_tag');
+$ids = array();
 
-    if ($all_tags_of_post && !is_wp_error($all_tags_of_post)) {
-        foreach ($all_tags_of_post as $tag) {
-            $ids[] = $tag->term_id;
-        }
-    }
+if ($all_tags_of_post && !is_wp_error($all_tags_of_post)) {
+foreach ($all_tags_of_post as $tag) {
+$ids[] = $tag->term_id;
+}
+}
 
-    // HTML
-    echo '<div id="taxonomy-voice_tag" class="categorydiv">';
-    echo '<input type="hidden" name="tax_input[voice_tag][]" value="0" />';
-    echo '<ul>';
-    if (!is_wp_error($all_tags)) {
-        foreach ($all_tags as $tag) {
-            $checked = in_array($tag->term_id, $ids) ? " checked='checked'" : "";
-            $id = 'voice_tag-' . esc_attr($tag->term_id); // エスケープ処理
-            echo "<li id='{$id}'>";
-            echo "<label><input type='checkbox' name='tax_input[voice_tag][]' id='in-$id' value='$tag->slug'{$checked} /> $tag->name</label><br />";
-            echo "</li>";
-        }
-    }
-    echo '</ul></div>'; // end HTML
+// HTML
+echo '<div id="taxonomy-voice_tag" class="categorydiv">';
+	echo '<input type="hidden" name="tax_input[voice_tag][]" value="0" />';
+	echo '<ul>';
+		if (!is_wp_error($all_tags)) {
+		foreach ($all_tags as $tag) {
+		$checked = in_array($tag->term_id, $ids) ? " checked='checked'" : "";
+		$id = 'voice_tag-' . esc_attr($tag->term_id); // エスケープ処理
+		echo "<li id='{$id}'>";
+			echo "<label><input type='checkbox' name='tax_input[voice_tag][]' id='in-$id' value='$tag->slug' {$checked} />
+				$tag->name</label><br />";
+			echo "</li>";
+		}
+		}
+		echo '</ul>
+</div>'; // end HTML
 }
 
 
@@ -246,25 +273,25 @@ function my_metabox_content($post) {
 投稿タイプのラベルを変更
 -----------------------------------*/
 function change_post_labels() {
-    global $wp_post_types;
+global $wp_post_types;
 
-    // 'post' は標準の投稿タイプを指します
-    $post_labels = $wp_post_types['post']->labels;
+// 'post' は標準の投稿タイプを指します
+$post_labels = $wp_post_types['post']->labels;
 
-    // ラベルを変更します
-    $post_labels->name = 'ブログ';
-    $post_labels->singular_name = 'ブログ';
-    $post_labels->add_new = '新しいブログを追加';
-    $post_labels->add_new_item = '新しいブログを追加';
-    $post_labels->edit_item = 'ブログを編集';
-    $post_labels->new_item = '新しいブログ';
-    $post_labels->view_item = 'ブログを表示';
-    $post_labels->search_items = 'ブログを検索';
-    $post_labels->not_found = 'ブログが見つかりません';
-    $post_labels->not_found_in_trash = 'ゴミ箱にブログはありません';
-    $post_labels->all_items = 'すべてのブログ';
-    $post_labels->menu_name = 'ブログ';
-    $post_labels->name_admin_bar = 'ブログ';
+// ラベルを変更します
+$post_labels->name = 'ブログ';
+$post_labels->singular_name = 'ブログ';
+$post_labels->add_new = '新しいブログを追加';
+$post_labels->add_new_item = '新しいブログを追加';
+$post_labels->edit_item = 'ブログを編集';
+$post_labels->new_item = '新しいブログ';
+$post_labels->view_item = 'ブログを表示';
+$post_labels->search_items = 'ブログを検索';
+$post_labels->not_found = 'ブログが見つかりません';
+$post_labels->not_found_in_trash = 'ゴミ箱にブログはありません';
+$post_labels->all_items = 'すべてのブログ';
+$post_labels->menu_name = 'ブログ';
+$post_labels->name_admin_bar = 'ブログ';
 }
 
 // アクションフックを追加して、WordPressの初期化時にラベルを変更します
@@ -275,17 +302,17 @@ add_action('init', 'change_post_labels');
 scf オプションページ
 -----------------------------------*/
 /**
- * @param string $page_title ページのtitle属性値
- * @param string $menu_title 管理画面のメニューに表示するタイトル
- * @param string $capability メニューを操作できる権限（manage_options とか）
- * @param string $menu_slug オプションページのスラッグ。ユニークな値にすること。
- * @param string|null $icon_url メニューに表示するアイコンの URL
- * @param int $position メニューの位置
- **/
- if (class_exists('SCF')) {
-    SCF::add_options_page( '料金一覧', '料金リスト', 'manage_options', 'theme-options' );
+* @param string $page_title ページのtitle属性値
+* @param string $menu_title 管理画面のメニューに表示するタイトル
+* @param string $capability メニューを操作できる権限（manage_options とか）
+* @param string $menu_slug オプションページのスラッグ。ユニークな値にすること。
+* @param string|null $icon_url メニューに表示するアイコンの URL
+* @param int $position メニューの位置
+**/
+if (class_exists('SCF')) {
+SCF::add_options_page( '料金一覧', '料金リスト', 'manage_options', 'theme-options' );
 } else {
-    error_log('Smart Custom Fieldsプラグインがインストールされていないため、オプションページを追加できません。');
+error_log('Smart Custom Fieldsプラグインがインストールされていないため、オプションページを追加できません。');
 }
 
 
@@ -294,29 +321,29 @@ scf オプションページ
 投稿ビュー数を カスタムフィールドpost_views_countに、記録する
 -----------------------------------*/
 /**
- * 投稿ビュー数をカウントする関数
- *
- * @param int $postID 投稿ID
- */
+* 投稿ビュー数をカウントする関数
+*
+* @param int $postID 投稿ID
+*/
 function set_post_views($postID) {
-    $count_key = 'post_views_count';
-    $count = get_field($count_key, $postID);
-    if($count == ''){
-        $count = 0;
-        update_field($count_key, $count, $postID);
-    } else {
-        $count++;
-        update_field($count_key, $count, $postID);
-    }
+$count_key = 'post_views_count';
+$count = get_field($count_key, $postID);
+if($count == ''){
+$count = 0;
+update_field($count_key, $count, $postID);
+} else {
+$count++;
+update_field($count_key, $count, $postID);
+}
 }
 
 function track_post_views($post_id) {
-    if (!is_single() || is_admin()) return; // 管理画面ではカウントしない
-    if (empty($post_id)) {
-        global $post;
-        $post_id = $post->ID;
-    }
-    set_post_views($post_id);
+if (!is_single() || is_admin()) return; // 管理画面ではカウントしない
+if (empty($post_id)) {
+global $post;
+$post_id = $post->ID;
+}
+set_post_views($post_id);
 }
 add_action('wp_head', 'track_post_views');
 
@@ -327,10 +354,10 @@ add_action('wp_head', 'track_post_views');
 /*-----------------------------------
 ContactForm7で自動挿入されるPタグ、brタグを削除
 -----------------------------------*/
-  add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
-  function wpcf7_autop_return_false() {
-    return false;
-  }
+add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
+function wpcf7_autop_return_false() {
+return false;
+}
 
 /*-----------------------------------
 // CF7送信後にリダイレクト
@@ -338,9 +365,9 @@ ContactForm7で自動挿入されるPタグ、brタグを削除
 // CF7送信後にリダイレクト
 add_action('wp_footer', 'redirect_cf7');
 function redirect_cf7() {
-    // サイトのアドレスを動的に取得
-    $thanks_page = home_url('/diving-lily/contact/thanks/');
-    ?>
+// サイトのアドレスを動的に取得
+$thanks_page = home_url('/diving-lily/contact/thanks/');
+?>
 <script type="text/javascript">
 document.addEventListener('wpcf7mailsent', function(event) {
 	// PHPで生成したURLを使ってリダイレクト
