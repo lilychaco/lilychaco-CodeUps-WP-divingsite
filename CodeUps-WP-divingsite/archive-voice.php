@@ -112,9 +112,7 @@
 
 		<div class="archive-campaign__nav page-nav">
 			<ul class="page-nav__pager">
-				<?php if ($wp_query->max_num_pages > 1) : // メインクエリでのページ数を確認 ?>
 				<?php wp_pagenavi(); ?>
-				<?php endif; ?>
 			</ul>
 		</div>
 	</div>
