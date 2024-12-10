@@ -1,5 +1,4 @@
 			<aside class="side">
-
 				<section class="side-popular">
 					<h2 class="side-popular__heading side-heading">人気記事</h2>
 					<ul class="side-popular__cards">

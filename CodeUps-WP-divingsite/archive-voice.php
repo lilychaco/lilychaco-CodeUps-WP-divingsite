@@ -49,21 +49,6 @@
 			<!-- 投稿リスト部分 -->
 			<ul class="archive-voice__content voice-cards">
 				<?php
-				// クエリパラメータからタームを取得
-				$term = isset($_GET['term']) ? sanitize_text_field($_GET['term']) : 'all';
-
-				// ページ番号を取得
-				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-				// メインループのカスタムクエリを設定
-				if ($term !== 'all') {
-			$args['tax_query'] = array(
-			array(
-			'taxonomy' => 'voice_category',
-			'field' => 'slug',
-			'terms' => $term,
-			),
-			);
-			}
 		// ループはそのまま利用可能
 		if (have_posts()) : while (have_posts()) : the_post();
     ?>
