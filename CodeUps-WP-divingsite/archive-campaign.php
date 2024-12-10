@@ -46,24 +46,6 @@
 		<!-- 投稿リスト部分 -->
 		<ul class="archive-campaign__content archive-campaign-cards">
 			<?php
-				// クエリパラメータからタームを取得
-				$term = isset($_GET['term']) ? sanitize_text_field($_GET['term']) : 'all';
-
-				// ページ番号を取得
-				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-
-			// カスタムクエリを設定
-
-			if ($term !== 'all') {
-			$args['tax_query'] = array(
-			array(
-			'taxonomy' => 'campaign-category',
-			'field' => 'slug',
-			'terms' => $term,
-			),
-			);
-			}
-
 		// ループはそのまま利用可能
 		if (have_posts()) : while (have_posts()) : the_post();
         // カスタムフィールドの値を取得
@@ -131,9 +113,7 @@
 
 		<div class="archive-campaign__nav page-nav">
 			<ul class="page-nav__pager">
-				<?php if ($wp_query->max_num_pages > 1) : // メインクエリでのページ数を確認 ?>
 				<?php wp_pagenavi(); ?>
-				<?php endif; ?>
 			</ul>
 		</div>
 
