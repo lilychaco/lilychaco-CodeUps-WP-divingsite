@@ -6,7 +6,7 @@
 			<img src="<?php echo get_theme_file_uri(); ?>/assets/images/mv-blog-sp.jpg" alt="ファーストビュー画像" />
 		</picture>
 	</figure>
-	<h2 class="mv__title">blog</h2>
+	<h2 class="mv__title"><?php echo get_the_archive_title(); ?></h2>
 </section>
 
 <div class="blog blog-layout">
@@ -78,7 +78,7 @@
 				</div>
 			</div>
 
-			<?php get_template_part('content', 'side'); ?>
+			<?php get_sidebar(); ?>
 			<!--blog__side終わり-->
 		</div>
 		<!--blog__container終わり-->

@@ -7,7 +7,7 @@
 		</picture>
 	</figure>
 	<h2 class="mv__title">
-		Campaign
+		<?php echo get_the_archive_title(); ?>
 	</h2>
 </section>
 <?php get_template_part('common/breadcrumb'); ?>

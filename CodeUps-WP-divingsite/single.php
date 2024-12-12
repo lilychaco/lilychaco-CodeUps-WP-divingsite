@@ -56,8 +56,7 @@
 				</div>
 				<?php endwhile; endif; ?>
 			</div>
-			<?php get_template_part('content', 'side'); ?>
-
+			<?php get_sidebar(); ?>
 			<!--blog__side終わり-->
 		</div>
 	</div>

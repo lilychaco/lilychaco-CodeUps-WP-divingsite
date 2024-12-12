@@ -6,9 +6,7 @@
 			<img src="<?php echo get_theme_file_uri(); ?>/assets/images/mv-voice-sp.jpg" alt="ファーストビュー画像" />
 		</picture>
 	</figure>
-	<h2 class="mv__title">
-		Voice
-	</h2>
+	<h2 class="mv__title"><?php echo get_the_archive_title(); ?></h2>
 </section>
 <?php get_template_part('common/breadcrumb'); ?>
 

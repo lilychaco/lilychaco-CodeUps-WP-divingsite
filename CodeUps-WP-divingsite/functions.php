@@ -49,44 +49,47 @@ function my_setup() {
 add_action( 'after_setup_theme', 'my_setup' );
 
 
-
-/**
+/*-----------------------------------
 * アーカイブタイトル書き換え
 *
 * @param string $title 書き換え前のタイトル.
 * @return string $title 書き換え後のタイトル.
-*/
+-----------------------------------*/
 function my_archive_title( $title ) {
-
-if ( is_home() ) { /* ホームの場合 */
-$title = 'ブログ';
-} elseif ( is_category() ) { /* カテゴリーアーカイブの場合 */
-$title = '' . single_cat_title( '', false ) . '';
-} elseif ( is_tag() ) { /* タグアーカイブの場合 */
-$title = '' . single_tag_title( '', false ) . '';
-} elseif ( is_post_type_archive() ) { /* 投稿タイプのアーカイブの場合 */
-$title = '' . post_type_archive_title( '', false ) . '';
-} elseif ( is_tax() ) { /* タームアーカイブの場合 */
-$title = '' . single_term_title( '', false );
-} elseif ( is_search() ) { /* 検索結果アーカイブの場合 */
-$title = '「' . esc_html( get_query_var( 's' ) ) . '」の検索結果';
-} elseif ( is_author() ) { /* 作者アーカイブの場合 */
-$title = '' . get_the_author() . '';
-} elseif ( is_date() ) { /* 日付アーカイブの場合 */
-$title = '';
-if ( get_query_var( 'year' ) ) {
-$title .= get_query_var( 'year' ) . '年';
+    if ( is_home() ) { /* ホームの場合 */
+        $title = 'blog';
+    } elseif ( is_category() ) { /* カテゴリーアーカイブの場合 */
+        $title = '' . single_cat_title( '', false ) . '';
+    } elseif ( is_tag() ) { /* タグアーカイブの場合 */
+        $title = '' . single_tag_title( '', false ) . '';
+    } elseif ( is_post_type_archive('campaign') ) { /* 投稿タイプが campaign の場合 */
+        $title = 'campaign'; // タイトルを英語表記に変更
+    }elseif ( is_post_type_archive('voice') ) { /* 投稿タイプが voice の場合 */
+        $title = 'voice'; // タイトルを英語表記に変更
+		}elseif ( is_post_type_archive() ) { /* その他の投稿タイプアーカイブの場合 */
+        $title = '' . post_type_archive_title( '', false ) . '';
+    } elseif ( is_tax() ) { /* タームアーカイブの場合 */
+        $title = '' . single_term_title( '', false );
+    } elseif ( is_search() ) { /* 検索結果アーカイブの場合 */
+        $title = '「' . esc_html( get_query_var( 's' ) ) . '」の検索結果';
+    } elseif ( is_author() ) { /* 作者アーカイブの場合 */
+        $title = '' . get_the_author() . '';
+    } elseif ( is_date() ) { /* 日付アーカイブの場合 */
+        $title = '';
+        if ( get_query_var( 'year' ) ) {
+            $title .= get_query_var( 'year' ) . '年';
+        }
+        if ( get_query_var( 'monthnum' ) ) {
+            $title .= get_query_var( 'monthnum' ) . '月';
+        }
+        if ( get_query_var( 'day' ) ) {
+            $title .= get_query_var( 'day' ) . '日';
+        }
+    }
+    return $title;
 }
-if ( get_query_var( 'monthnum' ) ) {
-$title .= get_query_var( 'monthnum' ) . '月';
-}
-if ( get_query_var( 'day' ) ) {
-$title .= get_query_var( 'day' ) . '日';
-}
-}
-return $title;
-};
 add_filter( 'get_the_archive_title', 'my_archive_title' );
+
 
 
 /**
@@ -465,59 +468,9 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 
-
-/*-----------------------------------
-CPT UIで作成したタクソノミーを基に、セレクトボックスを動的に生成
------------------------------------*/
-
-// function filter_wpcf7_form_tag( $scanned_tag, $replace ) {
-//   if (!empty($scanned_tag)) {
-//     // CF7フォームタグのname属性が "menu_name" の場合に処理
-//     if ($scanned_tag['name'] == 'menu_name') {
-//       // タクソノミーのターム一覧を取得
-//       $terms = get_terms([
-//         'taxonomy'   => 'campaign-category', // タクソノミーのスラッグ
-//         'hide_empty' => false,              // 空のタームも含める（trueにすると非表示）
-//       ]);
-
-// 			// デフォルトの選択肢を最初に追加
-//       $scanned_tag['values'][] = ''; // 値を空にすることで未選択状態にする
-//       $scanned_tag['labels'][] = 'キャンペーン内容を選択'; // ラベル（表示名）
-
-//       // 取得したタームをセレクトボックスの選択肢に追加
-//       if (!is_wp_error($terms) && !empty($terms)) {
-//         foreach ($terms as $term) {
-//           $scanned_tag['values'][] = $term->slug; // 選択肢の値（スラッグ）
-//           $scanned_tag['labels'][] = $term->name; // ラベル（表示名）
-//         }
-//       }
-//     }
-//   }
-//   return $scanned_tag; // 修正済みのフォームタグを返す
-// }
-
-// // フィルターフックに登録
-// add_filter('wpcf7_form_tag', 'filter_wpcf7_form_tag', 11, 2);
-
-
-
-/*-----------------------------------
-フィルターで送信ボタンを<button>に変更
------------------------------------*/
-// function custom_cf7_submit_button( $tag ) {
-//     // 送信ボタンのフィールドかどうかを確認
-//     if ( $tag['name'] === 'your-submit' ) {
-//         // ボタンのHTMLを作成
-//         $tag['content'] = '<button type="submit" id="button-send" class="wpcf7-form-control wpcf7-submit button--send">Send</button>';
-//     }
-//     return $tag;
-// }
-// add_filter( 'wpcf7_form_tag', 'custom_cf7_submit_button', 10, 1 );
-
 /*-----------------------------------
 CPT UIで作成したカスタム投稿のタイトルを基に、セレクトボックスを動的に生成（重複排除）
 -----------------------------------*/
-
 function filter_wpcf7_form_tag_campaign_titles( $scanned_tag, $replace ) {
   if (!empty($scanned_tag)) {
     // CF7フォームタグのname属性が "custom_menu" の場合に処理
@@ -556,3 +509,26 @@ function filter_wpcf7_form_tag_campaign_titles( $scanned_tag, $replace ) {
 
 // フィルターフックに登録
 add_filter('wpcf7_form_tag', 'filter_wpcf7_form_tag_campaign_titles', 11, 2);
+
+
+/*-----------------------------------
+投稿本文の任意の位置にプログラム的にコンテンツを挿入
+-----------------------------------*/
+function insert_featured_image_into_content($content) {
+    // 現在の投稿にアイキャッチ画像が設定されているか確認
+    if (is_singular('post') && has_post_thumbnail()) {
+        // アイキャッチ画像のHTMLを生成
+        $featured_image_html = get_the_post_thumbnail(null, 'large', array('class' => 'auto-inserted-featured-image'));
+
+        // アイキャッチ画像を本文の冒頭または中間に挿入
+        // 例: 本文の最初に挿入
+        //$content = $featured_image_html . $content;
+
+        // 例: 本文の中間に挿入
+        $paragraphs = explode('</p>', $content);
+        array_splice($paragraphs, floor(count($paragraphs) / 2), 0, $featured_image_html);
+        $content = implode('</p>', $paragraphs);
+    }
+    return $content;
+}
+add_filter('the_content', 'insert_featured_image_into_content');
