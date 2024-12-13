@@ -23,9 +23,7 @@
 	<!-- アイコン -->
 	<link rel="icon" href="http://ninikokoji.com/diving-lily/wp-content/uploads/2024/11/iriomote512.png">
 
-	<?php if (is_404()) : ?>
-	<meta http-equiv="refresh" content=" 3; url=<?php echo esc_url(home_url('/')); ?>">
-	<?php endif; ?>
+
 	<?php wp_head(); ?>
 </head>
 
