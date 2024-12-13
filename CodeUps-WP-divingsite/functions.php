@@ -91,17 +91,40 @@ function my_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'my_archive_title' );
 
 
-
-/**
-* 抜粋文の文字数の変更
+/*-----------------------------------
+* 抜粋文の文字数の変更（投稿タイプごとに設定）
 *
 * @param int $length 変更前の文字数.
 * @return int $length 変更後の文字数.
-*/
-function my_excerpt_length( $length ) {
-return 80;
+-----------------------------------*/
+function custom_excerpt_length( $length ) {
+    // 管理画面では変更しない
+    if ( is_admin() ) {
+        return $length;
+    }
+
+    // フロントページで投稿タイプが "voice" の場合
+    if ( is_front_page() && is_singular('voice') ) {
+        return 177; // フロントページの "voice" 用抜粋文字数
+    }
+
+    // ブログカードに適用（投稿タイプが "post"）
+    if ( is_post_type_archive('post') || is_singular('post') || is_category() ) {
+        return 88; // ブログカードの場合は88文字
+    }
+
+    // voice-cardに適用（投稿タイプが "voice"）
+    if ( is_post_type_archive('voice') || is_tax('voice_category') || is_singular('voice') ) {
+        return 177; // voiceカードの場合は177文字
+    }
+
+    return $length; // 他の場合はデフォルトの文字数を適用
 }
-add_filter( 'excerpt_length', 'my_excerpt_length', 999 );
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+
+
+
 
 
 /**
@@ -531,4 +554,5 @@ function insert_featured_image_into_content($content) {
     }
     return $content;
 }
+
 add_filter('the_content', 'insert_featured_image_into_content');

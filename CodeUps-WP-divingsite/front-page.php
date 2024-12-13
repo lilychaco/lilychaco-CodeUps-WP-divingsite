@@ -243,7 +243,14 @@
 							<div class="blog-card__title"><?php the_title(); ?></div>
 						</div>
 						<div class="blog-card__text">
-							<?php echo wp_trim_words(get_the_excerpt(), 100, '...'); ?>
+							<?php
+            // 本文を取得し、HTMLタグを除去、86文字に制限して表示
+            $content = strip_tags( get_the_content() ); // HTMLタグを除去
+            $trimmed_content = mb_strlen( $content, 'UTF-8' ) > 86
+                ? mb_substr( $content, 0, 86, 'UTF-8' ) . ''
+                : $content; // 86文字に切り詰め、省略記号を追加
+            echo esc_html( $trimmed_content ); // エスケープして表示
+            ?>
 						</div>
 					</div>
 				</a>
@@ -329,7 +336,14 @@
 						</figure>
 					</div>
 					<div class="voice-card__text">
-						<?php the_excerpt(); ?>
+						<?php
+            // 本文を取得し、HTMLタグを除去、171文字に制限して表示
+            $content = strip_tags( get_the_content() ); // HTMLタグを除去
+            $trimmed_content = mb_strlen( $content, 'UTF-8' ) > 171
+                ? mb_substr( $content, 0, 171, 'UTF-8' ) . ''
+                : $content; // 171文字に切り詰め、省略記号を追加
+            echo esc_html( $trimmed_content ); // エスケープして表示
+            ?>
 					</div>
 				</a>
 			</li>

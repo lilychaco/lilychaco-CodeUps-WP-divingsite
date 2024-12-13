@@ -101,7 +101,14 @@
 							</figure>
 						</div>
 						<div class="voice-card__text">
-							<?php the_excerpt(); // 抜粋を表示 ?>
+							<?php
+            // 本文を取得し、HTMLタグを除去、171文字に制限して表示
+            $content = strip_tags( get_the_content() ); // HTMLタグを除去
+            $trimmed_content = mb_strlen( $content, 'UTF-8' ) > 171
+                ? mb_substr( $content, 0, 171, 'UTF-8' ) . ''
+                : $content; // 171文字に切り詰め、省略記号を追加
+            echo esc_html( $trimmed_content ); // エスケープして表示
+            ?>
 						</div>
 					</a>
 				</li>
