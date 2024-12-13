@@ -388,39 +388,26 @@ return false;
 /*-----------------------------------
 // CF7送信後にリダイレクト
 -----------------------------------*/
-// CF7送信後にリダイレクト
-add_action('wp_footer', 'redirect_cf7');
-function redirect_cf7() {
-// サイトのアドレスを動的に取得
-$thanks_page = home_url('/diving-lily/contact/thanks/');
-?>
-<script type="text/javascript">
-document.addEventListener('wpcf7mailsent', function(event) {
-	// PHPで生成したURLを使ってリダイレクト
-	window.location.href = '<?php echo esc_url($thanks_page); ?>';
-}, false);
-</script>
-<?php
-}
-
-
-// CF7送信エラー時にエラーページにリダイレクト
-add_action('wp_footer', 'redirect_cf7_error');
-function redirect_cf7_error() {
-    // サイトのベースURLからエラーページのURLを動的に生成
-    $error_page = home_url('/diving-lily/contact/error/');
+// Contact Form 7送信後のリダイレクト処理
+add_action('wp_footer', 'redirect_cf7_behavior');
+function redirect_cf7_behavior() {
+    // サンクスページとエラーページのURLを動的に取得
+    $thanks_page = home_url('/contact/thanks/');
+    $error_page = home_url('/contact/error/');
     ?>
 <script type="text/javascript">
-document.addEventListener('wpcf7invalid', function(event) {
-	// PHPで生成したURLをJavaScriptで利用
+document.addEventListener('wpcf7mailsent', function() {
+	// フォーム送信成功時
+	window.location.href = '<?php echo esc_url($thanks_page); ?>';
+}, false);
+
+document.addEventListener('wpcf7invalid', function() {
+	// フォーム送信失敗時
 	window.location.href = '<?php echo esc_url($error_page); ?>';
 }, false);
 </script>
 <?php
 }
-
-
-
 
 
 
