@@ -281,7 +281,7 @@
 						 if ($voice_query->have_posts()) :
                 while ($voice_query->have_posts()) : $voice_query->the_post(); ?>
 			<li class="voice-cards__item voice-card">
-				<a href="<?php the_permalink(); ?>" class="voice-card__link">
+				<a href="#" class="voice-card__link">
 					<div class="voice-card__body">
 						<div class="voice-card__top">
 							<div class="voice-card__meta">
