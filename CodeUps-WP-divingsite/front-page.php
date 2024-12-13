@@ -468,7 +468,7 @@
 	</div>
 </section>
 
-<div class="contact-wrapper">
+<div class="top-contact contact-wrapper">
 	<?php get_template_part('common/contact') ?>
 </div>
 
