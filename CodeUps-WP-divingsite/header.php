@@ -32,15 +32,33 @@
 <body>
 	<header class="header">
 		<div class="header__inner">
-			<h1 class="header__logo">
-				<a href="<?php echo esc_url(home_url('/')); ?>">
-					<picture>
-						<source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/CodeUps-logo-pc.png"
-							media="(min-width: 768px)" />
-						<img src="<?php echo get_theme_file_uri(); ?>/assets/images/CodeUps-logo-sp.png" alt="ヘッダーロゴ" />
-					</picture>
-				</a>
-			</h1>
+
+			<header class="header">
+				<div class="header__inner">
+					<?php if (is_front_page()) : ?>
+					<h1 class="header__logo">
+						<a href="<?php echo esc_url(home_url('/')); ?>">
+							<picture>
+								<source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/CodeUps-logo-pc.png"
+									media="(min-width: 768px)" />
+								<img src="<?php echo get_theme_file_uri(); ?>/assets/images/CodeUps-logo-sp.png" alt="ヘッダーロゴ" />
+							</picture>
+						</a>
+					</h1>
+					<?php else : ?>
+					<div class="header__logo">
+						<a href="<?php echo esc_url(home_url('/')); ?>">
+							<picture>
+								<source srcset="<?php echo get_theme_file_uri(); ?>/assets/images/CodeUps-logo-pc.png"
+									media="(min-width: 768px)" />
+								<img src="<?php echo get_theme_file_uri(); ?>/assets/images/CodeUps-logo-sp.png" alt="ヘッダーロゴ" />
+							</picture>
+						</a>
+					</div>
+					<?php endif; ?>
+				</div>
+			</header>
+
 			<nav class="header__nav header-menu">
 				<ul class="header-menu__items">
 					<li class="header-menu__item">
