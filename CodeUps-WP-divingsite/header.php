@@ -16,12 +16,12 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://ninikokoji.com/diving-lily/" />
 	<meta property="og:image"
-		content="http://ninikokoji.com/diving-lily/wp-content/uploads/2024/11/iriomote1200x630.jpeg" />
+		content="https://ninikokoji.com/diving-lily/wp-content/uploads/2024/11/iriomote1200x630.jpeg" />
 	<meta property="og:site_name" content="CodeUps Diving Site" />
 	<meta property="og:description" content="CodeUpsのWordPress化課題サイトで、ダイビングの魅力を学び、挑戦しませんか？" />
 	<meta property="og:locale" content="ja_JP" />
 	<!-- アイコン -->
-	<link rel="icon" href="http://ninikokoji.com/diving-lily/wp-content/uploads/2024/11/iriomote512.png">
+	<link rel="icon" href="https://ninikokoji.com/diving-lily/wp-content/uploads/2024/11/iriomote512.png">
 
 
 	<?php wp_head(); ?>
