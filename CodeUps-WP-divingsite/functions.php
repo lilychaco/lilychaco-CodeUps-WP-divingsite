@@ -519,27 +519,3 @@ function filter_wpcf7_form_tag_campaign_titles( $scanned_tag, $replace ) {
 
 // フィルターフックに登録
 add_filter('wpcf7_form_tag', 'filter_wpcf7_form_tag_campaign_titles', 11, 2);
-
-
-/*-----------------------------------
-投稿本文の任意の位置にプログラム的にコンテンツを挿入
------------------------------------*/
-function insert_featured_image_into_content($content) {
-    // 現在の投稿にアイキャッチ画像が設定されているか確認
-    if (is_singular('post') && has_post_thumbnail()) {
-        // アイキャッチ画像のHTMLを生成
-        $featured_image_html = get_the_post_thumbnail(null, 'large', array('class' => 'auto-inserted-featured-image'));
-
-        // アイキャッチ画像を本文の冒頭または中間に挿入
-        // 例: 本文の最初に挿入
-        //$content = $featured_image_html . $content;
-
-        // 例: 本文の中間に挿入
-        $paragraphs = explode('</p>', $content);
-        array_splice($paragraphs, floor(count($paragraphs) / 2), 0, $featured_image_html);
-        $content = implode('</p>', $paragraphs);
-    }
-    return $content;
-}
-
-add_filter('the_content', 'insert_featured_image_into_content');
