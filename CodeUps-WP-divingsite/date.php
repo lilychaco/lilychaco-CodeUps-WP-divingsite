@@ -8,6 +8,8 @@
 	</figure>
 	<h2 class="mv__title"><?php echo get_the_archive_title(); ?></h2>
 </section>
+<?php get_template_part('common/breadcrumb') ?>
+
 
 <div class="blog blog-layout">
 	<div class="blog__inner inner">
