@@ -13,28 +13,37 @@
 
 <div class="page-price page-price-layout">
 	<div class="page-price__inner inner">
+
+		<?php
+		// グループ外の単一フィールド「license_title」を取得
+			$license_title = SCF::get('license_title');
+				// グループ外の単一フィールド「fundiving_title」を取得
+			$license_title = SCF::get('license_title');
+				// Smart Custom Fields (SCF) を使って、'license_pricelist' グループを取得します。
+			$license_pricelist = SCF::get('license_pricelist');
+				?>
 		<div class="page-price__item page-price-list fish">
 			<div class="page-price-list__title">
 				<div class="page-price-list__heading">
 					<div class="page-price-list__icon">
 						<img src="<?php echo get_theme_file_uri(); ?>/assets/images/icon01.png" alt="" />
 					</div>
-					<p>ライセンス講習</p>
+					<p>
+					<p><?= esc_html($license_title ?: 'ダイビング'); ?></p>
+					</p>
 				</div>
 			</div>
-
+			<?php
+			// 取得したデータが空でないかをチェックします。
+			if (!empty($license_pricelist)) :
+				?>
 			<ul class="page-price-list__items">
 				<?php
-    // Smart Custom Fields (SCF) を使って、'license_pricelist' グループを取得します。
-    $license_pricelist = SCF::get('license_pricelist');
-
-    // 取得したデータが空でないかをチェックします。
-    if (!empty($license_pricelist)) :
-        // 取得した繰り返しフィールドの各アイテムをループで処理します。
+        // 繰り返しフィールドの各アイテムをループで処理します。
         foreach ($license_pricelist as $item) :
             // 各アイテムの 'license_kinds' フィールドの値を取得します。
             if (!empty($item['license_kinds'])) :
-                ?>
+        ?>
 				<li class="page-price-list__item">
 					<p class="page-price-list__name"><?php echo nl2br(esc_html($item['license_kinds'])); ?></p>
 					<?php if (!empty($item['license_price'])) : ?>
@@ -44,20 +53,25 @@
 				<?php
             endif;
         endforeach;
-    else :
-        // 繰り返しフィールドが空の場合のメッセージ
         ?>
-				<li class="page-price-list__item">
-					<p class="page-price-list__name">ライセンス情報がありません。</p>
-				</li>
-				<?php
-    endif;
-    ?>
 			</ul>
-
-
-
 		</div>
+		<?php
+				else :
+						// 繰り返しフィールドが空の場合は何も表示しない
+				endif;
+				?>
+
+
+
+		<?php
+				// Smart Custom Fields (SCF) を使って、'experience_pricelist' グループを取得します。
+				$experience_pricelist = SCF::get('experience_pricelist');
+
+				// 取得したデータが空でないかをチェックします。
+				if (!empty($experience_pricelist)):
+			?>
+
 		<div class="page-price__item page-price-list">
 			<div class="page-price-list__title">
 				<div class="page-price-list__heading">
@@ -69,73 +83,81 @@
 			</div>
 			<ul class="page-price-list__items">
 				<?php
-				// Smart Custom Fields (SCF) を使って、'experience_pricelist' グループを取得します。
-				$experience_pricelist = SCF::get('experience_pricelist');
+        // 繰り返しフィールドの各アイテムをループで処理します。
+      	foreach ($experience_pricelist as $item) :
+				// 各アイテムの 'experience_name' フィールドの値を取得します。
+				if (!empty($item['experience_name'])) :
+        ?>
 
-				// 取得したデータが空でないかをチェックします。
-				if (!empty($experience_pricelist)) {
-        // 取得した繰り返しフィールドの各アイテムをループで処理します。
-        foreach ($experience_pricelist as $item) {
-            // 各アイテムの 'license_name' フィールドの値を取得します。
-            if (!empty($item['experience_name'])) {
-                // 'license_name' の値を安全に出力します。
-                echo '<li class="page-price-list__item">';
-                echo '<p class="page-price-list__name">' . nl2br(esc_html($item['experience_name'])) . '</p>';
-                // 仮に値段のフィールドがある場合は以下のように出力します（例として 'price' フィールドを仮定）
-                if (!empty($item['experience_price'])) {
-                    echo '<p class="page-price-list__number">' . esc_html($item['experience_price']). '</p>';
-                }
-										echo '</li>';
-								}
-						}
-					} else {
-							// 繰り返しフィールドが空の場合のメッセージ
-							echo '<li class="page-price-list__item">';
-							echo '<p class="page-price-list__name">体験ダイビング情報がありません。</p>';
-							echo '</li>';
-					}
-					?>
+				<li class="page-price-list__item">
+					<p class="page-price-list__name"><?php echo nl2br(esc_html($item['experience_name'])); ?></p>
+					<?php if (!empty($item['experience_price'])) : ?>
+					<p class="page-price-list__number"><?php echo esc_html($item['experience_price']); ?></p>
+					<?php endif; ?>
+				</li>
+				<?php
+            endif;
+        endforeach;
+        ?>
 			</ul>
 		</div>
-		<div class="page-price__item page-price-list">
+		<?php
+			else :
+					// 繰り返しフィールドが空の場合は何も表示しない
+			endif;
+			?>
+
+		<!-- <?php
+		// グループ外の単一フィールド「fundiving_title」を取得
+			$fundiving_title = SCF::get('fundiving_title');
+			// Smart Custom Fields (SCF) を使って、'fundiving_pricelist' グループを取得します。
+			$fundiving_pricelist = SCF::get('fundiving_pricelist');
+
+			// 取得したデータが空でない場合にのみ HTML を出力します。
+			if (!empty($fundiving_pricelist)) :
+		?> -->
+
+
+		<!-- <div class="page-price__item page-price-list">
 			<div class="page-price-list__title">
 				<div class="page-price-list__heading">
 					<div class="page-price-list__icon">
 						<img src="<?php echo get_theme_file_uri(); ?>/assets/images/icon01.png" alt="" />
 					</div>
-					<p>ファンダイビング</p>
+					<p><?= esc_html($fundiving_title ?: 'ダイビング'); ?></p>
 				</div>
-			</div>
-			<ul class="page-price-list__items">
+			</div> -->
+		<!-- <ul class="page-price-list__items">
 				<?php
-				// Smart Custom Fields (SCF) を使って、'fundiving_pricelist' グループを取得します。
-				$fundiving_pricelist = SCF::get('fundiving_pricelist');
+            // 取得した繰り返しフィールドの各アイテムをループで処理します。
+            foreach ($fundiving_pricelist as $item) :
+                // 'fundiving_name' フィールドの値を取得して出力します。
+                if (!empty($item['fundiving_name'])) : ?> -->
+		<!-- <li class="page-price-list__item">
+			<p class="page-price-list__name"><?php echo nl2br(esc_html($item['fundiving_name'])); ?></p>
+			<?php
+                        // 'fundiving_price' フィールドが存在する場合は値を出力します。
+                        if (!empty($item['fundiving_price'])) : ?>
+			<p class="page-price-list__number"><?php echo esc_html($item['fundiving_price']); ?></p>
+			<?php endif; ?>
+		</li> -->
+		<!-- <?php endif;
+            endforeach; ?>
+		</ul>
+
+	</div> -->
+		<!-- <?php
+	 	endif; ?> -->
+
+
+		<?php
+				// Smart Custom Fields (SCF) を使って、'specialdiving_pricelist' グループを取得します。
+				$specialdiving_pricelist = SCF::get('specialdiving_pricelist');
 
 				// 取得したデータが空でないかをチェックします。
-				if (!empty($fundiving_pricelist)) {
-        // 取得した繰り返しフィールドの各アイテムをループで処理します。
-        foreach ($fundiving_pricelist as $item) {
-            // 各アイテムの 'fundiving_name' フィールドの値を取得します。
-            if (!empty($item['fundiving_name'])) {
-                // 'license_name' の値を安全に出力します。
-                echo '<li class="page-price-list__item">';
-                echo '<p class="page-price-list__name">' . nl2br(esc_html($item['fundiving_name'])) . '</p>';
-                // 仮に値段のフィールドがある場合は以下のように出力します
-                if (!empty($item['fundiving_price'])) {
-                    echo '<p class="page-price-list__number">' . esc_html($item['fundiving_price']). '</p>';
-                }
-										echo '</li>';
-								}
-						}
-					} else {
-							// 繰り返しフィールドが空の場合のメッセージ
-							echo '<li class="page-price-list__item">';
-							echo '<p class="page-price-list__name">ライセンス情報がありません。</p>';
-							echo '</li>';
-					}
-					?>
-			</ul>
-		</div>
+					if (!empty($specialdiving_pricelist)) :
+			?>
+
 		<div class="page-price__item page-price-list">
 			<div class="page-price-list__title">
 				<div class="page-price-list__heading">
@@ -147,39 +169,39 @@
 			</div>
 			<ul class="page-price-list__items">
 				<?php
-				// Smart Custom Fields (SCF) を使って、'fundiving_pricelist' グループを取得します。
-				$specialdiving_pricelist = SCF::get('specialdiving_pricelist');
-
-				// 取得したデータが空でないかをチェックします。
-				if (!empty($specialdiving_pricelist)) {
-        // 取得した繰り返しフィールドの各アイテムをループで処理します。
-        foreach ($specialdiving_pricelist as $item) {
-            // 各アイテムの 'fundiving_name' フィールドの値を取得します。
-            if (!empty($item['specialdiving_name'])) {
-                // 'license_name' の値を安全に出力します。
-                echo '<li class="page-price-list__item">';
-                echo '<p class="page-price-list__name">' . nl2br(esc_html($item['specialdiving_name'])) . '</p>';
-                // 仮に値段のフィールドがある場合は以下のように出力します
-                if (!empty($item['specialdiving_price'])) {
-                    echo '<p class="page-price-list__number">' . esc_html($item['specialdiving_price']). '</p>';
-                }
-										echo '</li>';
-								}
-						}
-					} else {
-							// 繰り返しフィールドが空の場合のメッセージ
-							echo '<li class="page-price-list__item">';
-							echo '<p class="page-price-list__name">ライセンス情報がありません。</p>';
-							echo '</li>';
-					}
-					?>
+									// 取得した繰り返しフィールドの各アイテムをループで処理します。
+									foreach ($specialdiving_pricelist as $item) :
+											// 各アイテムの 'specialdiving_name' フィールドの値を取得します。
+											if (!empty($item['specialdiving_name'])) :
+    						?>
+				<li class="page-price-list__item">
+					<p class="page-price-list__name">
+						<?= nl2br(esc_html($item['specialdiving_name'])); ?>
+					</p>
+					<?php if (!empty($item['specialdiving_price'])) : ?>
+					<p class="page-price-list__number">
+						<?= esc_html($item['specialdiving_price']); ?>
+					</p>
+					<?php endif; ?>
+				</li>
+				<?php
+								endif;
+						endforeach;
+							else :
+							?>
+				<!-- 繰り返しフィールドが空の場合のメッセージ -->
+				<li class="page-price-list__item">
+					<p class="page-price-list__name">ライセンス情報がありません。</p>
+				</li>
+				<?php endif; ?>
 			</ul>
 		</div>
 	</div>
 </div>
 
-<div class="contact-wrapper">
-	<?php get_template_part('common/contact') ?>
-</div>
+<!-- <div class="contact-wrapper"> -->
+<!-- <?php get_template_part('common/contact') ?> -->
+<!-- </div> -->
+
 
 <?php get_footer(); ?>

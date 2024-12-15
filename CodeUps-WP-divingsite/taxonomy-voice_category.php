@@ -117,10 +117,4 @@
 </div>
 
 
-
-
-
-<div class="contact-wrapper">
-	<?php get_template_part('common/contact'); ?>
-</div>
 <?php get_footer(); ?>
