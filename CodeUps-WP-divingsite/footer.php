@@ -1,4 +1,5 @@
-    <?php if(!is_page('contact', 'thanks', 'error', '404')) ?>
+    <?php if(is_page(array('contact', 'thanks', 'error', '404'))): ?>
+
     <section class="contact inner" id="contact">
     	<div class="contact__inner">
     		<div class="contact__container">
@@ -56,7 +57,7 @@
     		</div>
     	</div>
     </section>
-    <?php endif?>
+    <?php endif; ?>
 
 
     <footer class="footer footer-layout">

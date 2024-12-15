@@ -22,35 +22,40 @@
 					<p>ライセンス講習</p>
 				</div>
 			</div>
+
 			<ul class="page-price-list__items">
 				<?php
-				// Smart Custom Fields (SCF) を使って、'license_pricelist' グループを取得します。
-				$license_pricelist = SCF::get('license_pricelist');
+    // Smart Custom Fields (SCF) を使って、'license_pricelist' グループを取得します。
+    $license_pricelist = SCF::get('license_pricelist');
 
-				// 取得したデータが空でないかをチェックします。
-				if (!empty($license_pricelist)) {
+    // 取得したデータが空でないかをチェックします。
+    if (!empty($license_pricelist)) :
         // 取得した繰り返しフィールドの各アイテムをループで処理します。
-        foreach ($license_pricelist as $item) {
-            // 各アイテムの 'license_name' フィールドの値を取得します。
-            if (!empty($item['license_kinds'])) {
-                // 'license_name' の値を安全に出力します。
-                echo '<li class="page-price-list__item">';
-                echo '<p class="page-price-list__name">' . nl2br(esc_html($item['license_kinds'])) . '</p>';
-                // 仮に値段のフィールドがある場合は以下のように出力します（例として 'price' フィールドを仮定）
-                if (!empty($item['license_price'])) {
-                    echo '<p class="page-price-list__number">' . esc_html($item['license_price']). '</p>';
-                }
-										echo '</li>';
-								}
-						}
-					} else {
-							// 繰り返しフィールドが空の場合のメッセージ
-							echo '<li class="page-price-list__item">';
-							echo '<p class="page-price-list__name">ライセンス情報がありません。</p>';
-							echo '</li>';
-					}
-					?>
+        foreach ($license_pricelist as $item) :
+            // 各アイテムの 'license_kinds' フィールドの値を取得します。
+            if (!empty($item['license_kinds'])) :
+                ?>
+				<li class="page-price-list__item">
+					<p class="page-price-list__name"><?php echo nl2br(esc_html($item['license_kinds'])); ?></p>
+					<?php if (!empty($item['license_price'])) : ?>
+					<p class="page-price-list__number"><?php echo esc_html($item['license_price']); ?></p>
+					<?php endif; ?>
+				</li>
+				<?php
+            endif;
+        endforeach;
+    else :
+        // 繰り返しフィールドが空の場合のメッセージ
+        ?>
+				<li class="page-price-list__item">
+					<p class="page-price-list__name">ライセンス情報がありません。</p>
+				</li>
+				<?php
+    endif;
+    ?>
 			</ul>
+
+
 
 		</div>
 		<div class="page-price__item page-price-list">
