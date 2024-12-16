@@ -1,7 +1,8 @@
-@use "global" as *;
+@use "global"as *;
 
 .archive-campaign-card {
   width: 100%;
+	height: 100%;
   box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
@@ -11,11 +12,13 @@
 .archive-campaign-card__img {
   width: 100%;
 }
+
 .archive-campaign-card__img img {
   width: 100%;
   height: auto;
   aspect-ratio: 280 /188;
   object-fit: cover;
+
   @include mq(md) {
     aspect-ratio: 333 /223;
   }
@@ -49,10 +52,10 @@
 
 
 .archive-campaign-card__category {
-	display:inline-block;
+  display: inline-block;
   padding-left: rem(10);
-	padding-right:rem(12);
-	padding-top: rem(4);
+  padding-right: rem(12);
+  padding-top: rem(4);
   height: rem(30);
   font-size: rem(12);
   font-family: $base-font-family;
@@ -64,7 +67,7 @@
 
   @include mq(md) {
     padding-left: rem(16);
-		padding-right:rem(16);
+    padding-right: rem(16);
     height: rem(34);
   }
 }
@@ -76,16 +79,18 @@
   font-weight: $medium;
   line-height: 1.5;
   letter-spacing: 0;
-		@include mq(md) {
-		font-size: rem(24);
-	}
+
+  @include mq(md) {
+    font-size: rem(24);
+  }
 }
 
 .archive-campaign-card__text {
   margin-top: auto;
   text-align: center;
   border-top: 1px solid $greenaccent;
-	padding-top: rem(6);
+  padding-top: rem(6);
+
   @include mq(md) {
     padding-top: rem(24);
   }
@@ -99,6 +104,7 @@
   line-height: 1.71;
   letter-spacing: 0;
   text-align: center;
+
   @include mq(md) {
     font-size: rem(16);
     line-height: 1.5;
@@ -115,25 +121,28 @@
   line-height: 1;
   letter-spacing: 0;
   color: $greenaccent;
-	display: flex;
-	flex-direction: row;
-  justify-content: space-between;
-	padding-left: rem(20);
-	padding-right: rem(18);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: rem(20);
+  padding-right: rem(18);
+  background-color: yellow;
+
   @include mq(md) {
     font-size: rem(40);
-		max-width:rem(280);
-		margin-inline:auto;
-		width:100%;
-		padding-left:0;
-		padding-right:0;
+    max-width: rem(280);
+    margin-inline: auto;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
 
   }
 }
+
 .archive-campaign-card__price-old {
-	display: inline-block;
-	margin-top: rem(16);
-	font-size: rem(20);
+  display: inline-block;
+  margin-top: rem(16);
+  font-size: rem(20);
   font-family: $forth-font-family;
   font-weight: $bold;
   line-height: 1;
@@ -141,27 +150,31 @@
   color: $font-color;
   text-decoration: line-through;
   text-decoration-color: #c94800;
+
   @include mq(md) {
-		margin-top: rem(16);
+    margin-top: rem(16);
     font-size: rem(24);
     padding-right: rem(26);
   }
 }
+
 .archive-campaign-card__price-new {
-	margin-top: rem(4);
+  margin-top: rem(4);
   font-size: rem(32);
   font-family: $forth-font-family;
   font-weight: $bold;
   line-height: 1;
   letter-spacing: 0;
   color: $greenaccent;
-@include mq(md) {
-	font-size: rem(40);
-}
+
+  @include mq(md) {
+    font-size: rem(40);
+  }
 }
 
 .archive-campaign-card__subbody {
   display: none;
+
   @include mq(md) {
     display: flex;
     flex-direction: column;
@@ -172,6 +185,7 @@
     color: $greenaccent;
   }
 }
+
 .archive-campaign-card__subtext {
   font-size: rem(16);
   font-family: $base-font-family;
@@ -182,9 +196,11 @@
   text-align: left;
   flex-grow: 1;
 }
+
 .archive-campaign-card__meta {
   margin-top: auto;
 }
+
 .archive-campaign-card__date {
   margin-top: rem(32);
   font-size: rem(16);
@@ -192,7 +208,7 @@
   font-weight: $bold;
   line-height: 1;
   letter-spacing: 0;
-	padding-right: rem(16);
+  padding-right: rem(16);
 }
 
 .archive-campaign-card__microcopy {
@@ -207,7 +223,8 @@
 .archive-campaign-card__button {
   margin-top: rem(16);
   text-align: center;
-	@include mq(md) {
-			margin-top: rem(20);
-	}
+
+  @include mq(md) {
+    margin-top: rem(20);
+  }
 }

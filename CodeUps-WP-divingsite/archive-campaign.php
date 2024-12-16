@@ -45,16 +45,20 @@
 
 		<!-- 投稿リスト部分 -->
 		<ul class="archive-campaign__content archive-campaign-cards">
-			<?php
-		// ループはそのまま利用可能
-		if (have_posts()) : while (have_posts()) : the_post();
-        // カスタムフィールドの値を取得
-        $price_old = get_field('campaign-price_old');
-        $price_new = get_field('campaign-price_new');
-        $period = get_field('campaign-period');
-   			 ?>
 
-			<li class="archive-campaign-cards__item archive-campaign-card">
+			<?php
+			// ループはそのまま利用可能
+			if (have_posts()) : while (have_posts()) : the_post();
+					// カスタムフィールドの値を取得
+					$price_old = get_field('campaign-price_old');
+					$price_new = get_field('campaign-price_new');
+					$period = get_field('campaign-period');
+
+					// `campaign-price_new` が空でない場合にのみカードを表示
+    			if (!empty($price_new)) :
+					?>
+
+			<li class=" archive-campaign-cards__item archive-campaign-card">
 				<figure class="archive-campaign-card__img">
 					<?php if (has_post_thumbnail()) : the_post_thumbnail('full', array('alt' => get_the_title())); else : ?>
 					<img src="<?php echo get_theme_file_uri(); ?>/assets/images/campaign1.jpg" alt="キャンペーンの画像" />
@@ -62,18 +66,18 @@
 				</figure>
 				<div class="archive-campaign-card__body">
 					<div class="archive-campaign-card__top">
+						<?php
+									$terms = get_the_terms(get_the_ID(), 'campaign-category');
+									if (!empty($terms) && !is_wp_error($terms)) :
+									?>
 						<div class="archive-campaign-card__category">
-							<?php
-                    $terms = get_the_terms(get_the_ID(), 'campaign-category');
-                    if (!empty($terms) && !is_wp_error($terms)) {
-                        foreach ($terms as $term) {
-                            echo '<span>' . esc_html($term->name) . '</span> ';
-                        }
-                    } else {
-                        echo '<span>カテゴリなし</span>';
-                    }
-                    ?>
+							<?php foreach ($terms as $term) : ?>
+							<span><?php echo esc_html($term->name); ?></span>
+							<?php endforeach; ?>
 						</div>
+						<?php
+						endif;
+						?>
 						<div class="archive-campaign-card__title"><?php the_title(); ?></div>
 					</div>
 					<div class="archive-campaign-card__text">
@@ -81,9 +85,11 @@
 							全部コミコミ(お一人様)
 						</p>
 						<div class="archive-campaign-card__price-text">
+							<?php if (!empty($price_old)) : ?>
 							<p class="archive-campaign-card__price-old">
 								<?php echo esc_html($price_old); ?>
 							</p>
+							<?php endif; ?>
 							<p class="archive-campaign-card__price-new">
 								<?php echo esc_html($price_new); ?>
 							</p>
@@ -91,6 +97,14 @@
 					</div>
 					<div class="archive-campaign-card__subbody">
 						<div class="archive-campaign-card__subtext">
+							<?php
+									// 本文を取得し、HTMLタグを除去、86文字に制限して表示
+									$content = strip_tags( get_the_content() ); // HTMLタグを除去
+									$trimmed_content = mb_strlen( $content, 'UTF-8' ) > 164
+									? mb_substr( $content, 0, 164, 'UTF-8' ) . ''
+									: $content; // 86文字に切り詰め、省略記号を追加
+									echo esc_html( $trimmed_content ); // エスケープして表示
+									?>
 							<?php the_excerpt(); ?>
 						</div>
 						<div class="archive-campaign-card__meta">
@@ -105,19 +119,17 @@
 					</div>
 				</div>
 			</li>
-			<?php endwhile; else: ?>
-			<p>No campaigns found.</p>
-			<?php endif; ?>
+			<?php endif;
+		endwhile; endif; ?>
 		</ul>
-
-
 		<div class="archive-campaign__nav page-nav">
 			<ul class="page-nav__pager">
 				<?php wp_pagenavi(); ?>
 			</ul>
 		</div>
-
 	</div>
+
+</div>
 </div>
 
 <?php get_footer(); ?>

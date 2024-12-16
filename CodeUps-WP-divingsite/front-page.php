@@ -408,8 +408,11 @@
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<?php else : ?>
-					<?php endif; ?>
+					<?php
+						else :
+								// 繰り返しフィールドが空の場合は何も表示しない
+						endif;
+						?>
 
 					<?php  // グループ外の単一フィールド「license_title」を取得
 					$experience_title = SCF::get('experience_title', $page_id);
@@ -450,10 +453,10 @@
 						</ul>
 					</div>
 					<?php
-			else :
-					// 繰り返しフィールドが空の場合は何も表示しない
-			endif;
-			?>
+						else :
+								// 繰り返しフィールドが空の場合は何も表示しない
+						endif;
+					?>
 					<?php
 					 // グループ外の単一フィールド「specialdiving_title」を取得
 					$specialdiving_title = SCF::get('specialdiving_title', $page_id);

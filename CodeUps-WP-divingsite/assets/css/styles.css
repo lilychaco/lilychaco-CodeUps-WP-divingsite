@@ -261,6 +261,7 @@ time {
 	box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, 0.25);
 	display: flex;
 	flex-direction: column;
+	height: 100%;
 	justify-content: space-between;
 	width: 100%;
 }
@@ -333,13 +334,14 @@ time {
 }
 
 .archive-campaign-card__price-text {
+	background-color: yellow;
 	color: #408F95;
 	display: flex;
 	flex-direction: row;
 	font-family: "Lato", serif;
 	font-size: 2rem;
 	font-weight: 700;
-	justify-content: space-between;
+	justify-content: center;
 	letter-spacing: 0;
 	line-height: 1;
 	margin-top: 0.25rem;
@@ -426,10 +428,11 @@ time {
 	width: 100%;
 }
 
-.archive-campaign-cards__item {
-	height: auto;
+.archive-campaign-cards__item { /* 子要素をフレックスボックスで配置 */
+	align-items: stretch;
+	display: flex;
 	max-width: 17.5rem;
-	width: 100%;
+	width: 100%; /* 高さを揃える */
 }
 
 .archive-campaign {

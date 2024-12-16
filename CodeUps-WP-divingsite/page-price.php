@@ -146,7 +146,10 @@
 			</ul>
 		</div>
 		<?php
-	 	endif; ?>
+			else :
+					// 繰り返しフィールドが空の場合は何も表示しない
+			endif;
+			?>
 
 
 		<?php
@@ -190,15 +193,14 @@
 				<?php
 								endif;
 						endforeach;
-							else :
-							?>
-				<!-- 繰り返しフィールドが空の場合のメッセージ -->
-				<li class="page-price-list__item">
-					<p class="page-price-list__name">ライセンス情報がありません。</p>
-				</li>
-				<?php endif; ?>
+					?>
 			</ul>
 		</div>
+		<?php
+			else :
+					// 繰り返しフィールドが空の場合は何も表示しない
+			endif;
+			?>
 	</div>
 </div>
 
