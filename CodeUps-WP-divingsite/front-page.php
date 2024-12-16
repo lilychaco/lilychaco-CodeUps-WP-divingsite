@@ -285,7 +285,7 @@
                 'post_type' => 'voice', // カスタム投稿タイプ
                 'posts_per_page' => 2, // 表示件数
             ));
-						 if ($voice_query->have_posts()) :
+						if ($voice_query->have_posts()) :
                 while ($voice_query->have_posts()) : $voice_query->the_post(); ?>
 			<li class="voice-cards__item voice-card">
 				<a href="#" class="voice-card__link">
@@ -365,10 +365,25 @@
 <section class="top-price top-price-layout" id="price">
 	<div class="inner">
 		<div class="top-price__inner">
+			<?php
+							// 固定ページIDを指定（ここでは29）
+							$page_id = 29;
+							// Smart Custom Fieldsのデータを取得
+							$license_pricelist = SCF::get('license_pricelist', $page_id);
+							// Smart Custom Fieldsのデータを取得
+							$experience_pricelist = SCF::get('experience_pricelist', $page_id);
+								// Smart Custom Fieldsのデータを取得
+							$fundiving_pricelist = SCF::get('fundiving_pricelist', $page_id);
+								// Smart Custom Fieldsのデータを取得
+							$specialdiving_pricelist = SCF::get('specialdiving_pricelist', $page_id);
+
+							if (!empty($license_pricelist) || !empty($experience_pricelist) || !empty($fundiving_pricelist) || !empty($specialdiving_pricelist)): ?>
+
 			<div class="top-price__heading section-heading">
 				<h3 class="section-heading__title">Price</h3>
 				<h2 class="section-heading__subtitle">料金一覧</h2>
 			</div>
+
 			<div class="top-price__main">
 				<figure class="top-price__image colorbox">
 					<picture>
@@ -378,18 +393,14 @@
 					</picture>
 				</figure>
 				<div class="top-price__lists price-lists">
-					<?php
-							// 固定ページIDを指定（ここでは29）
-							$page_id = 29;
+					<?php  // グループ外の単一フィールド「license_title」を取得
+					$license_title = SCF::get('license_title', $page_id);
+					if (!empty($license_pricelist)) :?>
 
-							// Smart Custom Fieldsのデータを取得
-							$license_pricelist = SCF::get('license_pricelist', $page_id);
-							if (!empty($license_pricelist)) : ?>
 					<div class="price-lists__item price-lists__item--first price-list">
-						<div class="price-list__title">ライセンス講習</div>
+						<div class="price-list__title"><?= esc_html($license_title ?: 'ダイビング'); ?></div>
 						<ul class="price-list__items">
 							<?php foreach ($license_pricelist as $license) : ?>
-
 							<li class="price-list__item">
 								<p class="price-list__name"><?php echo esc_html($license['license_kinds']); ?></p>
 								<p class="price-list__number"><?php echo esc_html($license['license_price']); ?></p>
@@ -398,19 +409,14 @@
 						</ul>
 					</div>
 					<?php else : ?>
-					<p>価格リストは現在準備中です。</p>
 					<?php endif; ?>
 
-
-					<?php
-							// 固定ページIDを指定（ここでは29）
-							$page_id = 29;
-
-							// Smart Custom Fieldsのデータを取得
-							$experience_pricelist = SCF::get('experience_pricelist', $page_id);
-							if (!empty($experience_pricelist)) : ?>
+					<?php  // グループ外の単一フィールド「license_title」を取得
+					$experience_title = SCF::get('experience_title', $page_id);
+					if (!empty($license_pricelist)) :?>
 					<div class="price-lists__item price-list">
-						<div class="price-list__title">体験ダイビング</div>
+						<div class="price-list__title"><?= esc_html($experience_title ?: 'ダイビング'); ?>
+						</div>
 						<ul class="price-list__items">
 							<?php foreach ($experience_pricelist as $experience) : ?>
 							<li class="price-list__item">
@@ -422,19 +428,17 @@
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<?php else : ?>
-					<p>価格リストは現在準備中です。</p>
-					<?php endif; ?>
-
 					<?php
-							// 固定ページIDを指定（ここでは29）
-							$page_id = 29;
+						else :
+								// 繰り返しフィールドが空の場合は何も表示しない
+						endif;
+						?>
+					<?php  // グループ外の単一フィールド「fundiving_title」を取得
+					$fundiving_title = SCF::get('fundiving_title', $page_id);
+					if (!empty($fundiving_pricelist)) :?>
 
-							// Smart Custom Fieldsのデータを取得
-							$fundiving_pricelist = SCF::get('fundiving_pricelist', $page_id);
-							if (!empty($fundiving_pricelist)) : ?>
 					<div class="price-lists__item price-list">
-						<div class="price-list__title">ファンダイビング</div>
+						<div class="price-list__title"><?= esc_html($fundiving_title ?: 'ダイビング'); ?></div>
 
 						<ul class="price-list__items">
 							<?php foreach ($fundiving_pricelist as $fundiving) : ?>
@@ -445,19 +449,19 @@
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<?php else : ?>
-					<p>価格リストは現在準備中です。</p>
-					<?php endif; ?>
 					<?php
-							// 固定ページIDを指定（ここでは29）
-							$page_id = 29;
+			else :
+					// 繰り返しフィールドが空の場合は何も表示しない
+			endif;
+			?>
+					<?php
+					 // グループ外の単一フィールド「specialdiving_title」を取得
+					$specialdiving_title = SCF::get('specialdiving_title', $page_id);
 
-							// Smart Custom Fieldsのデータを取得
-							$specialdiving_pricelist = SCF::get('specialdiving_pricelist', $page_id);
-							if (!empty($specialdiving_pricelist)) : ?>
+					if (!empty($specialdiving_pricelist)) : ?>
 
 					<div class="price-lists__item price-list">
-						<div class="price-list__title">スペシャルダイビング</div>
+						<div class="price-list__title"><?= esc_html($specialdiving_title ?: 'ダイビング'); ?></div>
 						<ul class="price-list__items">
 							<?php foreach ($specialdiving_pricelist as $special) : ?>
 							<li class="price-list__item">
@@ -467,11 +471,14 @@
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<?php else : ?>
-					<p>価格リストは現在準備中です。</p>
-					<?php endif; ?>
+					<?php
+							else :
+									// 繰り返しフィールドが空の場合は何も表示しない
+							endif;
+							?>
 				</div>
 			</div>
+			<?php endif; ?>
 			<div class="top-price__button">
 				<a href="<?php echo esc_url(home_url('/price')); ?>" class="button"> View more</a>
 			</div>

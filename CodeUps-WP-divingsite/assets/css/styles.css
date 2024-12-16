@@ -8,6 +8,11 @@ body {
 	display: none;
 }
 
+.sp-line-break {
+	display: block;
+	margin-top: 0.5em;
+}
+
 /* リキッドレイアウト対応 */
 
 html {
@@ -4123,6 +4128,11 @@ span.wpcf7-spinner {
 
 .u-mobile {
 	display: none;
+}
+
+.sp-line-break {
+	display: inline;
+	margin-left: 0;
 }
 
 html {
