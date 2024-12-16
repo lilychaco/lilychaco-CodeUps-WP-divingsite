@@ -334,7 +334,6 @@ time {
 }
 
 .archive-campaign-card__price-text {
-	background-color: yellow;
 	color: #408F95;
 	display: flex;
 	flex-direction: row;

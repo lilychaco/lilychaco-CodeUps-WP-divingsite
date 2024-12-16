@@ -105,7 +105,6 @@
 									: $content; // 86文字に切り詰め、省略記号を追加
 									echo esc_html( $trimmed_content ); // エスケープして表示
 									?>
-							<?php the_excerpt(); ?>
 						</div>
 						<div class="archive-campaign-card__meta">
 							<div class="archive-campaign-card__date"><?php echo esc_html($period); ?></div>
