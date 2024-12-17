@@ -93,15 +93,12 @@
 												$terms = get_the_terms(get_the_ID(), 'campaign-category');
 												if (!empty($terms) && !is_wp_error($terms)) :
 												?>
-
 							<div class="campaign-card__category">
 								<?php foreach ($terms as $term) : ?>
 								<span><?php echo esc_html($term->name); ?></span>
 								<?php endforeach; ?>
 							</div>
-							<?php
-									endif;
-									?>
+							<?php endif; ?>
 							<div class="campaign-card__title"><?php the_title(); ?></div>
 						</div>
 						<div class="campaign-card__text">
@@ -222,7 +219,6 @@
 			</h2>
 		</div>
 		<ul class="top-blog__cards blog-cards">
-
 			<?php
 			while ($query->have_posts()) : $query->the_post();
 			?>
@@ -302,9 +298,8 @@
 									<span> <?php  echo esc_html( $tag->name ) ?></span>
 									<?php endforeach; ?>
 								</div>
-								<?php
-									endif;
-									?>
+								<?php endif; ?>
+
 								<?php
                   $terms = get_the_terms( get_the_ID(), 'voice_category' );
                     if ( ! empty( $terms ) && ! is_wp_error( $terms ) ):
@@ -314,9 +309,7 @@
 									<span><?php echo esc_html($term->name); ?></span>
 									<?php endforeach; ?>
 								</div>
-								<?php
-									endif;
-									?>
+								<?php endif; ?>
 							</div>
 							<div class="voice-card__title">
 								<?php the_title(); ?>
@@ -406,11 +399,7 @@
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<?php
-						else :
-								// 繰り返しフィールドが空の場合は何も表示しない
-						endif;
-						?>
+					<?php endif; ?>
 
 					<?php  // グループ外の単一フィールド「experience_title」を取得
 					$experience_title = SCF::get('experience_title', $page_id);
@@ -429,11 +418,8 @@
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<?php
-						else :
-								// 繰り返しフィールドが空の場合は何も表示しない
-						endif;
-						?>
+					<?php endif; ?>
+
 					<?php  // グループ外の単一フィールド「fundiving_title」を取得
 					$fundiving_title = SCF::get('fundiving_title', $page_id);
 					if (!empty($fundiving_pricelist)) :?>
@@ -450,11 +436,7 @@
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<?php
-						else :
-								// 繰り返しフィールドが空の場合は何も表示しない
-						endif;
-					?>
+					<?php endif; ?>
 
 					<?php
 					 // グループ外の単一フィールド「specialdiving_title」を取得
@@ -473,14 +455,11 @@
 							<?php endforeach; ?>
 						</ul>
 					</div>
-					<?php
-							else :
-									// 繰り返しフィールドが空の場合は何も表示しない
-							endif;
-							?>
+					<?php endif; ?>
 				</div>
 			</div>
 			<?php endif; ?>
+
 			<div class="top-price__button">
 				<a href="<?php echo esc_url(home_url('/price')); ?>" class="button"> View more</a>
 			</div>
@@ -489,7 +468,6 @@
 			</figure>
 		</div>
 	</div>
-
 </section>
 
 

@@ -52,30 +52,13 @@
 					</li>
 					<!-- 投稿のループ終了 -->
 					<?php endwhile; ?>
-
-					<?php
-						else :
-							// 投稿が見つからなかった場合のメッセージ
-							echo '投稿が見つかりませんでした。';
-						endif;
-						?>
+					<?php endif; ?>
 				</ul>
 
 				<!-- ページネーションの表示 -->
 				<div class="blog__nav page-nav">
 					<div class="page-nav__pager">
-						<?php
-							// ページネーションを表示
-							if (function_exists('wp_pagenavi')) {
-								wp_pagenavi();
-							} else {
-								the_posts_pagination([
-									'mid_size'  => 2,
-									'prev_text' => __('« Previous', 'text-domain'),
-									'next_text' => __('Next »', 'text-domain'),
-								]);
-							}
-						?>
+						<?php wp_pagenavi(); ?>
 					</div>
 				</div>
 			</div>

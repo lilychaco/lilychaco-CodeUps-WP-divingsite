@@ -28,6 +28,7 @@
 </head>
 
 <body>
+
 	<header class="header">
 		<div class="header__inner">
 			<?php if (is_front_page()) : ?>

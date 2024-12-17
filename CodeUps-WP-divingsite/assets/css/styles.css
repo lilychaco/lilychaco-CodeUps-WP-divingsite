@@ -4064,6 +4064,10 @@ span.wpcf7-spinner {
 	margin-top: 9.1875rem;
 }
 
+.error404 .footer-layout {
+	margin-top: 0;
+}
+
 .gallery-layout {
 	margin-top: 2.5rem;
 }

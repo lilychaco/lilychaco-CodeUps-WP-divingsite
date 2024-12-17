@@ -1,22 +1,29 @@
-@use "global" as *;
+@use "global"as *;
 
 .footer-layout {
-	margin-top:rem(100);
-	@include mq(md) {
-			margin-top: rem(160);
-}}
+  margin-top: rem(100);
 
-.footer-layout-01 {
-  margin-top: rem(96);
   @include mq(md) {
     margin-top: rem(160);
   }
 }
+
+.footer-layout-01 {
+  margin-top: rem(96);
+
+  @include mq(md) {
+    margin-top: rem(160);
+  }
+}
+
 .footer-layout-02 {
   margin-top: rem(144);
-		@include mq(md) {
-			margin-top: rem(160);
-}}
+
+  @include mq(md) {
+    margin-top: rem(160);
+  }
+}
+
 .footer-layout-03 {
   margin-top: 0;
 }
@@ -24,13 +31,21 @@
 
 .footer-layout--thanks {
   margin-top: rem(148);
-	@include mq(md) {
-			margin-top: rem(124);
-	}
+
+  @include mq(md) {
+    margin-top: rem(124);
+  }
 }
+
 .footer-layout--error {
   margin-top: rem(147);
-	@include mq(md) {
-			margin-top: rem(120);
-	}
+
+  @include mq(md) {
+    margin-top: rem(120);
+  }
 }
+
+.error404 .footer-layout {
+  margin-top: 0; // 404ページでは上書き
+}
+
