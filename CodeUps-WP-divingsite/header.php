@@ -27,7 +27,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body>
+<body <?php body_class(); ?>>
 
 	<header class="header">
 		<div class="header__inner">
