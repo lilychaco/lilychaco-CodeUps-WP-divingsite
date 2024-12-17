@@ -19,12 +19,20 @@
 							<a href="<?php echo esc_url(get_permalink()); ?>" class="popular-card__link">
 								<div class="popular-card__img">
 									<?php
-								// サムネイルのURLを変数に格納（`get_the_post_thumbnail_url()` を使用）
-								$thumbnail = has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'thumbnail') : get_theme_file_uri('/assets/images/default.jpg');
-								?>
-									<img src="<?php echo esc_url($thumbnail); ?>"
-										alt="<?php echo esc_attr(has_post_thumbnail() ? get_the_title() : 'No Image'); ?>" />
-
+											// アイキャッチ画像のHTMLを取得して変数に格納
+											$thumbnail = get_the_post_thumbnail(
+													get_the_ID(),
+													'thumbnail',
+													array('alt' => esc_attr(get_the_title() . 'のサムネイル画像'))
+											);
+											?>
+									<?php if ($thumbnail) : ?>
+									<!-- アイキャッチ画像がある場合 -->
+									<?php echo $thumbnail; ?>
+									<?php else : ?>
+									<!-- アイキャッチ画像がない場合、デフォルト画像を表示 -->
+									<img src="<?php echo esc_url(get_theme_file_uri('assets/images/default.jpg')); ?>" alt="デフォルト画像" />
+									<?php endif; ?>
 								</div>
 								<div class="popular-card__body">
 									<!-- 投稿日時の表示 -->

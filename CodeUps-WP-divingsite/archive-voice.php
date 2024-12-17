@@ -84,6 +84,25 @@
 							</div>
 							<figure class="voice-card__img colorbox">
 								<?php
+								// アイキャッチ画像のHTMLを取得して変数に格納
+								$thumbnail = get_the_post_thumbnail(
+										get_the_ID(),
+										'full',
+										array('alt' => esc_attr(get_the_title() . 'の画像'))
+								);
+								?>
+								<?php if ($thumbnail) : ?>
+								<!-- アイキャッチ画像が設定されている場合 -->
+								<?php echo $thumbnail; ?>
+								<?php else : ?>
+								<!-- アイキャッチ画像がない場合、デフォルト画像を表示 -->
+								<img src="<?php echo esc_url(get_theme_file_uri('assets/images/voice01.jpg')); ?>"
+									alt="<?php echo esc_attr(get_the_title() . 'の画像'); ?>" />
+								<?php endif; ?>
+							</figure>
+
+							<figure class="voice-card__img colorbox">
+								<?php
                     // アイキャッチ画像を取得して変数に格納
                     $thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
 										?>

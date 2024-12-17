@@ -55,10 +55,23 @@
                 ?>
 			<li class="archive-campaign-cards__item archive-campaign-card">
 				<figure class="archive-campaign-card__img">
-					<?php if (has_post_thumbnail()) : the_post_thumbnail('full', array('alt' => get_the_title())); else : ?>
-					<img src="<?php echo get_theme_file_uri(); ?>/assets/images/campaign1.jpg" alt="キャンペーンの画像" />
+					<?php
+						// アイキャッチ画像のHTMLを取得して変数に格納
+						$thumbnail = get_the_post_thumbnail(
+								get_the_ID(),
+								'full',
+								array('alt' => esc_attr(get_the_title() . 'の画像'))
+						);
+						?>
+					<?php if ($thumbnail) : ?>
+					<!-- アイキャッチ画像が設定されている場合 -->
+					<?php echo $thumbnail; ?>
+					<?php else : ?>
+					<!-- アイキャッチ画像がない場合、デフォルト画像を表示 -->
+					<img src="<?php echo esc_url(get_theme_file_uri('assets/images/campaign1.jpg')); ?>" alt="キャンペーンの画像" />
 					<?php endif; ?>
 				</figure>
+
 				<div class="archive-campaign-card__body">
 					<div class="archive-campaign-card__top">
 						<div class="archive-campaign-card__category">

@@ -318,17 +318,23 @@
 						</div>
 						<figure class="voice-card__img colorbox">
 							<?php
-                    // アイキャッチ画像を取得して変数に格納
-                    $thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
-										// アイキャッチ画像がある場合は表示し、ない場合はデフォルト画像を表示
-								if ( $thumbnail ) {
-                        echo $thumbnail;
-                    } else {
-                        // デフォルトの画像のalt属性を投稿タイトルに変更
-                        echo '<img src="' . esc_url( get_theme_file_uri() . '/assets/images/voice01.jpg' ) . '" alt="' . esc_attr( get_the_title() ) . 'の画像" />';
-                    }
-                    ?>
+									// アイキャッチ画像を取得して変数に格納
+									$thumbnail = get_the_post_thumbnail(
+											get_the_ID(),
+											'full',
+											array('alt' => esc_attr(get_the_title() . 'の画像'))
+									);
+									?>
+							<?php if ($thumbnail) : ?>
+							<!-- アイキャッチ画像が設定されている場合 -->
+							<?php echo $thumbnail; ?>
+							<?php else : ?>
+							<!-- アイキャッチ画像がない場合、デフォルト画像を表示 -->
+							<img src="<?php echo esc_url(get_theme_file_uri('assets/images/voice01.jpg')); ?>"
+								alt="<?php echo esc_attr(get_the_title() . 'の画像'); ?>" />
+							<?php endif; ?>
 						</figure>
+
 					</div>
 					<div class="voice-card__text">
 						<?php the_excerpt(); ?>

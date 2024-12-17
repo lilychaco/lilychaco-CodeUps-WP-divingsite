@@ -80,13 +80,16 @@
 				<li class="campaign-cards__item campaign-card swiper-slide">
 					<figure class="campaign-card__img">
 						<?php if (has_post_thumbnail()) : ?>
-						<!-- 投稿にサムネイルが設定されている場合 -->
-						<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>" />
+						<!-- サムネイル画像が設定されている場合 -->
+						<img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')); ?>"
+							alt="<?php echo esc_attr(get_the_title()); ?>" />
 						<?php else : ?>
-						<!-- 画像がない場合はデフォルト画像を表示 -->
+						<!-- サムネイルがない場合はデフォルト画像を表示 -->
 						<img src="<?php echo esc_url(get_theme_file_uri('assets/images/campaign1.jpg')); ?>" alt="デフォルト画像" />
 						<?php endif; ?>
 					</figure>
+
+
 					<div class="campaign-card__body">
 						<div class="campaign-card__top">
 							<?php
@@ -225,12 +228,25 @@
 			<li class="blog-cards__item blog-card">
 				<a href="<?php the_permalink(); ?>" class="blog-card__link">
 					<figure class="blog-card__img">
-						<?php if (has_post_thumbnail()) : ?>
-						<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>" />
+						<?php
+								// アイキャッチ画像のHTMLを取得して変数に格納
+								$thumbnail = get_the_post_thumbnail(
+										get_the_ID(),
+										'full',
+										array('alt' => esc_attr(get_the_title() . 'の画像'))
+								);
+								?>
+						<?php if ($thumbnail) : ?>
+						<!-- サムネイル画像が設定されている場合 -->
+						<?php echo $thumbnail; ?>
 						<?php else : ?>
-						<img src="<?php echo get_theme_file_uri(); ?>/assets/images/no-image.jpg" alt="No image available">
+						<!-- サムネイル画像がない場合、デフォルト画像を表示 -->
+						<img src="<?php echo esc_url(get_theme_file_uri('assets/images/no-image.jpg')); ?>"
+							alt="No image available" />
 						<?php endif; ?>
 					</figure>
+
+
 					<div class="blog-card__body">
 						<div class="blog-card__top">
 							<!-- 投稿日時の表示 -->
@@ -317,17 +333,23 @@
 						</div>
 						<figure class="voice-card__img colorbox">
 							<?php
-								// アイキャッチ画像を取得して変数に格納
-								$thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
+								// アイキャッチ画像を取得し、変数に格納
+								$thumbnail = get_the_post_thumbnail(
+										get_the_ID(),
+										'full',
+										array('alt' => esc_attr(get_the_title() . 'の画像'))
+								);
 								?>
-
-							<?php if ( $thumbnail ) : ?>
-							<?= $thumbnail ?>
+							<?php if ($thumbnail) : ?>
+							<!-- サムネイル画像がある場合 -->
+							<?php echo $thumbnail; ?>
 							<?php else : ?>
-							<img src="<?= esc_url( get_theme_file_uri() . '/assets/images/voice01.jpg' ) ?>"
-								alt="<?= esc_attr( get_the_title() ) ?>の画像" />
+							<!-- サムネイル画像がない場合、デフォルト画像を表示 -->
+							<img src="<?php echo esc_url(get_theme_file_uri('assets/images/voice01.jpg')); ?>"
+								alt="<?php echo esc_attr(get_the_title() . 'の画像'); ?>" />
 							<?php endif; ?>
 						</figure>
+
 					</div>
 					<div class="voice-card__text">
 						<?php
