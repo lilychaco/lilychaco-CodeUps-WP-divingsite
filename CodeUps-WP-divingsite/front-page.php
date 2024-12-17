@@ -197,6 +197,19 @@
 </section>
 
 <section class="top-blog top-blog-layout" id="blog">
+	<?php
+			// カスタムクエリの設定
+			$args = array(
+				'post_type' => 'post', // 投稿タイプを指定
+				'posts_per_page' => 3, // 表示する投稿数を指定
+				'orderby' => 'date', // 日付でソート
+				'order' => 'DESC' // 降順
+			);
+			$query = new WP_Query($args);
+				if ($query->have_posts()) :
+		?>
+
+
 	<div class="top-blog__inner inner">
 		<figure class="top-blog__fish-image u-desktop">
 			<img src="<?php echo get_theme_file_uri(); ?>/assets/images/accent02.png" alt="魚のイラスト" />
@@ -210,29 +223,19 @@
 			</h2>
 		</div>
 		<ul class="top-blog__cards blog-cards">
-			<?php
-			// カスタムクエリの設定
-			$args = array(
-				'post_type' => 'post', // 投稿タイプを指定
-				'posts_per_page' => 3, // 表示する投稿数を指定
-				'orderby' => 'date', // 日付でソート
-				'order' => 'DESC' // 降順
-			);
-			$query = new WP_Query($args);
 
-			// ループ開始
-			if ($query->have_posts()) :
-				while ($query->have_posts()) : $query->the_post(); ?>
+
+			<?php
+			while ($query->have_posts()) : $query->the_post();
+			?>
 			<li class="blog-cards__item blog-card">
 				<a href="<?php the_permalink(); ?>" class="blog-card__link">
 					<figure class="blog-card__img">
-						<?php
-								// 投稿のサムネイルを表示
-								if (has_post_thumbnail()) {
-									the_post_thumbnail('medium');
-								} else { ?>
+						<?php if (has_post_thumbnail()) : ?>
+						<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>" />
+						<?php else : ?>
 						<img src="<?php echo get_theme_file_uri(); ?>/assets/images/no-image.jpg" alt="No image available">
-						<?php } ?>
+						<?php endif; ?>
 					</figure>
 					<div class="blog-card__body">
 						<div class="blog-card__top">
@@ -253,17 +256,15 @@
 					</div>
 				</a>
 			</li>
-			<?php endwhile;
-				wp_reset_postdata(); // クエリをリセット
-			else : ?>
-			<p>投稿がありません。</p>
-			<?php endif; ?>
+			<?php endwhile;?>
 		</ul>
 
 		<div class="top-blog__button">
 			<a href="<?php echo esc_url(home_url('/blog')); ?>" class="button">View more</a>
 		</div>
 	</div>
+	<?php endif; ?>
+	<?php wp_reset_postdata(); // クエリのリセット  ?>
 </section>
 
 
