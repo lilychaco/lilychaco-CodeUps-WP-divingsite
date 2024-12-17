@@ -37,8 +37,8 @@
 							<div class="blog-card__body">
 								<div class="blog-card__top">
 									<!-- 投稿日時の表示 -->
-									<time datetime="<?php echo esc_attr(get_the_date('c')); ?>" class="blog-card__date">
-										<?php echo esc_html(get_the_date('Y.m.d')); ?>
+									<time datetime="<?php echo esc_attr(get_the_time('c')); ?>" class="blog-card__date">
+										<?php echo esc_html(get_the_date('Y.m/d')); ?>
 									</time>
 									<!-- 投稿タイトルの表示 -->
 									<div class="blog-card__title"><?php the_title(); ?></div>

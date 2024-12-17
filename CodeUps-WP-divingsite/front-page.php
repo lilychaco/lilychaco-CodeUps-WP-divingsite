@@ -209,7 +209,6 @@
 				if ($query->have_posts()) :
 		?>
 
-
 	<div class="top-blog__inner inner">
 		<figure class="top-blog__fish-image u-desktop">
 			<img src="<?php echo get_theme_file_uri(); ?>/assets/images/accent02.png" alt="魚のイラスト" />
@@ -223,7 +222,6 @@
 			</h2>
 		</div>
 		<ul class="top-blog__cards blog-cards">
-
 
 			<?php
 			while ($query->have_posts()) : $query->the_post();
@@ -239,8 +237,10 @@
 					</figure>
 					<div class="blog-card__body">
 						<div class="blog-card__top">
-							<time datetime="<?php echo get_the_date('c'); ?>"
-								class="blog-card__date"><?php echo get_the_date('Y.m.d'); ?></time>
+							<!-- 投稿日時の表示 -->
+							<time datetime="<?php echo esc_attr(get_the_time('c')); ?>" class="blog-card__date">
+								<?php echo esc_html(get_the_date('Y.m/d')); ?>
+							</time>
 							<div class="blog-card__title"><?php the_title(); ?></div>
 						</div>
 						<div class="blog-card__text">
@@ -324,16 +324,16 @@
 						</div>
 						<figure class="voice-card__img colorbox">
 							<?php
-               // アイキャッチ画像を取得して変数に格納
-                $thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
-								// アイキャッチ画像がある場合は表示し、ない場合はデフォルト画像を表示
-								if ( $thumbnail ) {
-                        echo $thumbnail;
-                    } else {
-                        // デフォルトの画像のalt属性を投稿タイトルに変更
-                        echo '<img src="' . esc_url( get_theme_file_uri() . '/assets/images/voice01.jpg' ) . '" alt="' . esc_attr( get_the_title() ) . 'の画像" />';
-                    }
-                    ?>
+								// アイキャッチ画像を取得して変数に格納
+								$thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
+								?>
+
+							<?php if ( $thumbnail ) : ?>
+							<?= $thumbnail ?>
+							<?php else : ?>
+							<img src="<?= esc_url( get_theme_file_uri() . '/assets/images/voice01.jpg' ) ?>"
+								alt="<?= esc_attr( get_the_title() ) ?>の画像" />
+							<?php endif; ?>
 						</figure>
 					</div>
 					<div class="voice-card__text">
@@ -362,9 +362,7 @@
 </section>
 
 <section class="top-price top-price-layout" id="price">
-	<div class="inner">
-		<div class="top-price__inner">
-			<?php
+	<?php
 							// 固定ページIDを指定（ここでは29）
 							$page_id = 29;
 							// Smart Custom Fieldsのデータを取得
@@ -376,8 +374,9 @@
 								// Smart Custom Fieldsのデータを取得
 							$specialdiving_pricelist = SCF::get('specialdiving_pricelist', $page_id);
 
-							if (!empty($license_pricelist) || !empty($experience_pricelist) || !empty($fundiving_pricelist) || !empty($specialdiving_pricelist)): ?>
-
+			if (!empty($license_pricelist) || !empty($experience_pricelist) || !empty($fundiving_pricelist) || !empty($specialdiving_pricelist)): ?>
+	<div class="inner">
+		<div class="top-price__inner">
 			<div class="top-price__heading section-heading">
 				<h3 class="section-heading__title">Price</h3>
 				<h2 class="section-heading__subtitle">料金一覧</h2>
@@ -413,9 +412,9 @@
 						endif;
 						?>
 
-					<?php  // グループ外の単一フィールド「license_title」を取得
+					<?php  // グループ外の単一フィールド「experience_title」を取得
 					$experience_title = SCF::get('experience_title', $page_id);
-					if (!empty($license_pricelist)) :?>
+					if (!empty($experience_pricelist)) :?>
 					<div class="price-lists__item price-list">
 						<div class="price-list__title"><?= esc_html($experience_title ?: 'ダイビング'); ?>
 						</div>
@@ -456,6 +455,7 @@
 								// 繰り返しフィールドが空の場合は何も表示しない
 						endif;
 					?>
+
 					<?php
 					 // グループ外の単一フィールド「specialdiving_title」を取得
 					$specialdiving_title = SCF::get('specialdiving_title', $page_id);
@@ -489,6 +489,7 @@
 			</figure>
 		</div>
 	</div>
+
 </section>
 
 

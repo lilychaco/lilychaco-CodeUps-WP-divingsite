@@ -238,9 +238,11 @@
 					</figure>
 					<div class="blog-card__body">
 						<div class="blog-card__top">
-							<time datetime="<?php echo get_the_date('c'); ?>"
-								class="blog-card__date"><?php echo get_the_date('Y.m.d'); ?></time>
-							<div class="blog-card__title"><?php the_title(); ?></div>
+							<<!-- 投稿日時の表示 -->
+								<time datetime="<?php echo esc_attr(get_the_time('c')); ?>" class="blog-card__date">
+									<?php echo esc_html(get_the_date('Y.m/d')); ?>
+								</time>
+								<div class="blog-card__title"><?php the_title(); ?></div>
 						</div>
 						<div class="blog-card__text">
 							<?php echo wp_trim_words(get_the_excerpt(), 100, '...'); ?>

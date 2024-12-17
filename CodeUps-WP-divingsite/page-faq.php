@@ -20,6 +20,10 @@
 
     // 各アイテムを表示する関数を定義します。
     function display_accordion_item($question, $answer) {
+			// 質問と回答のどちらかが欠けていたら何も出力しない
+    if (empty($question) || empty($answer)) {
+        return; // 処理をここで終了
+    }
         ?>
 			<div class="accordion__item accordion-card">
 				<div class="accordion-card__top js-accordion-top is-open">
@@ -38,20 +42,14 @@
 			</div>
 			<?php } ?>
 			<?php
-			// 取得したデータが空でないかをチェックします。
-			if (!empty($faq)) {
-			// 取得した繰り返しフィールドの各アイテムをループで処理します。
-			foreach ($faq as $item) {
-			// 各アイテムの 'question' フィールドの値を取得し、表示します。
-			if (!empty($item['question'])) {
-			display_accordion_item($item['question'], $item['answer'] ?? '');
-			}
-			}
-			} else {
-			// 繰り返しフィールドが空の場合のメッセージ
-			display_accordion_item('よくある質問がありません。', '');
-			}
+				if (!empty($faq)) {
+						foreach ($faq as $item) {
+								// 質問または回答が欠けているかは関数内で判定
+								display_accordion_item($item['question'] ?? '', $item['answer'] ?? '');
+						}
+				}
 			?>
+
 		</div>
 	</div>
 </div>

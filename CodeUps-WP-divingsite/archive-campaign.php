@@ -118,8 +118,8 @@
 					</div>
 				</div>
 			</li>
-			<?php endif;
-		endwhile; endif; ?>
+			<?php endif;  ?>
+			<?php  endwhile; endif; ?>
 		</ul>
 		<div class="archive-campaign__nav page-nav">
 			<ul class="page-nav__pager">

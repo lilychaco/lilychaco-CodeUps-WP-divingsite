@@ -62,8 +62,6 @@
 				endif;
 				?>
 
-
-
 		<?php
 				// グループ外の単一フィールド「experience_title」を取得
 			$experience_title = SCF::get('experience_title');
@@ -175,10 +173,10 @@
 			</div>
 			<ul class="page-price-list__items">
 				<?php
-									// 取得した繰り返しフィールドの各アイテムをループで処理します。
-									foreach ($specialdiving_pricelist as $item) :
-											// 各アイテムの 'specialdiving_name' フィールドの値を取得します。
-											if (!empty($item['specialdiving_name'])) :
+						// 取得した繰り返しフィールドの各アイテムをループで処理します。
+						foreach ($specialdiving_pricelist as $item) :
+						// 各アイテムの 'specialdiving_name' フィールドの値を取得します。
+						if (!empty($item['specialdiving_name'])) :
     						?>
 				<li class="page-price-list__item">
 					<p class="page-price-list__name">

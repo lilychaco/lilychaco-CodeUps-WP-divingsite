@@ -2020,6 +2020,14 @@ span.wpcf7-spinner {
 	width: 100%;
 }
 
+.gallery__inner {
+	position: relative;
+}
+
+.gallery__inner::after {
+	display: none;
+}
+
 .gallery__heading {
 	padding-left: 0.375rem;
 }
@@ -2083,8 +2091,8 @@ span.wpcf7-spinner {
 /* 背景スクロールを無効化するためのクラス */
 
 .no-scroll {
-	height: 100vh; /* 背景が縦にスクロールしないようにする */
-	overflow: hidden;
+	height: 100vh;
+	overflow: hidden; /* 背景が縦にスクロールしないようにする */
 }
 
 .hamburger {
@@ -4657,6 +4665,19 @@ html {
 .fv__sub-title {
 	line-height: 1.65;
 	margin-top: 0;
+}
+
+.gallery__inner::after {
+	background-image: url("../images/contact-fish.png");
+	background-size: cover;
+	content: "";
+	display: block;
+	height: 8.625rem;
+	position: absolute;
+	right: calc(50% - min(48vw, 40rem));
+	top: -76px;
+	width: 18.8125rem;
+	z-index: 100;
 }
 
 .gallery__content {

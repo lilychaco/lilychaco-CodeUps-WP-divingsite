@@ -42,6 +42,14 @@
 	</div>
 </div>
 
+
+<?php
+// gallery_imageフィールドのデータを取得
+$fields = SCF::get('gallery_image');
+
+// $fieldsが空の場合は<section>を出力しない
+if (!empty($fields)) : ?>
+
 <section class="gallery gallery-layout">
 	<div class="gallery__inner inner">
 		<div class="gallery__heading section-heading">
@@ -50,25 +58,23 @@
 		</div>
 		<div class="gallery__content">
 			<?php
-				$fields = SCF::get('gallery_image');
-				if (!empty($fields)) {
-						foreach ($fields as $field) {
-								$image_url = $field['gallery_img'] ? wp_get_attachment_url($field['gallery_img']) : esc_url(get_theme_file_uri('/assets/images/gallery1.jpg'));
-								?>
+				// gallery_imageフィールドの中身をループ
+				foreach ($fields as $field) {
+					// 画像のURLを取得、なければデフォルト画像を指定
+					$image_url = $field['gallery_img'] ? wp_get_attachment_url($field['gallery_img']) : esc_url(get_theme_file_uri('/assets/images/gallery1.jpg'));
+					?>
 			<div class="gallery__item js-modal-open">
 				<img src="<?php echo $image_url; ?>" alt="海の中の写真">
 			</div>
 			<?php
-						}
 				}
-				?>
+			?>
 		</div>
-
-
 		<!-- 画像のモーダル時のグレー背景 -->
 		<div class="gallery__display" id="grayDisplay"></div>
 	</div>
 </section>
+<?php endif;  ?>
 
 
 <?php get_footer(); ?>

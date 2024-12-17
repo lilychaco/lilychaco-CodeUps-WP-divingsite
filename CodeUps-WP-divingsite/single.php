@@ -19,8 +19,10 @@
 
 				<div class="single-blog__post">
 					<div class="single-blog__top">
-						<time datetime="<?php echo get_the_date('Y-m-d'); ?>"
-							class="single-blog__date"><?php echo get_the_date(); ?></time>
+						<!-- 投稿日時の表示 -->
+						<time datetime="<?php echo esc_attr(get_the_time('c')); ?>" class="blog-card__date">
+							<?php echo esc_html(get_the_date('Y.m/d')); ?>
+						</time>
 						<div class="single-blog__title"><?php the_title(); ?></div>
 						<figure class="single-blog__eyecatch">
 							<?php if (has_post_thumbnail()) : ?>

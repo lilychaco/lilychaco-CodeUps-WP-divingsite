@@ -1,8 +1,6 @@
 			<aside class="side">
 				<section class="side-popular">
-					<h2 class="side-popular__heading side-heading">人気記事</h2>
-					<ul class="side-popular__cards">
-						<?php
+					<?php
 							// 人気記事を取得するためのクエリを設定します。
 							$popular_posts = new WP_Query(array(
 									'posts_per_page' => 3, // 表示する投稿数
@@ -12,9 +10,10 @@
 									'post_type' => 'post' // 投稿タイプ
 							));
 							// クエリが成功し、投稿がある場合
-							if ($popular_posts->have_posts()) :
-									while ($popular_posts->have_posts()) : $popular_posts->the_post(); ?>
-
+							if ($popular_posts->have_posts()) : ?>
+					<h2 class="side-popular__heading side-heading">人気記事</h2>
+					<ul class="side-popular__cards">
+						<?php while ($popular_posts->have_posts()) : $popular_posts->the_post(); ?>
 						<li class="side-popular__card popular-card">
 							<!-- 投稿のURLを取得し、カード全体をリンクとして包む -->
 							<a href="<?php echo esc_url(get_permalink()); ?>" class="popular-card__link">
@@ -28,22 +27,21 @@
 
 								</div>
 								<div class="popular-card__body">
-									<time datetime="<?php echo get_the_date('Y-m-d'); ?>"
-										class="popular-card__date"><?php echo get_the_date('Y.m.d'); ?></time>
+									<!-- 投稿日時の表示 -->
+									<time datetime="<?php echo esc_attr(get_the_time('c')); ?>" class="blog-card__date">
+										<?php echo esc_html(get_the_date('Y.m/d')); ?>
+									</time>
 									<p class="popular-card__title"><?php the_title(); ?></p>
 								</div>
 							</a>
 						</li>
-						<?php endwhile; else : ?>
-						<p>人気記事が見つかりませんでした。</p>
-						<?php endif;
-							wp_reset_postdata(); // グローバルな $post オブジェクトをリセットします。
-							?>
+						<?php endwhile; ?>
 					</ul>
+					<?php endif; ?>
+					<?php wp_reset_postdata(); ?>
 				</section>
 
 				<section class="side-voice">
-					<h2 class="side-voice__heading side-heading">口コミ</h2>
 					<?php
 							// 最新の口コミを取得
 							$latest_voice_args = array(
@@ -55,25 +53,29 @@
 
 							$latest_voice_query = new WP_Query($latest_voice_args);
 
-							if ($latest_voice_query->have_posts()) :
-								while ($latest_voice_query->have_posts()) : $latest_voice_query->the_post();
-									?>
+							if ($latest_voice_query->have_posts()) : ?>
+					<h2 class="side-voice__heading side-heading">口コミ</h2>
 
 					<div class="side-voice__content">
-						<div class="side-voice__img">
-							<img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
-								alt="<?php echo esc_attr(get_the_title()); ?>" />
+						<?php while ($latest_voice_query->have_posts()) : $latest_voice_query->the_post(); ?>
+						<div class="side-voice__item">
+							<div class="side-voice__img">
+								<img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
+									alt="<?php echo esc_attr(get_the_title()); ?>" />
+							</div>
+							<p class="side-voice__caption"><?php echo esc_html(get_post_meta(get_the_ID(), 'caption', true)); ?></p>
+							<div class="side-voice__title">
+								<?php the_title(); ?>
+							</div>
 						</div>
-						<p class="side-voice__caption"><?php echo esc_html(get_post_meta(get_the_ID(), 'caption', true)); ?></p>
-						<div class="side-voice__title">
-							<?php the_title(); ?>
-						</div>
+						<?php endwhile; ?>
+
 						<div class="side-voice__button">
 							<a href="<?php echo esc_url(home_url('/voice')); ?>" class="button"> View more</a>
 						</div>
 					</div>
-					<?php
-        	endwhile; wp_reset_postdata(); endif; ?>
+					<?php endif; ?>
+					<?php  wp_reset_postdata(); ?>
 				</section>
 
 				<section class="side-campaign">
