@@ -79,9 +79,7 @@
 				</section>
 
 				<section class="side-campaign">
-					<h2 class="side-campaign__heading side-heading">キャンペーン</h2>
-					<ul class="side-campaign__items">
-						<?php
+					<?php
 							// 最新のキャンペーン情報を取得
 							$latest_campaign_args = array(
 								'post_type' => 'campaign', // カスタム投稿タイプが 'campaign' であることを指定
@@ -91,18 +89,19 @@
 							);
 
 							$latest_campaign_query = new WP_Query($latest_campaign_args);
-							if ($latest_campaign_query->have_posts()) :
-								while ($latest_campaign_query->have_posts()) : $latest_campaign_query->the_post();
+							// カスタムフィールドの値を取得
+							$price_old = get_field('campaign-price_old');
+							$price_new = get_field('campaign-price_new');
+							$period = get_field('campaign-period');
 
-								// カスタムフィールドの値を取得
-								$price_old = get_field('campaign-price_old');
-								$price_new = get_field('campaign-price_new');
-								$period = get_field('campaign-period');
-								?>
+							if ($latest_campaign_query->have_posts()) : ?>
+					<h2 class="side-campaign__heading side-heading">キャンペーン</h2>
+					<ul class="side-campaign__items">
+						<?php while ($latest_campaign_query->have_posts()) : $latest_campaign_query->the_post(); ?>
 						<li class="side-campaign__item">
 							<figure class="side-campaign__img">
 								<?php
-											// サムネイルのURLを変数に格納
+								// サムネイルのURLを変数に格納
 								$thumbnail = has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'full') : get_theme_file_uri('/assets/images/campaign1.jpg');
 								// altテキストを設定
 								$alt_text = has_post_thumbnail() ? get_the_title() : 'キャンペーンの画像';
@@ -125,53 +124,73 @@
 								</div>
 							</div>
 						</li>
-						<?php endwhile; endif; wp_reset_postdata(); ?>
+						<?php endwhile; ?>
 					</ul>
 					<div class="side-campaign__button">
 						<a href="<?php echo esc_url(home_url('/campaign')); ?>" class="button">View&nbsp;more</a>
 					</div>
+					<?php endif; ?>
+					<?php wp_reset_postdata(); ?>
 				</section>
 
 				<section class="side-archive">
+					<?php
+						global $wpdb;
+
+						// 投稿データを年と月ごとに取得する関数
+						function get_yearly_monthly_archive_data() {
+								global $wpdb;
+
+								// 年月ごとに投稿データを取得
+								$results = $wpdb->get_results("
+										SELECT DISTINCT YEAR(post_date) AS year, MONTH(post_date) AS month, COUNT(ID) as post_count
+										FROM {$wpdb->posts}
+										WHERE post_type = 'post' AND post_status = 'publish'
+										GROUP BY year, month
+										ORDER BY year DESC, month DESC
+								");
+
+								// データを配列に整形
+								$years = [];
+								foreach ($results as $result) {
+										$years[$result->year][] = [
+												'month' => $result->month,
+												'post_count' => $result->post_count,
+												'url' => get_month_link($result->year, $result->month),
+													];
+											}
+											return $years;
+									}
+
+									// データ取得
+									$archives = get_yearly_monthly_archive_data();
+
+									// 投稿がある場合のみアーカイブセクションを表示
+									if (!empty($archives)) :
+									?>
+
 					<h2 class="side-archive__heading side-heading">アーカイブ</h2>
 					<div class="side-archive__contents">
-						<?php
-						global $wpdb;
-						// 年ごとに投稿データを取得
-						$results = $wpdb->get_results("
-								SELECT DISTINCT YEAR(post_date) AS year, MONTH(post_date) AS month, COUNT(ID) as post_count
-								FROM {$wpdb->posts}
-								WHERE post_type = 'post' AND post_status = 'publish'
-								GROUP BY year, month
-								ORDER BY year DESC, month DESC
-						");
-
-							$years = [];
-							foreach ($results as $result) {
-									$years[$result->year][] = [
-											'month' => $result->month,
-											'post_count' => $result->post_count,
-											'url' => get_month_link($result->year, $result->month),
-									];
-							}
-
-							// HTML生成
-							foreach ($years as $year => $months) {
-									echo '<div class="side-archive__year" data-year="' . esc_html($year) . '">';
-									// 動的に年を表示
-									echo '<div class="side-archive__year-toggle js-year-toggle">';
-									echo esc_html($year);
-									echo '</div>';
-									echo '<div class="side-archive__month-list">';
-									foreach ($months as $month) {
-											echo '<div class="side-archive__month">';
-											echo '<a href="' . esc_url($month['url']) . '" class="side-archive__link">' . esc_html($month['month']) . '月</a>';
-											echo '</div>';
-									}
-									echo '</div></div>';
-							}
-							?>
+						<?php foreach ($archives as $year => $months): ?>
+						<div class="side-archive__year" data-year="<?php echo esc_html($year); ?>">
+							<!-- 年ごとのトグル -->
+							<div class="side-archive__year-toggle js-year-toggle">
+								<?php echo esc_html($year); ?>
+							</div>
+							<!-- 月ごとのリスト -->
+							<div class="side-archive__month-list">
+								<?php foreach ($months as $month): ?>
+								<div class="side-archive__month">
+									<a href="<?php echo esc_url($month['url']); ?>" class="side-archive__link">
+										<?php echo esc_html($month['month']); ?>月 (<?php echo esc_html($month['post_count']); ?>件)
+									</a>
+								</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+						<?php endforeach; ?>
 					</div>
+					<?php endif; ?>
 				</section>
 
 			</aside>
