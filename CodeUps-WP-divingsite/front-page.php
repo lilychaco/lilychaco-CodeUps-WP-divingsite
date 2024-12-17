@@ -47,6 +47,17 @@
 </section>
 
 <section class="top-campaign top-campaign-layout" id="campaign">
+	<?php
+				// カスタム投稿「campaign」を取得するためのWP_Query
+				$args = [
+		    'post_type' => 'campaign', // カスタム投稿タイプ「campaign」を指定
+  		  'posts_per_page' => -1, // 全ての投稿を取得（必要に応じて数を変更）
+				];
+
+				$campaign_query = new WP_Query($args);
+				if ($campaign_query->have_posts()) :
+				?>
+
 	<div class="top-campaign__inner inner">
 		<div class="top-campaign__heading section-heading">
 			<h3 class="section-heading__title">campaign</h3>
@@ -58,19 +69,14 @@
 		<div class="swiper-button custom-swiper-button-next"></div>
 
 		<div class="top-campaign__cards-wrapper swiper js-campaign-swiper">
-			<?php
-				// カスタム投稿「campaign」を取得するためのWP_Query
-				$args = [
-		    'post_type' => 'campaign', // カスタム投稿タイプ「campaign」を指定
-  		  'posts_per_page' => -1, // 全ての投稿を取得（必要に応じて数を変更）
-				];
-
-				$campaign_query = new WP_Query($args);
-				if ($campaign_query->have_posts()) :
-				?>
-
 			<ul class="top-campaign__cards campaign-cards swiper-wrapper">
-				<?php while ($campaign_query->have_posts()) : $campaign_query->the_post(); ?>
+				<?php while ($campaign_query->have_posts()) : $campaign_query->the_post();
+				// カスタムフィールドの値を取得
+					$price_old = get_field('campaign-price_old');
+					$price_new = get_field('campaign-price_new');
+					$period = get_field('campaign-period');
+
+				?>
 				<li class="campaign-cards__item campaign-card swiper-slide">
 					<figure class="campaign-card__img">
 						<?php if (has_post_thumbnail()) : ?>
@@ -83,57 +89,48 @@
 					</figure>
 					<div class="campaign-card__body">
 						<div class="campaign-card__top">
+							<?php
+												$terms = get_the_terms(get_the_ID(), 'campaign-category');
+												if (!empty($terms) && !is_wp_error($terms)) :
+												?>
+
 							<div class="campaign-card__category">
-								<?php
-                                $categories = get_the_terms(get_the_ID(), 'campaign-category');
-                                if ($categories && !is_wp_error($categories)) {
-                                    $category_names = wp_list_pluck($categories, 'name');
-                                    echo esc_html(implode(', ', $category_names));
-                                } else {
-                                    echo 'カテゴリ未設定';
-                                }
-                                ?></div>
+								<?php foreach ($terms as $term) : ?>
+								<span><?php echo esc_html($term->name); ?></span>
+								<?php endforeach; ?>
+							</div>
+							<?php
+									endif;
+									?>
 							<div class="campaign-card__title"><?php the_title(); ?></div>
 						</div>
 						<div class="campaign-card__text">
 							<p class="campaign-card__price-info">
 								全部コミコミ(お一人様)
 							</p>
-							<p class="campaign-card__price-text">
-								<?php
-									// 古い価格を取得
-									$old_price = get_field('campaign-price_old');
-									// 新しい価格を取得
-									$new_price = get_field('campaign-price_new');
-
-									// 古い価格と新しい価格をそのまま表示
-									if ($old_price && $new_price) {
-											echo '<span>' . esc_html($old_price) . '</span> ' . esc_html($new_price);
-									} else {
-											echo '価格未設定';
-									}
-									?>
-							</p>
-
-
-
+							<div class="campaign-card__price-text">
+								<?php if (!empty($price_old)) : ?>
+								<p class="campaign-card__price-old">
+									<?php echo esc_html($price_old); ?>
+								</p>
+								<?php endif; ?>
+								<p class="campaign-card__price-new">
+									<?php echo esc_html($price_new); ?>
+								</p>
+							</div>
 						</div>
 					</div>
 				</li>
 				<?php endwhile; ?>
 			</ul>
-			<?php
-				else :
-    		echo '<p>キャンペーン情報はありません。</p>';
-				endif;
-				wp_reset_postdata(); // クエリのリセット
-				?>
 		</div>
-
 		<div class="top-campaign__button">
 			<a href="<?php echo esc_url(home_url('/campaign')); ?>" class="button">View&nbsp;more</a>
 		</div>
 	</div>
+
+	<?php endif  ?>
+	<?php wp_reset_postdata(); // クエリのリセット  ?>
 </section>
 
 <section class="top-aboutus inner top-aboutus-layout" id="aboutus">
@@ -169,6 +166,7 @@
 		<figure class="top-aboutus__sango-image u-desktop">
 			<img src="<?php echo get_theme_file_uri(); ?>/assets/images/accent01.png" alt="サンゴのイラスト" />
 		</figure>
+
 	</div>
 </section>
 
@@ -270,6 +268,14 @@
 
 
 <section class="top-voice top-voice-layout" id="voice">
+	<?php
+	 // サブループ: voiceカスタム投稿タイプを取得
+            $voice_query = new WP_Query(array(
+                'post_type' => 'voice', // カスタム投稿タイプ
+                'posts_per_page' => 2, // 表示件数
+            ));
+						if ($voice_query->have_posts()) :
+	?>
 	<div class="top-voice__inner inner">
 		<figure class="top-voice__fish-image u-desktop">
 			<img src="<?php echo get_theme_file_uri(); ?>/assets/images/accent03.png" alt="魚のイラスト" />
@@ -280,42 +286,36 @@
 		</div>
 		<ul class="top-voice__cards voice-cards">
 			<?php
-            // サブループ: voiceカスタム投稿タイプを取得
-            $voice_query = new WP_Query(array(
-                'post_type' => 'voice', // カスタム投稿タイプ
-                'posts_per_page' => 2, // 表示件数
-            ));
-						if ($voice_query->have_posts()) :
-                while ($voice_query->have_posts()) : $voice_query->the_post(); ?>
+        while ($voice_query->have_posts()) : $voice_query->the_post(); ?>
 			<li class="voice-cards__item voice-card">
 				<a href="#" class="voice-card__link">
 					<div class="voice-card__body">
 						<div class="voice-card__top">
 							<div class="voice-card__meta">
+
+								<?php
+                  $voice_tags = get_the_terms( get_the_ID(), 'voice_tag' );
+                  if ( ! empty( $voice_tags ) && ! is_wp_error( $voice_tags ) ) :?>
 								<div class="voice-card__tag">
-									<?php
-                            $voice_tags = get_the_terms( get_the_ID(), 'voice_tag' );
-                            if ( ! empty( $voice_tags ) && ! is_wp_error( $voice_tags ) ) {
-                                foreach( $voice_tags as $tag ) {
-                                    echo '<span>' . esc_html( $tag->name ) . '</span> ';
-                                }
-                            } else {
-                                echo '<span>タグなし</span>';
-                            }
-                            ?>
+									<?php  foreach( $voice_tags as $tag ): ?>
+									<span> <?php  echo esc_html( $tag->name ) ?></span>
+									<?php endforeach; ?>
 								</div>
+								<?php
+									endif;
+									?>
+								<?php
+                  $terms = get_the_terms( get_the_ID(), 'voice_category' );
+                    if ( ! empty( $terms ) && ! is_wp_error( $terms ) ):
+										?>
 								<div class="voice-card__category">
-									<?php
-                                $terms = get_the_terms( get_the_ID(), 'voice_category' );
-                                if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-                                    foreach( $terms as $term ) {
-                                        echo '<span>' . esc_html( $term->name ) . '</span> ';
-                                    }
-                                } else {
-                                    echo '<span>カテゴリなし</span>';
-                                }
-                                ?>
+									<?php foreach ($terms as $term) : ?>
+									<span><?php echo esc_html($term->name); ?></span>
+									<?php endforeach; ?>
 								</div>
+								<?php
+									endif;
+									?>
 							</div>
 							<div class="voice-card__title">
 								<?php the_title(); ?>
@@ -323,9 +323,9 @@
 						</div>
 						<figure class="voice-card__img colorbox">
 							<?php
-                    // アイキャッチ画像を取得して変数に格納
-                    $thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
-										// アイキャッチ画像がある場合は表示し、ない場合はデフォルト画像を表示
+               // アイキャッチ画像を取得して変数に格納
+                $thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
+								// アイキャッチ画像がある場合は表示し、ない場合はデフォルト画像を表示
 								if ( $thumbnail ) {
                         echo $thumbnail;
                     } else {
@@ -347,11 +347,7 @@
 					</div>
 				</a>
 			</li>
-			<?php endwhile;
-                wp_reset_postdata();
-            else : ?>
-			<p>お客様の声は現在ありません。</p>
-			<?php endif; ?>
+			<?php endwhile; ?>
 		</ul>
 		<div class="top-voice__button">
 			<a href="<?php echo esc_url(home_url('/voice')); ?>" class="button"> View more</a>
@@ -360,6 +356,8 @@
 			<img src="<?php echo get_theme_file_uri(); ?>/assets/images/accent04.png" alt="タツノオトシゴのイラスト" />
 		</figure>
 	</div>
+	<?php endif  ?>
+	<?php wp_reset_postdata(); // クエリのリセット  ?>
 </section>
 
 <section class="top-price top-price-layout" id="price">

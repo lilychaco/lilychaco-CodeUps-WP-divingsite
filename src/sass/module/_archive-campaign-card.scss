@@ -115,21 +115,17 @@
 
 .archive-campaign-card__price-text {
   margin-top: rem(4);
-  font-size: rem(32);
-  font-family: $forth-font-family;
-  font-weight: $bold;
-  line-height: 1;
-  letter-spacing: 0;
-  color: $greenaccent;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding-left: rem(20);
   padding-right: rem(18);
+	background-color: yellow;
 
   @include mq(md) {
     font-size: rem(40);
-    max-width: rem(280);
+    // max-width: rem(280);
     margin-inline: auto;
     width: 100%;
     padding-left: 0;

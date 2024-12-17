@@ -1,4 +1,4 @@
-@use "global" as *;
+@use "global"as *;
 
 .campaign-card {
   width: 100%;
@@ -11,18 +11,22 @@
 .campaign-card__img {
   width: 100%;
 }
+
 .campaign-card__img img {
   width: 100%;
   height: auto;
   aspect-ratio: 280 /188;
   object-fit: cover;
+
   @include mq(md) {
     aspect-ratio: 333 /223;
   }
 }
+
 .campaign-card__img--side img {
   aspect-ratio: 294 /188;
 }
+
 .campaign-card__body {
   width: 100%;
   padding-top: rem(16);
@@ -36,13 +40,13 @@
   @include mq(md) {
     padding-top: rem(24);
     padding-bottom: rem(44);
-    padding-right: rem(18);
   }
 }
 
 
 .campaign-card__top {
   padding-bottom: rem(8);
+
   @include mq(md) {
     padding-bottom: rem(6);
   }
@@ -50,22 +54,25 @@
 
 
 .campaign-card__category {
-  width: rem(108);
-  height: rem(30);
   font-size: rem(12);
   font-family: $base-font-family;
   font-weight: $regular;
   line-height: 1.83;
   letter-spacing: 0;
   color: $greenaccent;
-
-  display: grid;
-  place-items: center;
   border: 1px solid $greenaccent;
 
+  display: inline-block;
+  padding-left: rem(12);
+  padding-right: rem(12);
+  padding-top: rem(4);
+  padding-bottom: rem(4);
+
   @include mq(md) {
-    width: rem(116);
-    height: rem(34);
+    padding-left: rem(16);
+    padding-right: rem(16);
+    padding-top: rem(6);
+
   }
 }
 
@@ -83,10 +90,13 @@
   text-align: center;
   border-top: 1px solid $greenaccent;
   padding-top: rem(8);
+
   @include mq(md) {
     padding-top: rem(16);
   }
 }
+
+
 
 .campaign-card__price-info {
   font-size: rem(14);
@@ -95,6 +105,7 @@
   line-height: 1.71;
   letter-spacing: 0;
   text-align: center;
+
   @include mq(md) {
     font-size: rem(16);
     line-height: 1.5;
@@ -111,38 +122,62 @@
 }
 
 .campaign-card__price-text {
-  margin-top: rem(8);
-  font-size: rem(32);
-  font-family: $forth-font-family;
-  font-weight: $bold;
-  line-height: 1;
-  letter-spacing: 0;
-  color: $greenaccent;
+  margin-top: rem(4);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: rem(20);
+  padding-right: rem(18);
+
   @include mq(md) {
     font-size: rem(40);
-    padding-left: rem(4);
+    margin-inline: auto;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+
   }
 }
 
 
-.campaign-card__price-text span {
+.campaign-card__price-old {
+  display: inline-block;
+  margin-top: rem(16);
   font-size: rem(20);
   font-family: $forth-font-family;
   font-weight: $bold;
   line-height: 1;
   letter-spacing: 0;
   color: $font-color;
-  padding-right: rem(16);
   text-decoration: line-through;
   text-decoration-color: #c94800;
+
   @include mq(md) {
+    margin-top: rem(16);
     font-size: rem(24);
     padding-right: rem(26);
   }
 }
 
+.campaign-card__price-new {
+  margin-top: rem(4);
+  font-size: rem(32);
+  font-family: $forth-font-family;
+  font-weight: $bold;
+  line-height: 1;
+  letter-spacing: 0;
+  color: $greenaccent;
+
+  @include mq(md) {
+    font-size: rem(40);
+  }
+}
+
+
+
 .campaign-card__subbody {
   display: none;
+
   @include mq(md) {
     display: flex;
     flex-direction: column;
@@ -153,6 +188,7 @@
     color: $greenaccent;
   }
 }
+
 .campaign-card__subtext {
   font-size: rem(16);
   font-family: $base-font-family;
@@ -163,9 +199,11 @@
   text-align: left;
   flex-grow: 1;
 }
+
 .campaign-card__meta {
   margin-top: auto;
 }
+
 .campaign-card__date {
   margin-top: rem(32);
   font-size: rem(16);
