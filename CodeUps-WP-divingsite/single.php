@@ -25,10 +25,21 @@
 						</time>
 						<div class="single-blog__title"><?php the_title(); ?></div>
 						<figure class="single-blog__eyecatch">
-							<?php if (has_post_thumbnail()) : ?>
-							<?php the_post_thumbnail('full', ['alt' => esc_attr(get_the_title())]); ?> <?php else : ?> <img
-								src="<?php echo esc_url(get_theme_file_uri('/assets/images/default.jpg')); ?>"
-								alt="<?php esc_attr_e('Default Image', 'text-domain'); ?>" />
+							<?php
+									// アイキャッチ画像のHTMLを取得して変数に格納
+									$thumbnail = get_the_post_thumbnail(
+											get_the_ID(),
+											'full',
+											array('alt' => esc_attr(get_the_title()))
+									);
+									?>
+							<?php if ($thumbnail) : ?>
+							<!-- アイキャッチ画像が設定されている場合 -->
+							<?php echo $thumbnail; ?>
+							<?php else : ?>
+							<!-- アイキャッチ画像がない場合、デフォルト画像を表示 -->
+							<img src="<?php echo esc_url(get_theme_file_uri('assets/images/default.jpg')); ?>"
+								alt="<?php echo esc_attr__('Default Image', 'text-domain'); ?>" />
 							<?php endif; ?>
 						</figure>
 					</div>
