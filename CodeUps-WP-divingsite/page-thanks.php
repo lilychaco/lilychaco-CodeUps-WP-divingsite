@@ -10,6 +10,7 @@
 	<h2 class="mv__title">contact</h2>
 </section>
 <?php get_template_part('common/breadcrumb') ?>
+
 <div class="page-thanks page-thanks-layout">
 	<div class="page-thanks__inner inner">
 		<p class="page-thanks__title fish">

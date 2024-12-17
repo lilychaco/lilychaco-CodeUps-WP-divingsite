@@ -12,19 +12,18 @@
 <?php get_template_part('common/breadcrumb') ?>
 
 <div class="page-price page-price-layout">
-	<div class="page-price__inner inner">
-
-		<?php
+	<?php
 		// グループ外の単一フィールド「license_title」を取得
 			$license_title = SCF::get('license_title');
 
 			// Smart Custom Fields (SCF) を使って、'license_pricelist' グループを取得します。
 			$license_pricelist = SCF::get('license_pricelist');
 				?>
-		<?php
+	<?php
 			// 取得したデータが空でないかをチェックします。
 			if (!empty($license_pricelist)) :
 				?>
+	<div class="page-price__inner inner">
 		<div class="page-price__item page-price-list fish">
 			<div class="page-price-list__title">
 				<div class="page-price-list__heading">
@@ -177,7 +176,7 @@
 						foreach ($specialdiving_pricelist as $item) :
 						// 各アイテムの 'specialdiving_name' フィールドの値を取得します。
 						if (!empty($item['specialdiving_name'])) :
-    						?>
+					?>
 				<li class="page-price-list__item">
 					<p class="page-price-list__name">
 						<?= nl2br(esc_html($item['specialdiving_name'])); ?>
@@ -188,20 +187,12 @@
 					</p>
 					<?php endif; ?>
 				</li>
-				<?php
-								endif;
-						endforeach;
-					?>
+				<?php endif;  ?>
+				<?php endforeach; ?>
 			</ul>
 		</div>
-		<?php
-			else :
-					// 繰り返しフィールドが空の場合は何も表示しない
-			endif;
-			?>
 	</div>
+	<?php endif;  ?>
 </div>
-
-
 
 <?php get_footer(); ?>

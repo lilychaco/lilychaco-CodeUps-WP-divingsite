@@ -10,6 +10,7 @@
 	<h2 class="mv__title">information</h2>
 </section>
 <?php get_template_part('common/breadcrumb') ?>
+
 <div class="information information-layout">
 	<div class="information__inner inner">
 		<div class="information__tab tab fish-02">

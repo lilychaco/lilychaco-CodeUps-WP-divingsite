@@ -12,6 +12,7 @@
 <?php get_template_part('common/breadcrumb') ?>
 
 <div class="page-faq page-faq-layout">
+
 	<div class="page-faq__inner inner">
 		<div class="accordion fish">
 			<?php
@@ -24,7 +25,7 @@
     if (empty($question) || empty($answer)) {
         return; // 処理をここで終了
     }
-        ?>
+		?>
 			<div class="accordion__item accordion-card">
 				<div class="accordion-card__top js-accordion-top is-open">
 					<h3 class="accordion-card__title">

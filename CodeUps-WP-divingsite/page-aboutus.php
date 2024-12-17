@@ -43,14 +43,13 @@
 </div>
 
 
-<?php
+<section class="gallery gallery-layout">
+	<?php
 // gallery_imageフィールドのデータを取得
 $fields = SCF::get('gallery_image');
 
 // $fieldsが空の場合は<section>を出力しない
 if (!empty($fields)) : ?>
-
-<section class="gallery gallery-layout">
 	<div class="gallery__inner inner">
 		<div class="gallery__heading section-heading">
 			<h3 class="section-heading__title">gallery</h3>
@@ -73,8 +72,7 @@ if (!empty($fields)) : ?>
 		<!-- 画像のモーダル時のグレー背景 -->
 		<div class="gallery__display" id="grayDisplay"></div>
 	</div>
+	<?php endif;  ?>
 </section>
-<?php endif;  ?>
-
 
 <?php get_footer(); ?>

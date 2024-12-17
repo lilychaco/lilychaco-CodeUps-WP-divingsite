@@ -55,30 +55,32 @@
 						<div class="voice-card__body">
 							<div class="voice-card__top">
 								<div class="voice-card__meta">
+									<?php
+                  $voice_tags = get_the_terms( get_the_ID(), 'voice_tag' );
+                  if ( ! empty( $voice_tags ) && ! is_wp_error( $voice_tags ) ) :?>
 									<div class="voice-card__tag">
-										<?php
-                            $voice_tags = get_the_terms( get_the_ID(), 'voice_tag' );
-                            if ( ! empty( $voice_tags ) && ! is_wp_error( $voice_tags ) ) {
-                                foreach( $voice_tags as $tag ) {
-                                    echo '<span>' . esc_html( $tag->name ) . '</span> ';
-                                }
-                            } else {
-                                echo '<span>タグなし</span>';
-                            }
-                            ?>
+										<?php foreach( $voice_tags as $tag ):  ?>
+										<span> <?php  echo esc_html( $tag->name ) ?></span>
+										<?php endforeach; ?>
 									</div>
-									<div class="voice-card__category">
-										<span>
-											<?php single_term_title(); // タクソノミー名を表示 ?>
-										</span>
-									</div>
+									<?php endif; ?>
+
+									<<?php
+                  $terms = get_the_terms( get_the_ID(), 'voice_category' );
+                    if ( ! empty( $terms ) && ! is_wp_error( $terms ) ):
+										?> <div class="voice-card__category">
+										<?php foreach ($terms as $term) : ?>
+										<span><?php echo esc_html($term->name); ?></span>
+										<?php endforeach; ?>
 								</div>
-								<div class="voice-card__title">
-									<?php the_title(); ?>
-								</div>
+								<?php endif; ?>
 							</div>
-							<figure class="voice-card__img colorbox">
-								<?php
+							<div class="voice-card__title">
+								<?php the_title(); ?>
+							</div>
+						</div>
+						<figure class="voice-card__img colorbox">
+							<?php
                     // アイキャッチ画像を取得して変数に格納
                     $thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
 										// アイキャッチ画像がある場合は表示し、ない場合はデフォルト画像を表示
@@ -89,31 +91,33 @@
                         echo '<img src="' . esc_url( get_theme_file_uri() . '/assets/images/voice01.jpg' ) . '" alt="' . esc_attr( get_the_title() ) . 'の画像" />';
                     }
                     ?>
-							</figure>
-						</div>
-						<div class="voice-card__text">
-							<?php the_excerpt(); // 抜粋を表示 ?>
-						</div>
-					</a>
-				</li>
-				<?php endwhile; endif; ?>
-			</ul>
+						</figure>
 		</div>
-
-
-		<!-- ページネーション -->
-		<div class="archive-voice__nav page-nav">
-			<ul class="page-nav__pager">
-				<?php
-				// ページナビの表示
-				if (function_exists('wp_pagenavi')) {
-					wp_pagenavi();
-				}
-				?>
-			</ul>
+		<div class="voice-card__text">
+			<?php
+            // 本文を取得し、HTMLタグを除去、171文字に制限して表示
+            $content = strip_tags( get_the_content() ); // HTMLタグを除去
+            $trimmed_content = mb_strlen( $content, 'UTF-8' ) > 171
+                ? mb_substr( $content, 0, 171, 'UTF-8' ) . ''
+                : $content; // 171文字に切り詰め、省略記号を追加
+            echo esc_html( $trimmed_content ); // エスケープして表示
+            ?>
 		</div>
-
+		</a>
+		</li>
+		<?php endwhile; endif; ?>
+		</ul>
 	</div>
+
+
+	<!-- ページネーション -->
+	<div class="archive-voice__nav page-nav">
+		<ul class="page-nav__pager">
+			<?php wp_pagenavi(); ?>
+		</ul>
+	</div>
+
+</div>
 </div>
 
 

@@ -8,8 +8,8 @@
 	</figure>
 
 	<h2 class="mv__title"><?php echo get_the_archive_title(); ?></h2>
-
 </section>
+
 <?php get_template_part('common/breadcrumb'); ?>
 
 <div class="archive-campaign archive-campaign-layout">
@@ -95,8 +95,7 @@
 					</div>
 				</div>
 			</li>
-			<?php endwhile; else: ?>
-			<p>No campaigns found.</p>
+			<?php endwhile; ?>
 			<?php endif; ?>
 		</ul>
 
@@ -104,12 +103,7 @@
 		<!-- ページネーション -->
 		<div class="archive-campaign__nav page-nav">
 			<ul class="page-nav__pager">
-				<?php
-				// ページナビの表示
-				if (function_exists('wp_pagenavi')) {
-					wp_pagenavi();
-				}
-				?>
+				<?php wp_pagenavi(); ?>
 			</ul>
 		</div>
 
