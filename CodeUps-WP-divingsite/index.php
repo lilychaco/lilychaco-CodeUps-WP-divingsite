@@ -215,10 +215,7 @@
 			<?php
 			// カスタムクエリの設定
 			$args = array(
-				'post_type' => 'post', // 投稿タイプを指定
 				'posts_per_page' => 3, // 表示する投稿数を指定
-				'orderby' => 'date', // 日付でソート
-				'order' => 'DESC' // 降順
 			);
 			$query = new WP_Query($args);
 

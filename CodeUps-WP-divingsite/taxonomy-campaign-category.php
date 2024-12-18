@@ -84,12 +84,16 @@
 							全部コミコミ(お一人様)
 						</p>
 						<div class="archive-campaign-card__price-text">
+							<?php if (!empty($price_old)) : ?>
 							<p class="archive-campaign-card__price-old">
 								<?php echo esc_html($price_old); ?>
 							</p>
+							<?php endif; ?>
+							<?php if (!empty($price_new)) : ?>
 							<p class="archive-campaign-card__price-new">
 								<?php echo esc_html($price_new); ?>
 							</p>
+							<?php endif; ?>
 						</div>
 					</div>
 					<div class="archive-campaign-card__subbody">

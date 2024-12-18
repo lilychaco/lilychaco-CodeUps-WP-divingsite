@@ -126,8 +126,12 @@
 										全部コミコミ(お一人様)
 									</p>
 									<div class="side-campaign__price">
+										<?php if (!empty($price_ole)) : ?>
 										<p class="side-campaign__price-before"><?php echo esc_html($price_old); ?></p>
+										<?php endif; ?>
+										<?php if (!empty($price_new)) : ?>
 										<p class="side-campaign__price-after"><?php echo esc_html($price_new); ?></p>
+										<?php endif; ?>
 									</div>
 								</div>
 							</div>

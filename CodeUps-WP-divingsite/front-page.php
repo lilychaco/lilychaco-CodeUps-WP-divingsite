@@ -114,10 +114,13 @@
 									<?php echo esc_html($price_old); ?>
 								</p>
 								<?php endif; ?>
-								<p class="campaign-card__price-new">
+								<?php if (!empty($price_new)) : ?>
+								<p class="archive-campaign-card__price-new">
 									<?php echo esc_html($price_new); ?>
 								</p>
+								<?php endif; ?>
 							</div>
+
 						</div>
 					</div>
 				</li>
@@ -200,10 +203,7 @@
 	<?php
 			// カスタムクエリの設定
 			$args = array(
-				'post_type' => 'post', // 投稿タイプを指定
 				'posts_per_page' => 3, // 表示する投稿数を指定
-				'orderby' => 'date', // 日付でソート
-				'order' => 'DESC' // 降順
 			);
 			$query = new WP_Query($args);
 				if ($query->have_posts()) :
