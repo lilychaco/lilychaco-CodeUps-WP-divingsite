@@ -94,7 +94,14 @@
 					</div>
 					<div class="archive-campaign-card__subbody">
 						<div class="archive-campaign-card__subtext">
-							<?php the_excerpt(); ?>
+							<?php
+									// 本文を取得し、HTMLタグを除去、86文字に制限して表示
+									$content = strip_tags( get_the_content() ); // HTMLタグを除去
+									$trimmed_content = mb_strlen( $content, 'UTF-8' ) > 164
+									? mb_substr( $content, 0, 164, 'UTF-8' ) . ''
+									: $content; // 86文字に切り詰め、省略記号を追加
+									echo esc_html( $trimmed_content ); // エスケープして表示
+									?>
 						</div>
 						<div class="archive-campaign-card__meta">
 							<div class="archive-campaign-card__date"><?php echo esc_html($period); ?></div>

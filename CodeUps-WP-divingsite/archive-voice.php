@@ -101,19 +101,6 @@
 								<?php endif; ?>
 							</figure>
 
-							<figure class="voice-card__img colorbox">
-								<?php
-                    // アイキャッチ画像を取得して変数に格納
-                    $thumbnail = get_the_post_thumbnail(get_the_ID(), 'full', array('alt' => get_the_title()));
-										?>
-
-								<?php if ( $thumbnail ) : ?>
-								<?= $thumbnail ?>
-								<?php else : ?>
-								<img src="<?= esc_url( get_theme_file_uri() . '/assets/images/voice01.jpg' ) ?>"
-									alt="<?= esc_attr( get_the_title() ) ?>の画像" />
-								<?php endif; ?>
-							</figure>
 						</div>
 						<div class=" voice-card__text">
 							<?php
