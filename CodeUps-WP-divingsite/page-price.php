@@ -55,11 +55,7 @@
         ?>
 			</ul>
 		</div>
-		<?php
-				else :
-						// 繰り返しフィールドが空の場合は何も表示しない
-				endif;
-				?>
+		<?php endif; ?>
 
 		<?php
 				// グループ外の単一フィールド「experience_title」を取得
@@ -100,11 +96,7 @@
         ?>
 			</ul>
 		</div>
-		<?php
-			else :
-					// 繰り返しフィールドが空の場合は何も表示しない
-			endif;
-			?>
+		<?php endif; ?>
 
 		<?php
 		// グループ外の単一フィールド「fundiving_title」を取得
@@ -142,11 +134,7 @@
             endforeach; ?>
 			</ul>
 		</div>
-		<?php
-			else :
-					// 繰り返しフィールドが空の場合は何も表示しない
-			endif;
-			?>
+		<?php endif; ?>
 
 
 		<?php

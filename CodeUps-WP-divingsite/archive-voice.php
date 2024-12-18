@@ -19,7 +19,7 @@
 			<!-- カテゴリリスト部分 -->
 			<ul class="archive-voice__category-list category-list">
 				<li class="category-list__item">
-					<!-- ALLカテゴリへのリンク（archive-campaign.phpに戻る） -->
+					<!-- ALLカテゴリへのリンク -->
 					<a href="<?php echo esc_url(get_post_type_archive_link('voice')); ?>"
 						class="category-list__link <?php echo (!isset($_GET['term']) || $_GET['term'] == 'all') ? 'is-current' : ''; ?>">
 						ALL

@@ -16,8 +16,8 @@
 
 			<!-- カテゴリリスト部分 -->
 			<ul class="archive-voice__category-list category-list">
-				<!-- ALL のリンク -->
 				<li class="category-list__item">
+					<!-- ALL へのリンク -->
 					<a href="<?php echo esc_url(get_post_type_archive_link('voice')); ?>"
 						class="category-list__link <?php echo (is_post_type_archive('voice') || is_tax('voice_category')) ? '' : 'is-current'; ?>">
 						ALL
