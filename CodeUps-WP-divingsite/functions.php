@@ -256,45 +256,6 @@ add_action('pre_get_posts', 'modify_main_query');
 
 
 
-
-/*-----------------------------------
-// カスタムタクソノミーをチェックボックスで表示する
------------------------------------*/
-function my_add_new_tags_metabox() {
-add_meta_box('custom-tagsdiv', 'タグ', 'my_metabox_content', 'voice', 'side', 'default');
-}
-add_action('add_meta_boxes', 'my_add_new_tags_metabox');
-
-function my_metabox_content($post) {
-$all_tags = get_terms(array('taxonomy' => 'voice_tag', 'hide_empty' => false));
-$all_tags_of_post = get_the_terms($post->ID, 'voice_tag');
-$ids = array();
-
-if ($all_tags_of_post && !is_wp_error($all_tags_of_post)) {
-foreach ($all_tags_of_post as $tag) {
-$ids[] = $tag->term_id;
-}
-}
-
-// HTML
-echo '<div id="taxonomy-voice_tag" class="categorydiv">';
-	echo '<input type="hidden" name="tax_input[voice_tag][]" value="0" />';
-	echo '<ul>';
-		if (!is_wp_error($all_tags)) {
-		foreach ($all_tags as $tag) {
-		$checked = in_array($tag->term_id, $ids) ? " checked='checked'" : "";
-		$id = 'voice_tag-' . esc_attr($tag->term_id); // エスケープ処理
-		echo "<li id='{$id}'>";
-			echo "<label><input type='checkbox' name='tax_input[voice_tag][]' id='in-$id' value='$tag->slug' {$checked} />
-				$tag->name</label><br />";
-			echo "</li>";
-		}
-		}
-		echo '</ul>
-</div>'; // end HTML
-}
-
-
 /*-----------------------------------
 投稿タイプのラベルを変更
 -----------------------------------*/

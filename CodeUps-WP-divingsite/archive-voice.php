@@ -58,12 +58,16 @@
 							<div class="voice-card__top">
 								<div class="voice-card__meta">
 									<?php
-                  $voice_tags = get_the_terms( get_the_ID(), 'voice_tag' );
-                  if ( ! empty( $voice_tags ) && ! is_wp_error( $voice_tags ) ) :?>
+										// 年齢の値を取得
+										$age = get_field('tag_age'); // ACFのフィールド名 "tag_age" を指定
+										// 性別の値を取得
+										$sex = get_field('tag_sex'); // ACFのフィールド名 "tag_sex" を指定
+
+										// 年齢と性別が両方設定されている場合にHTMLを出力
+										if ($age && $sex): ?>
 									<div class="voice-card__tag">
-										<?php foreach( $voice_tags as $tag ):  ?>
-										<span> <?php  echo esc_html( $tag->name ) ?></span>
-										<?php endforeach; ?>
+										<?php echo esc_html($age); // 年齢を表示 ?>
+										<span><?php echo esc_html($sex); // 性別を表示 ?></span>
 									</div>
 									<?php endif; ?>
 
