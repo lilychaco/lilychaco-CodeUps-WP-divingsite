@@ -4307,10 +4307,13 @@ html {
 }
 
 .blog__items {
-	grid-gap: 2.5rem;
+	grid-row-gap: 5rem;
+	grid-column-gap: 2.5rem;
+	-moz-column-gap: 2.5rem;
+	column-gap: 2.5rem;
 	display: grid;
-	gap: 2.5rem;
 	grid-template-columns: 1fr 1fr;
+	row-gap: 5rem;
 }
 
 .blog__nav {

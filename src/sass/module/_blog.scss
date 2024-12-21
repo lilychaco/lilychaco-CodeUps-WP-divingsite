@@ -1,32 +1,33 @@
-@use "global" as *;
+@use "global"as *;
 
 .blog {
   margin-inline: auto;
   width: 100%;
-  @include mq(md) {
 
-  }
+  @include mq(md) {}
 }
+
 .blog__container {
-	margin-inline: auto;
+  margin-inline: auto;
   width: 100%;
 
   @include mq(md) {
     display: grid;
     grid-template-columns: 65.4% 27.2%;
     gap: 7.4%;
-}}
+  }
+}
 
 .blog__main {
   margin-inline: auto;
   width: 100%;
-	padding-left: rem(6);
+  padding-left: rem(6);
   padding-right: rem(6);
 
-		@include mq(md) {
-		padding-left: 0;
-		padding-right: 0;
-	}
+  @include mq(md) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .blog__items {
@@ -39,19 +40,21 @@
   @include mq(md) {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: rem(40);
+    row-gap: rem(80); // 縦の余白を80pxに指定
+    column-gap: rem(40); // 横方向の余白を維持
   }
 }
 
 .blog__nav {
   margin-top: rem(78);
-	@include mq(md) {
-			margin-top: rem(74);
-	}
-	}
+
+  @include mq(md) {
+    margin-top: rem(74);
+  }
+}
 
 .blog__side {
-	margin-inline: auto;
+  margin-inline: auto;
   width: 100%;
   padding-left: rem(25);
   padding-right: rem(25);
@@ -67,6 +70,7 @@
 
 .blog__contact {
   margin-top: rem(80);
+
   @include mq(md) {
     margin-top: rem(100);
   }
