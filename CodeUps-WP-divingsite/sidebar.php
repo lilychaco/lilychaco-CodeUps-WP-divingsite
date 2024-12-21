@@ -71,7 +71,21 @@
 								<img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
 									alt="<?php echo esc_attr(get_the_title()); ?>" />
 							</div>
-							<p class="side-voice__caption"><?php echo esc_html(get_post_meta(get_the_ID(), 'caption', true)); ?></p>
+							<p class="side-voice__caption">
+								<?php
+										// 年齢の値を取得
+										$age = get_field('tag_age'); // ACFのフィールド名 "tag_age" を指定
+										// 性別の値を取得
+										$sex = get_field('tag_sex'); // ACFのフィールド名 "tag_sex" を指定
+
+										// 年齢と性別が両方設定されている場合にHTMLを出力
+										if ($age && $sex): ?>
+								<?php echo esc_html($age); // 年齢を表示 ?>
+								<span>
+									<span>&#40;<?php echo esc_html($sex); // 性別を表示 ?>&#41;</span>
+								</span>
+								<?php endif; ?>
+							</p>
 							<div class="side-voice__title">
 								<?php the_title(); ?>
 							</div>
@@ -91,21 +105,23 @@
 							// 最新のキャンペーン情報を取得
 							$latest_campaign_args = array(
 								'post_type' => 'campaign', // カスタム投稿タイプが 'campaign' であることを指定
-								'posts_per_page' => 2,  // 3件のみ取
+								'posts_per_page' => 2,  // 2件のみ取
 								'orderby' => 'date',    // 日付順で取得
 								'order' => 'DESC'       // 降順で取得
 							);
 
 							$latest_campaign_query = new WP_Query($latest_campaign_args);
-							// カスタムフィールドの値を取得
-							$price_old = get_field('campaign-price_old');
-							$price_new = get_field('campaign-price_new');
-							$period = get_field('campaign-period');
 
 							if ($latest_campaign_query->have_posts()) : ?>
 					<h2 class="side-campaign__heading side-heading">キャンペーン</h2>
 					<ul class="side-campaign__items">
 						<?php while ($latest_campaign_query->have_posts()) : $latest_campaign_query->the_post(); ?>
+						<?php
+								// 現在の投稿のカスタムフィールドを取得
+								$price_old = get_field('campaign-price_old');
+								$price_new = get_field('campaign-price_new');
+								$period = get_field('campaign-period');
+								?>
 						<li class="side-campaign__item">
 							<figure class="side-campaign__img">
 								<?php
@@ -126,7 +142,7 @@
 										全部コミコミ(お一人様)
 									</p>
 									<div class="side-campaign__price">
-										<?php if (!empty($price_ole)) : ?>
+										<?php if (!empty($price_old)) : ?>
 										<p class="side-campaign__price-before"><?php echo esc_html($price_old); ?></p>
 										<?php endif; ?>
 										<?php if (!empty($price_new)) : ?>

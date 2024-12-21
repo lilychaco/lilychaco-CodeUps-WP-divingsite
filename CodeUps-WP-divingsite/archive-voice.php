@@ -67,7 +67,9 @@
 										if ($age && $sex): ?>
 									<div class="voice-card__tag">
 										<?php echo esc_html($age); // 年齢を表示 ?>
-										<span><?php echo esc_html($sex); // 性別を表示 ?></span>
+										<span>
+											<span>&#40;<?php echo esc_html($sex); // 性別を表示 ?>&#41;</span>
+										</span>
 									</div>
 									<?php endif; ?>
 

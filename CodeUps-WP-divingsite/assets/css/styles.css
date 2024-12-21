@@ -334,7 +334,6 @@ time {
 }
 
 .archive-campaign-card__price-text {
-	background-color: yellow;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -3270,7 +3269,7 @@ span.wpcf7-spinner {
 	align-items: flex-end;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 	padding-left: 1.125rem;
 	padding-right: 1.125rem;
 }

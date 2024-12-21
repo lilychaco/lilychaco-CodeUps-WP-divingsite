@@ -65,26 +65,25 @@
 										if ($age && $sex): ?>
 									<div class="voice-card__tag">
 										<?php echo esc_html($age); // 年齢を表示 ?>
-										<span><?php echo esc_html($sex); // 性別を表示 ?></span>
+										<span>&#40;<?php echo esc_html($sex); // 性別を表示 ?>&#41;</span>
 									</div>
 									<?php endif; ?>
-
-									<<?php
+									<?php
                   $terms = get_the_terms( get_the_ID(), 'voice_category' );
                     if ( ! empty( $terms ) && ! is_wp_error( $terms ) ):
 										?> <div class="voice-card__category">
 										<?php foreach ($terms as $term) : ?>
 										<span><?php echo esc_html($term->name); ?></span>
 										<?php endforeach; ?>
+									</div>
+									<?php endif; ?>
 								</div>
-								<?php endif; ?>
+								<div class="voice-card__title">
+									<?php the_title(); ?>
+								</div>
 							</div>
-							<div class="voice-card__title">
-								<?php the_title(); ?>
-							</div>
-						</div>
-						<figure class="voice-card__img colorbox">
-							<?php
+							<figure class="voice-card__img colorbox">
+								<?php
 								// アイキャッチ画像のHTMLを取得して変数に格納
 								$thumbnail = get_the_post_thumbnail(
 										get_the_ID(),
@@ -92,19 +91,19 @@
 										array('alt' => esc_attr(get_the_title() . 'の画像'))
 								);
 								?>
-							<?php if ($thumbnail) : ?>
-							<!-- アイキャッチ画像が設定されている場合 -->
-							<?php echo $thumbnail; ?>
-							<?php else : ?>
-							<!-- アイキャッチ画像がない場合、デフォルト画像を表示 -->
-							<img src="<?php echo esc_url(get_theme_file_uri('assets/images/voice01.jpg')); ?>"
-								alt="<?php echo esc_attr(get_the_title() . 'の画像'); ?>" />
-							<?php endif; ?>
-						</figure>
+								<?php if ($thumbnail) : ?>
+								<!-- アイキャッチ画像が設定されている場合 -->
+								<?php echo $thumbnail; ?>
+								<?php else : ?>
+								<!-- アイキャッチ画像がない場合、デフォルト画像を表示 -->
+								<img src="<?php echo esc_url(get_theme_file_uri('assets/images/voice01.jpg')); ?>"
+									alt="<?php echo esc_attr(get_the_title() . 'の画像'); ?>" />
+								<?php endif; ?>
+							</figure>
 
-		</div>
-		<div class="voice-card__text">
-			<?php
+						</div>
+						<div class="voice-card__text">
+							<?php
             // 本文を取得し、HTMLタグを除去、171文字に制限して表示
             $content = strip_tags( get_the_content() ); // HTMLタグを除去
             $trimmed_content = mb_strlen( $content, 'UTF-8' ) > 171
@@ -112,22 +111,22 @@
                 : $content; // 171文字に切り詰め、省略記号を追加
             echo esc_html( $trimmed_content ); // エスケープして表示
             ?>
+						</div>
+					</a>
+				</li>
+				<?php endwhile; endif; ?>
+			</ul>
 		</div>
-		</a>
-		</li>
-		<?php endwhile; endif; ?>
-		</ul>
+
+
+		<!-- ページネーション -->
+		<div class="archive-voice__nav page-nav">
+			<ul class="page-nav__pager">
+				<?php wp_pagenavi(); ?>
+			</ul>
+		</div>
+
 	</div>
-
-
-	<!-- ページネーション -->
-	<div class="archive-voice__nav page-nav">
-		<ul class="page-nav__pager">
-			<?php wp_pagenavi(); ?>
-		</ul>
-	</div>
-
-</div>
 </div>
 
 
