@@ -195,15 +195,6 @@ add_filter('wp_pagenavi', 'custom_pagenavi_html');
 
 
 
-//カスタム投稿のタグをチェックボックスで入力できるようにする
-// デフォルトで表示されているメタボックスを消去するー消去できていない
-function my_tag_meta_box_remove() {
-    remove_meta_box('tagsdiv-voice_tag', 'voice', 'side');
-}
-add_action('admin_init', 'my_tag_meta_box_remove');
-
-
-
 /*-----------------------------------
 // メインループで campaign を取得するためのフィルター追加
 -----------------------------------*/
