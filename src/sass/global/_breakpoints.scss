@@ -61,6 +61,7 @@ $mediaquerys: (sm: "screen",
 
   //モバイルのみ表示
   .u-mobile {
+    display: block;
     @include mq("md") {
       display: none;
     }
@@ -98,4 +99,3 @@ $mediaquerys: (sm: "screen",
     margin-left: 0;
   }
 }
-

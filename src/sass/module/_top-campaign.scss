@@ -18,12 +18,20 @@
   margin-top: rem(28);
   padding-bottom: rem(4);
 
-
   @include mq(md) {
     margin-top: rem(40);
     margin-right: calc(50% - 50vw);
+    padding-bottom: rem(10);
   }
 }
+
+.top-campaign__cards-wrapper.swiper {
+  padding-bottom: rem(10);
+}
+
+
+
+
 
 //swiper-wrapperの範囲を指定
 .top-campaign__cards {
@@ -33,8 +41,8 @@
 
 .top-campaign__button {
   margin-top: rem(40);
-	margin-inline:auto;
-	text-align: center;
+  margin-inline: auto;
+  text-align: center;
   padding-bottom: rem(4);
 
   @include mq(md) {

@@ -12,7 +12,6 @@
 <?php get_template_part('common/breadcrumb') ?>
 
 <div class="page-faq page-faq-layout">
-
 	<div class="page-faq__inner inner">
 		<div class="accordion fish">
 			<?php
@@ -36,9 +35,9 @@
 					</div>
 				</div>
 				<div class="accordion-card__body">
-					<?php if (!empty($answer)) { ?>
+					<?php if (!empty($answer)) : ?>
 					<p class="accordion-card__content"><?php echo nl2br(esc_html($answer)); ?></p>
-					<?php } ?>
+					<?php endif; ?>
 				</div>
 			</div>
 			<?php } ?>

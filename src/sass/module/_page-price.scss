@@ -1,19 +1,23 @@
-@use "global" as *;
+@use "global"as *;
 
 .page-price {
-	margin-inline:auto;
-	width:100%;
+  margin-inline: auto;
+  width: 100%;
 }
+
 .page-price__inner {
-	margin-inline:auto;
-	width:100%;
-	@include mq(md) {
-	max-width: rem(700);
-		}
+  margin-inline: auto;
+  width: 100%;
+
+  @include mq(md) {
+    max-width: rem(750);//余白分50pxを足している
+  }
 }
-.page-price__item:not(:first-child){
-	margin-top:rem(40);
-	@include mq(md) {
-			margin-top:rem(78);
-	}
+
+.page-price__item:not(:first-child) {
+  margin-top: rem(40);
+
+  @include mq(md) {
+    margin-top: rem(78);
+  }
 }

@@ -8,6 +8,10 @@ body {
 	display: none;
 }
 
+.u-mobile {
+	display: block;
+}
+
 .sp-line-break {
 	display: block;
 	margin-top: 0.5em;
@@ -3741,6 +3745,10 @@ span.wpcf7-spinner {
 	width: 100vw;
 }
 
+.top-campaign__cards-wrapper.swiper {
+	padding-bottom: 0.625rem;
+}
+
 .top-campaign__cards {
 	height: 100%;
 	width: 100vw;
@@ -4934,7 +4942,7 @@ html {
 .page-faq__inner {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: 43.75rem;
+	max-width: 46.875rem;
 	width: 100%;
 }
 
@@ -4974,7 +4982,7 @@ html {
 }
 
 .page-price__inner {
-	max-width: 43.75rem;
+	max-width: 46.875rem;
 }
 
 .page-price__item:not(:first-child) {
@@ -5342,6 +5350,7 @@ html {
 .top-campaign__cards-wrapper {
 	margin-right: calc(50% - 50vw);
 	margin-top: 2.5rem;
+	padding-bottom: 0.625rem;
 }
 
 .top-campaign__button {

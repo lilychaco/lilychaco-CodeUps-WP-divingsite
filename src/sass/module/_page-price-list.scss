@@ -1,8 +1,9 @@
-@use "global" as *;
+@use "global"as *;
 
 .page-price-list {
-	margin-inline: auto;
+  margin-inline: auto;
   width: 100%;
+
   @include mq(md) {
     display: grid;
     grid-template-columns: 28.6% 71.4%;
@@ -13,39 +14,46 @@
   width: 100%;
   background-color: $greenaccent;
   color: $white;
+
   padding-top: rem(8);
   padding-bottom: rem(8);
   text-align: center;
-	@include mq(md) {
-			display: flex;
-			place-content:center;
-	}
+
+  @include mq(md) {
+    display: flex;
+    place-content: center;
+  }
 }
+
 .page-price-list__heading {
   display: flex;
   justify-content: center;
   align-items: center;
+
   @include mq(md) {
     flex-direction: column-reverse;
   }
 }
-.page-price-list__heading p{
-	font-size: rem(16);
+
+.page-price-list__heading p {
+  font-size: rem(16);
   font-family: $base-font-family;
   font-weight: $bold;
   line-height: 1.5;
   letter-spacing: 0;
 }
+
 .page-price-list__icon {
   margin-right: 8px;
   width: rem(24);
   height: rem(24);
+
   @include mq(md) {
     width: rem(64);
     height: rem(64);
-		text-align: center;
-		margin-top:rem(8);
-		margin-right:0;
+    text-align: center;
+    margin-top: rem(8);
+    margin-right: 0;
   }
 }
 
@@ -59,18 +67,20 @@
   grid-template-columns: 70% 30%;
   height: auto;
   min-height: rem(60);
-	border-top:1px solid $greenaccent;
+  border-top: 1px solid $greenaccent;
   border-left: 1px solid $greenaccent;
   border-right: 1px solid $greenaccent;
-	@include mq(md) {
-			grid-template-columns: 67.7% 32.3%;
-			border-left: none;
-	}
+
+  @include mq(md) {
+    grid-template-columns: 67.7% 32.3%;
+    border-left: none;
+  }
 }
 
 .page-price-list__item:last-child {
-	border-bottom: 1px solid $greenaccent;
+  border-bottom: 1px solid $greenaccent;
 }
+
 .page-price-list__name {
   text-align: center;
   display: flex;
@@ -83,7 +93,7 @@
   font-weight: $regular;
 
   @include mq(md) {
-		text-align: left;
+    text-align: left;
     justify-content: flex-start;
     padding-left: rem(16);
 

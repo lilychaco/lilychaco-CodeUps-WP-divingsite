@@ -44,7 +44,8 @@
             if (!empty($item['license_kinds'])) :
         ?>
 				<li class="page-price-list__item">
-					<p class="page-price-list__name"><?php echo nl2br(esc_html($item['license_kinds'])); ?></p>
+
+					<p class="page-price-list__name"><?php echo wp_kses_post($item['license_kinds']); ?></p>
 					<?php if (!empty($item['license_price'])) : ?>
 					<p class="page-price-list__number"><?php echo esc_html($item['license_price']); ?></p>
 					<?php endif; ?>
@@ -85,7 +86,8 @@
         ?>
 
 				<li class="page-price-list__item">
-					<p class="page-price-list__name"><?php echo nl2br(esc_html($item['experience_name'])); ?></p>
+					<p class="page-price-list__name"><?php echo wp_kses_post($item['experience_name']); ?></p>
+
 					<?php if (!empty($item['experience_price'])) : ?>
 					<p class="page-price-list__number"><?php echo esc_html($item['experience_price']); ?></p>
 					<?php endif; ?>
@@ -123,7 +125,7 @@
                 // 'fundiving_name' フィールドの値を取得して出力します。
                 if (!empty($item['fundiving_name'])) : ?>
 				<li class="page-price-list__item">
-					<p class="page-price-list__name"><?php echo nl2br(esc_html($item['fundiving_name'])); ?></p>
+					<p class="page-price-list__name"><?php echo wp_kses_post($item['fundiving_name']); ?></p>
 					<?php
               // 'fundiving_price' フィールドが存在する場合は値を出力します。
               if (!empty($item['fundiving_price'])) : ?>
@@ -166,13 +168,9 @@
 						if (!empty($item['specialdiving_name'])) :
 					?>
 				<li class="page-price-list__item">
-					<p class="page-price-list__name">
-						<?= nl2br(esc_html($item['specialdiving_name'])); ?>
-					</p>
+					<p class="page-price-list__name"><?php echo wp_kses_post($item['specialdiving_name']); ?></p>
 					<?php if (!empty($item['specialdiving_price'])) : ?>
-					<p class="page-price-list__number">
-						<?= esc_html($item['specialdiving_price']); ?>
-					</p>
+					<p class="page-price-list__number"><?php echo esc_html($item['specialdiving_price']); ?></p>
 					<?php endif; ?>
 				</li>
 				<?php endif;  ?>
