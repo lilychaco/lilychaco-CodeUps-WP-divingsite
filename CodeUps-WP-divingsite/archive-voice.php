@@ -67,12 +67,12 @@
 								if($userAge && $userGender):
 												?>
 									<div class="voice-card__tag">
-										<?php if ( $userAge ){
-                          echo esc_html( $userAge );
-                        } ?>
-										(<?php if ( $userGender ){
-                          echo esc_html( $userGender );
-                        } ?>)
+										<?php if ( $userAge ): ?>
+										<?php echo esc_html( $userAge ); ?>
+										<?php endif; ?>
+										(<?php if ( $userGender ): ?>
+										<?php echo esc_html( $userGender ); ?>
+										<?php endif; ?>)
 									</div>
 									<?php endif; ?>
 

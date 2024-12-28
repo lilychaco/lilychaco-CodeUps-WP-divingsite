@@ -83,16 +83,14 @@
 												// 年齢と性別が両方設定されている場合にHTMLを出力
 								if($userAge && $userGender):
 												?>
-								<?php if ( $userAge ){
-                          echo esc_html( $userAge );
-                        } ?>
-								<span>
-									(<?php if ( $userGender ){
-                          echo esc_html( $userGender );
-                        } ?>)
-								</span>
+								<?php if ( $userAge ): ?>
+								<?php echo esc_html( $userAge ); ?>
 								<?php endif; ?>
+								(<?php if ( $userGender ): ?>
+								<?php echo esc_html( $userGender ); ?>
+								<?php endif; ?>)
 							</p>
+							<?php endif; ?>
 							<div class="side-voice__title">
 								<?php the_title(); ?>
 							</div>
