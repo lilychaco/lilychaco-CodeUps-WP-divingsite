@@ -116,12 +116,7 @@
 					<h2 class="side-campaign__heading side-heading">キャンペーン</h2>
 					<ul class="side-campaign__items">
 						<?php while ($latest_campaign_query->have_posts()) : $latest_campaign_query->the_post(); ?>
-						<?php
-								// 現在の投稿のカスタムフィールドを取得
-								$price_old = get_field('campaign-price_old');
-								$price_new = get_field('campaign-price_new');
-								$period = get_field('campaign-period');
-								?>
+
 						<li class="side-campaign__item">
 							<figure class="side-campaign__img">
 								<?php
@@ -141,12 +136,24 @@
 									<p class="side-campaign__price-info">
 										全部コミコミ(お一人様)
 									</p>
+									<?php
+										// グループフィールド「campaign-price」の値を取得
+										$priceInfo = get_field('campaign-price');
+
+										// サブフィールド「campaign-price_old」と「campaign-price_new」を取得
+										$price_old = $priceInfo['campaign-price_old'] ?? ''; // 値がない場合は空文字を設定
+										$price_new = $priceInfo['campaign-price_new'] ?? ''; // 値がない場合は空文字を設定
+											?>
 									<div class="side-campaign__price">
 										<?php if (!empty($price_old)) : ?>
-										<p class="side-campaign__price-before"><?php echo esc_html($price_old); ?></p>
+										<p class="side-campaign__price-before">
+											&yen;<?php echo esc_html(number_format($price_old)); ?>
+										</p>
 										<?php endif; ?>
 										<?php if (!empty($price_new)) : ?>
-										<p class="side-campaign__price-after"><?php echo esc_html($price_new); ?></p>
+										<p class="side-campaign__price-after">
+											&yen;<?php echo esc_html(number_format($price_new)); ?>
+										</p>
 										<?php endif; ?>
 									</div>
 								</div>
