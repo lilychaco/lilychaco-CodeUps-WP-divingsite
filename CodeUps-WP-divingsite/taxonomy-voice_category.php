@@ -56,16 +56,23 @@
 							<div class="voice-card__top">
 								<div class="voice-card__meta">
 									<?php
-										// 年齢の値を取得
-										$age = get_field('tag_age'); // ACFのフィールド名 "tag_age" を指定
-										// 性別の値を取得
-										$sex = get_field('tag_sex'); // ACFのフィールド名 "tag_sex" を指定
+                        // グループフィールドを取得
+                        $voiceUser = get_field('voice_user');
+                        // グループフィールド内の「年代」フィールドを取得
+                        $userAge = $voiceUser['user_age'] ?? '';
+                        // グループフィールド内の「性別」フィールドを取得
+                        $userGender = $voiceUser['user_gender'] ?? '';
 
-										// 年齢と性別が両方設定されている場合にHTMLを出力
-										if ($age && $sex): ?>
+												// 年齢と性別が両方設定されている場合にHTMLを出力
+								if($userAge && $userGender):
+												?>
 									<div class="voice-card__tag">
-										<?php echo esc_html($age); // 年齢を表示 ?>
-										<span>&#40;<?php echo esc_html($sex); // 性別を表示 ?>&#41;</span>
+										<?php if ( $userAge ){
+                          echo esc_html( $userAge );
+                        } ?>
+										(<?php if ( $userGender ){
+                          echo esc_html( $userGender );
+                        } ?>)
 									</div>
 									<?php endif; ?>
 									<?php

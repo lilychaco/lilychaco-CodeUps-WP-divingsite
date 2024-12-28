@@ -47,31 +47,36 @@
 			</ul>
 
 			<!-- 投稿リスト部分 -->
+			<?php if (have_posts()) : ?>
 			<ul class="archive-voice__content voice-cards">
-				<?php
-		// ループはそのまま利用可能
-		if (have_posts()) : while (have_posts()) : the_post();
-    ?>
+				<?php while (have_posts()) : the_post();        ?>
 				<li class="voice-cards__item voice-card">
 					<a href="#" class="voice-card__link">
 						<div class="voice-card__body">
 							<div class="voice-card__top">
 								<div class="voice-card__meta">
 									<?php
-										// 年齢の値を取得
-										$age = get_field('tag_age'); // ACFのフィールド名 "tag_age" を指定
-										// 性別の値を取得
-										$sex = get_field('tag_sex'); // ACFのフィールド名 "tag_sex" を指定
+                        // グループフィールドを取得
+                        $voiceUser = get_field('voice_user');
+                        // グループフィールド内の「年代」フィールドを取得
+                        $userAge = $voiceUser['user_age'] ?? '';
+                        // グループフィールド内の「性別」フィールドを取得
+                        $userGender = $voiceUser['user_gender'] ?? '';
 
-										// 年齢と性別が両方設定されている場合にHTMLを出力
-										if ($age && $sex): ?>
+												// 年齢と性別が両方設定されている場合にHTMLを出力
+								if($userAge && $userGender):
+												?>
 									<div class="voice-card__tag">
-										<?php echo esc_html($age); // 年齢を表示 ?>
-										<span>
-											<span>&#40;<?php echo esc_html($sex); // 性別を表示 ?>&#41;</span>
-										</span>
+										<?php if ( $userAge ){
+                          echo esc_html( $userAge );
+                        } ?>
+										(<?php if ( $userGender ){
+                          echo esc_html( $userGender );
+                        } ?>)
 									</div>
 									<?php endif; ?>
+
+
 
 									<?php
                   $terms = get_the_terms( get_the_ID(), 'voice_category' );
@@ -106,17 +111,16 @@
 									alt="<?php echo esc_attr(get_the_title() . 'の画像'); ?>" />
 								<?php endif; ?>
 							</figure>
-
 						</div>
 						<div class=" voice-card__text">
 							<?php
-            // 本文を取得し、HTMLタグを除去、171文字に制限して表示
-            $content = strip_tags( get_the_content() ); // HTMLタグを除去
-            $trimmed_content = mb_strlen( $content, 'UTF-8' ) > 171
-                ? mb_substr( $content, 0, 171, 'UTF-8' ) . ''
-                : $content; // 171文字に切り詰め、省略記号を追加
-            echo esc_html( $trimmed_content ); // エスケープして表示
-            ?>
+										// 本文を取得し、HTMLタグを除去、171文字に制限して表示
+										$content = strip_tags( get_the_content() ); // HTMLタグを除去
+										$trimmed_content = mb_strlen( $content, 'UTF-8' ) > 171
+												? mb_substr( $content, 0, 171, 'UTF-8' ) . ''
+												: $content; // 171文字に切り詰め、省略記号を追加
+										echo esc_html( $trimmed_content ); // エスケープして表示
+										?>
 						</div>
 					</a>
 				</li>
