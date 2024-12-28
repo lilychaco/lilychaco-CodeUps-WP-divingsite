@@ -50,14 +50,18 @@
 			<?php
 			// ループはそのまま利用可能
 			if (have_posts()) : while (have_posts()) : the_post();
-					// カスタムフィールドの値を取得
-					$price_old = get_field('campaign-price_old');
-					$price_new = get_field('campaign-price_new');
-					$period = get_field('campaign-period');
+				// グループフィールド「campaign-price」の値を取得
+        $priceInfo = get_field('campaign-price');
 
-					// `campaign-price_new` が空でない場合にのみカードを表示
-    			if (!empty($price_new)) :
-					?>
+        // サブフィールド「campaign-price_old」と「campaign-price_new」を取得
+        $price_old = $priceInfo['campaign-price_old'] ?? ''; // 値がない場合は空文字を設定
+        $price_new = $priceInfo['campaign-price_new'] ?? ''; // 値がない場合は空文字を設定
+
+
+
+			// `campaign-price_new` が空でない場合にのみカードを表示
+			if (!empty($price_new)) :
+			?>
 
 			<li class=" archive-campaign-cards__item archive-campaign-card">
 				<figure class="archive-campaign-card__img">
@@ -103,12 +107,12 @@
 						<div class="archive-campaign-card__price-text">
 							<?php if (!empty($price_old)) : ?>
 							<p class="archive-campaign-card__price-old">
-								<?php echo esc_html($price_old); ?>
+								&yen;<?php echo esc_html(number_format($price_old)); ?>
 							</p>
 							<?php endif; ?>
 							<?php if (!empty($price_new)) : ?>
 							<p class="archive-campaign-card__price-new">
-								<?php echo esc_html($price_new); ?>
+								&yen;<?php echo esc_html(number_format($price_new)); ?>
 							</p>
 							<?php endif; ?>
 						</div>
@@ -125,7 +129,39 @@
 									?>
 						</div>
 						<div class="archive-campaign-card__meta">
-							<div class="archive-campaign-card__date"><?php echo esc_html($period); ?></div>
+							<?php
+
+							// グループフィールドを取得
+							$campaignPeriod = get_field('campaign_period');
+							 // グループフィールド内の「開始日」フィールドを取得
+							$startDate = $campaignPeriod['start_date']?? '';
+							 // グループフィールド内の「終了日」フィールドを取得
+							$endDate = $campaignPeriod['end_date']?? '';
+
+							  //開始日と終了日から年を取得
+                          $startYear = date('Y', strtotime($startDate));
+                          $endYear = date('Y', strtotime($endDate));
+							?>
+							<div class="archive-campaign-card__date">
+								<?php if ( $startDate ): ?>
+								<time datetime="<?php echo esc_html( $startDate ); ?>">
+									<?php echo esc_html( date('Y/n/j', strtotime($startDate)) ); ?>
+								</time>
+								<?php endif;?>
+								<?php if ( $endDate ): ?>
+								- <time datetime="<?php echo esc_html( $endDate ); ?>">
+									<!-- 同じ年なら年を非表示に -->
+									<?php if ( $startYear === $endYear ) {
+                            echo esc_html( date('n/j', strtotime($endDate)) );
+                          } else {
+                            echo esc_html( date('Y.n/j', strtotime($endDate)) );
+                          } ?>
+								</time>
+								<?php endif;?>
+
+
+
+							</div>
 							<div class="archive-campaign-card__microcopy">
 								ご予約・お問い合わせはコチラ
 							</div>
