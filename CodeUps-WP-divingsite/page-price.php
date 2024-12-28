@@ -40,12 +40,11 @@
 				<?php
         // 繰り返しフィールドの各アイテムをループで処理します。
         foreach ($license_pricelist as $item) :
-            // 各アイテムの 'license_kinds' フィールドの値を取得します。
-            if (!empty($item['license_kinds'])) :
+            // 各アイテムの 'license_name' フィールドの値を取得します。
+            if (!empty($item['license_name'])) :
         ?>
 				<li class="page-price-list__item">
-
-					<p class="page-price-list__name"><?php echo wp_kses_post($item['license_kinds']); ?></p>
+					<p class="page-price-list__name"><?php echo wp_kses_post($item['license_name']); ?></p>
 					<?php if (!empty($item['license_price'])) : ?>
 					<p class="page-price-list__number"><?php echo esc_html($item['license_price']); ?></p>
 					<?php endif; ?>

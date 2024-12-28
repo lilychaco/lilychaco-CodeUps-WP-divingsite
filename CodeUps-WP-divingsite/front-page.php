@@ -482,7 +482,11 @@
 						<ul class="price-list__items">
 							<?php foreach ($license_pricelist as $license) : ?>
 							<li class="price-list__item">
-								<p class="price-list__name"><?php echo wp_kses_post($license['license_kinds']); ?></p>
+								<?php
+            // カスタムフィールドの値から <br class="u-mobile"> を削除
+            $name_cleaned_license = str_replace('<br class="u-mobile">', '', $license['license_name']);
+            ?>
+								<p class="price-list__name"><?php echo wp_kses_post($name_cleaned_license); ?></p>
 								<p class="price-list__number"><?php echo esc_html($license['license_price']); ?></p>
 							</li>
 							<?php endforeach; ?>
@@ -499,9 +503,11 @@
 						<ul class="price-list__items">
 							<?php foreach ($experience_pricelist as $experience) : ?>
 							<li class="price-list__item">
-								<!-- 体験種類を表示 -->
-								<p class="price-list__name"><?php echo wp_kses_post($experience['experience_name']); ?></p>
-								<!-- 体験料金を表示 -->
+								<?php
+            // カスタムフィールドの値から <br class="u-mobile"> を削除
+            $name_cleaned_experience = str_replace('<br class="u-mobile">', '', $experience['experience_name']);
+            ?>
+								<p class="price-list__name"><?php echo wp_kses_post($name_cleaned_experience); ?></p>
 								<p class="price-list__number"><?php echo esc_html($experience['experience_price']); ?></p>
 							</li>
 							<?php endforeach; ?>
@@ -519,7 +525,11 @@
 						<ul class="price-list__items">
 							<?php foreach ($fundiving_pricelist as $fundiving) : ?>
 							<li class="price-list__item">
-								<p class="price-list__name"><?php echo wp_kses_post($fundiving['fundiving_name']); ?></p>
+								<?php
+            // カスタムフィールドの値から <br class="u-mobile"> を削除
+            $name_cleaned_fundiving = str_replace('<br class="u-mobile">', '', $fundiving['fundiving_name']);
+            ?>
+								<p class="price-list__name"><?php echo wp_kses_post($name_cleaned_fundiving); ?></p>
 								<p class="price-list__number"><?php echo esc_html($fundiving['fundiving_price']); ?></p>
 							</li>
 							<?php endforeach; ?>
@@ -538,7 +548,11 @@
 						<ul class="price-list__items">
 							<?php foreach ($specialdiving_pricelist as $special) : ?>
 							<li class="price-list__item">
-								<p class="price-list__name"><?php echo wp_kses_post($special['specialdiving_name']); ?></p>
+								<?php
+            // カスタムフィールドの値から <br class="u-mobile"> を削除
+            $name_cleaned_special = str_replace('<br class="u-mobile">', '', $special['specialdiving_name']);
+            ?>
+								<p class="price-list__name"><?php echo wp_kses_post($name_cleaned_special); ?></p>
 								<p class="price-list__number"><?php echo esc_html($special['specialdiving_price']); ?></p>
 							</li>
 							<?php endforeach; ?>
