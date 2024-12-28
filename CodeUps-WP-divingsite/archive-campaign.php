@@ -57,8 +57,6 @@
         $price_old = $priceInfo['campaign-price_old'] ?? ''; // 値がない場合は空文字を設定
         $price_new = $priceInfo['campaign-price_new'] ?? ''; // 値がない場合は空文字を設定
 
-
-
 			// `campaign-price_new` が空でない場合にのみカードを表示
 			if (!empty($price_new)) :
 			?>
@@ -130,7 +128,6 @@
 						</div>
 						<div class="archive-campaign-card__meta">
 							<?php
-
 							// グループフィールドを取得
 							$campaignPeriod = get_field('campaign_period');
 							 // グループフィールド内の「開始日」フィールドを取得
