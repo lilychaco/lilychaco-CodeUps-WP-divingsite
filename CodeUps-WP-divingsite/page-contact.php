@@ -15,7 +15,6 @@
 	<div class="page-contact__inner inner">
 		<div class="page-contact__content form-wrapper fish">
 			<?php the_content(); ?>
-
 		</div>
 	</div>
 </div>
