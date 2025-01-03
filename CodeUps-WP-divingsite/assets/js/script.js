@@ -199,3 +199,28 @@ jQuery(function ($) {
     return false;
   });
 });
+
+//================================
+//コンタクトフォーム7 未入力項目がある時に、警告メッセージを出す
+// ==================================
+document.addEventListener("DOMContentLoaded", function () {
+  // 警告メッセージの要素を取得
+  var warningMessage = document.getElementById("warningMessage");
+
+  // Contact Form 7 フォームを取得
+  var contactForm = document.querySelector(".wpcf7-form");
+
+  // フォーム送信時の処理
+  contactForm.addEventListener("submit", function (e) {
+    // 未入力やエラー項目を持つ要素を取得
+    var invalidFields = contactForm.querySelectorAll(".wpcf7-not-valid");
+    if (invalidFields.length > 0) {
+      // 未入力項目がある場合
+      e.preventDefault(); // フォーム送信を中止
+      warningMessage.style.display = "block"; // 警告メッセージを表示
+    } else {
+      // 全ての項目が正しい場合
+      warningMessage.style.display = "none"; // 警告メッセージを非表示
+    }
+  });
+});

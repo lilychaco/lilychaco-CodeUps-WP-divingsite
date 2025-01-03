@@ -302,97 +302,30 @@ function wpcf7_autop_return_false() {
 return false;
 }
 
+
+
+
 /*-----------------------------------
 // CF7送信後にリダイレクト
 -----------------------------------*/
 // Contact Form 7送信後のリダイレクト処理
 add_action('wp_footer', 'redirect_cf7_behavior');
 function redirect_cf7_behavior() {
-    // サンクスページとエラーページのURLを動的に取得
+    // サンクスページのURLを動的に取得
     $thanks_page = home_url('/contact/thanks/');
-    $error_page = home_url('/contact/error/');
     ?>
 <script type="text/javascript">
 document.addEventListener('wpcf7mailsent', function() {
 	// フォーム送信成功時
 	window.location.href = '<?php echo esc_url($thanks_page); ?>';
 }, false);
-
-document.addEventListener('wpcf7invalid', function() {
-	// フォーム送信失敗時
-	window.location.href = '<?php echo esc_url($error_page); ?>';
-}, false);
 </script>
 <?php
 }
 
 
 
-/*-----------------------------------
-Contact Form 7 ローカルストレージにデータを保存する
------------------------------------*/
-add_action('wp_footer', 'save_cf7_data_to_localstorage');
-function save_cf7_data_to_localstorage() {
-    ?>
-<script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
-	document.querySelectorAll('.wpcf7-form input, .wpcf7-form textarea').forEach(function(input) {
-		input.addEventListener('input', function() {
-			localStorage.setItem(input.name, input.value);
-		});
-	});
-});
-</script>
-<?php
-}
 
-
-/*-----------------------------------
-Contact Form 7 エラーページでデータを復元する
------------------------------------*/
-add_action('wp_footer', 'restore_cf7_data_from_localstorage');
-function restore_cf7_data_from_localstorage() {
-    ?>
-<script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
-	document.querySelectorAll('.wpcf7-form input, .wpcf7-form textarea').forEach(function(input) {
-		if (localStorage.getItem(input.name)) {
-			input.value = localStorage.getItem(input.name);
-		}
-	});
-});
-</script>
-<?php
-}
-
-
-/*-----------------------------------
-Contact Form 7 ローカルストレージに残ったデータを削除
------------------------------------*/
-
-add_action('wp_footer', 'custom_cf7_local_storage_handler');
-function custom_cf7_local_storage_handler() {
-    ?>
-<script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
-	// 現在のURLが問い合わせページかを判定
-	const isContactPage = window.location.pathname.includes('contact'); // "contact" を問い合わせページのスラッグに置き換えてください。
-
-	// 問い合わせ送信成功時にローカルストレージをクリア
-	document.addEventListener('wpcf7mailsent', function(event) {
-		localStorage.clear();
-	}, false);
-
-	// 問い合わせページ以外でローカルストレージを削除
-	if (!isContactPage) {
-		localStorage.clear();
-	}
-
-	// 問い合わせページでは何もしない（データ保持）
-});
-</script>
-<?php
-}
 
 
 /*-----------------------------------

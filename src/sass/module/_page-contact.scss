@@ -11,3 +11,24 @@
 	}
 }
 
+.page-contact__warning {
+	display: none;
+	margin-inline: auto;
+  width: 100%;
+  padding-left: rem(60);
+	padding-bottom: rem(16);
+
+	@include mq(md) {
+		text-align: center;
+		padding-left: 8px;
+		padding-bottom: rem(40);
+	}
+}
+.page-contact__warning p{
+	color: #c94800;
+  font-size: rem(14);
+  font-family: $base-font-family;
+  font-weight: $regular;
+  line-height: 1.4;
+  letter-spacing: 0;
+}

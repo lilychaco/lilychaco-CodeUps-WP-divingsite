@@ -67,6 +67,12 @@
   }
 }
 
+/*  未入力時 wpcf7-not-valid クラスが付与される（緑の枠線を赤に変更） */
+.form__row dd input.wpcf7-not-valid {
+  border: 1px solid #ff0000; /* 赤い枠線 */
+  background-color: #ffe5e5; /* 背景色を淡い赤色 */
+}
+
 .form__checkbox-wrapper {
   margin-top: rem(16);
 
@@ -155,8 +161,6 @@
 
 .form__row--message dd {
   width: 100%;
-  height: rem(200);
-  border: 1px solid $greenaccent;
   margin-top: rem(16);
 
   @include mq(md) {
@@ -166,14 +170,15 @@
 
 .form__row--message dd textarea {
   width: 100%;
-  height: 100%;
   resize: vertical;
   padding: rem(8);
+	border: 1px solid $greenaccent;
 }
 
-.input-error {
-  background-color: #ffcccc;
-  /* 淡い赤色 */
+/* 未入力時 wpcf7-not-valid クラスが付与される（緑の枠線を赤に変更） */
+.form__row--message dd textarea.wpcf7-not-valid{
+	background-color: rgba(201, 72, 0, 0.2);
+	border: 1px solid #C94800;
 }
 
 

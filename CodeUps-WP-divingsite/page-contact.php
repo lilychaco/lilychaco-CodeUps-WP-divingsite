@@ -13,6 +13,11 @@
 
 <div class="page-contact page-contact-layout">
 	<div class="page-contact__inner inner">
+		<div class="page-contact__warning" id="warningMessage">
+			<p>
+				※必須項目が入力されていません。<br class="u-mobile" />入力してください。
+			</p>
+		</div>
 		<div class="page-contact__content form-wrapper fish">
 			<?php the_content(); ?>
 		</div>

@@ -1391,28 +1391,19 @@ time {
 
 /* レスポンシブ対応のdt要素のマージン */
 
-/* エラーページにのみ適用するスタイル */
-
-.wpcf7-form-invalid .wpcf7-form-control.wpcf7-not-valid {
-	background-color: rgba(255, 0, 0, 0.1); /* 薄い赤 */
+.wpcf7-not-valid-tip {
+	color: transparent; /* テキストを透明にする */
+	display: none;
 }
 
-/* プレースホルダーの色を変更（任意） */
+/* プレースホルダーのテキストを非表示にする */
 
-.wpcf7-form-invalid input::-moz-placeholder,
-.wpcf7-form-invalid textarea::-moz-placeholder {
-	color: #d9534f; /* 薄い赤 */
+.wpcf7-not-valid::-moz-placeholder {
+	color: transparent; /* テキストを透明にする */
 }
 
-.wpcf7-form-invalid input::placeholder,
-.wpcf7-form-invalid textarea::placeholder {
-	color: #d9534f; /* 薄い赤 */
-}
-
-/* エラーメッセージの色を赤に */
-
-.wpcf7-form-invalid span.wpcf7-not-valid-tip {
-	color: #d9534f; /* エラーメッセージのテキストを赤く */
+.wpcf7-not-valid::placeholder {
+	color: transparent; /* テキストを透明にする */
 }
 
 /*デフォルトのスタイルを無効化する*/
@@ -1424,6 +1415,10 @@ input[type=submit] {
 }
 
 span.wpcf7-spinner {
+	display: none;
+}
+
+.wpcf7-response-output {
 	display: none;
 }
 
@@ -1734,6 +1729,13 @@ span.wpcf7-spinner {
 	width: 100%;
 }
 
+/*  未入力時 wpcf7-not-valid クラスが付与される（緑の枠線を赤に変更） */
+
+.form__row dd input.wpcf7-not-valid {
+	background-color: #ffe5e5; /* 背景色を淡い赤色 */
+	border: 1px solid #ff0000; /* 赤い枠線 */
+}
+
 .form__checkbox-wrapper {
 	margin-top: 1rem;
 }
@@ -1808,21 +1810,22 @@ span.wpcf7-spinner {
 }
 
 .form__row--message dd {
-	border: 1px solid #408F95;
-	height: 12.5rem;
 	margin-top: 1rem;
 	width: 100%;
 }
 
 .form__row--message dd textarea {
-	height: 100%;
+	border: 1px solid #408F95;
 	padding: 0.5rem;
 	resize: vertical;
 	width: 100%;
 }
 
-.input-error {
-	background-color: #ffcccc; /* 淡い赤色 */
+/* 未入力時 wpcf7-not-valid クラスが付与される（緑の枠線を赤に変更） */
+
+.form__row--message dd textarea.wpcf7-not-valid {
+	background-color: rgba(201, 72, 0, 0.2);
+	border: 1px solid #C94800;
 }
 
 .form__select {
@@ -2578,6 +2581,24 @@ span.wpcf7-spinner {
 	margin-right: auto;
 	position: relative;
 	width: 100%;
+}
+
+.page-contact__warning {
+	display: none;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 1rem;
+	padding-left: 3.75rem;
+	width: 100%;
+}
+
+.page-contact__warning p {
+	color: #c94800;
+	font-family: "Noto Sans JP", sans-serif;
+	font-size: 0.875rem;
+	font-weight: 400;
+	letter-spacing: 0;
+	line-height: 1.4;
 }
 
 .page-error-layout {
@@ -4923,6 +4944,12 @@ html {
 
 .page-contact__inner {
 	max-width: 46.875rem;
+}
+
+.page-contact__warning {
+	padding-bottom: 2.5rem;
+	padding-left: 8px;
+	text-align: center;
 }
 
 .page-error-layout {
