@@ -204,7 +204,7 @@ jQuery(function ($) {
   //コンタクトフォーム7 未入力項目がある時に、警告メッセージを出す
   // ==================================
 document.addEventListener("DOMContentLoaded", () => {
-  // 警告メッセージの要素を取得
+  // 警告メッセージを取得
   const warningMessage = document.getElementById("warningMessage");
 
   // Contact Form 7 フォームを取得
@@ -212,16 +212,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // フォーム送信時の処理
   contactForm.addEventListener("submit", (e) => {
-    // 未入力やエラー項目を持つ要素を取得
-    const invalidFields = contactForm.querySelectorAll(".wpcf7-not-valid");
+    const requiredFields = contactForm.querySelectorAll(
+      "[aria-required='true']"
+    );
+    let isFormValid = true;
 
-    if (invalidFields.length > 0) {
-      // 未入力項目がある場合
+    // 必須項目のチェック
+    requiredFields.forEach((field) => {
+      if (!field.value.trim()) {
+        isFormValid = false;
+        field.classList.add("wpcf7-error"); // 未入力フィールドを強調するクラス
+      } else {
+        field.classList.remove("wpcf7-error");
+      }
+    });
+
+    // フォームが無効な場合
+    if (!isFormValid) {
       e.preventDefault(); // フォーム送信を中止
       warningMessage.style.display = "block"; // 警告メッセージを表示
     } else {
-      // 全ての項目が正しい場合
       warningMessage.style.display = "none"; // 警告メッセージを非表示
     }
   });
 });
+
