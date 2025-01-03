@@ -294,41 +294,6 @@ error_log('Smart Custom Fieldsプラグインがインストールされてい�
 }
 
 
-
-/*-----------------------------------
-投稿ビュー数を カスタムフィールドpost_views_countに、記録する
------------------------------------*/
-/**
-* 投稿ビュー数をカウントする関数
-*
-* @param int $postID 投稿ID
-*/
-function set_post_views($postID) {
-$count_key = 'post_views_count';
-$count = get_field($count_key, $postID);
-if($count == ''){
-$count = 0;
-update_field($count_key, $count, $postID);
-} else {
-$count++;
-update_field($count_key, $count, $postID);
-}
-}
-
-function track_post_views($post_id) {
-if (!is_single() || is_admin()) return; // 管理画面ではカウントしない
-if (empty($post_id)) {
-global $post;
-$post_id = $post->ID;
-}
-set_post_views($post_id);
-}
-add_action('wp_head', 'track_post_views');
-
-
-
-
-
 /*-----------------------------------
 ContactForm7で自動挿入されるPタグ、brタグを削除
 -----------------------------------*/
@@ -471,3 +436,76 @@ function filter_wpcf7_form_tag_campaign_titles( $scanned_tag, $replace ) {
 
 // フィルターフックに登録
 add_filter('wpcf7_form_tag', 'filter_wpcf7_form_tag_campaign_titles', 11, 2);
+
+
+/*-----------------------------------
+投稿ビュー数を カスタムフィールドpost_views_countに、記録する
+-----------------------------------*/
+/**
+* 投稿ビュー数をカウントする関数
+*
+* @param int $postID 投稿ID
+*/
+// function set_post_views($postID) {
+// $count_key = 'post_views_count';
+// $count = get_field($count_key, $postID);
+// if($count == ''){
+// $count = 0;
+// update_field($count_key, $count, $postID);
+// } else {
+// $count++;
+// update_field($count_key, $count, $postID);
+// }
+// }
+
+// function track_post_views($post_id) {
+// if (!is_single() || is_admin()) return; // 管理画面ではカウントしない
+// if (empty($post_id)) {
+// global $post;
+// $post_id = $post->ID;
+// }
+// set_post_views($post_id);
+// }
+// add_action('wp_head', 'track_post_views');
+
+
+/*-----------------------------------
+*人気記事表示のために 人気記事を取得する
+-----------------------------------*/
+// 人気記事を取得するカスタムクエリ
+function get_popular_posts($limit = 3) {
+    $args = array(
+        'posts_per_page' => $limit,
+        'meta_key' => 'post_views_count', // ページビュー数のメタキー
+        'orderby' => 'meta_value_num', // 数値で並べ替え
+        'order' => 'DESC', // 降順
+        'post_type' => 'post', // 投稿タイプ
+        'post_status' => 'publish' // 公開済み投稿のみ
+    );
+    return new WP_Query($args);
+}
+
+
+
+// 閲覧回数を保存する関数
+function update_post_views($post_id) {
+    if (!is_single()) return; // 単一投稿ページでない場合は何もしない
+    if (empty($post_id)) return;
+
+    // 現在の閲覧回数を取得
+    $views = get_post_meta($post_id, 'post_views_count', true);
+
+    // 閲覧回数を増やす
+    $views = (empty($views)) ? 1 : intval($views) + 1;
+
+    // 閲覧回数を保存
+    update_post_meta($post_id, 'post_views_count', $views);
+}
+
+// フックで自動的に呼び出す
+add_action('wp_head', function() {
+    if (is_single()) {
+        global $post; // 現在表示中の投稿情報を取得
+        update_post_views($post->ID); // 閲覧回数を更新
+    }
+});

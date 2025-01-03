@@ -1,16 +1,9 @@
 			<aside class="side">
 				<section class="side-popular">
 					<?php
-							// 人気記事を取得するためのクエリを設定します。
-							$popular_posts = new WP_Query(array(
-									'posts_per_page' => 3, // 表示する投稿数
-									'meta_key' => 'post_views_count', // カスタムフィールドのキー（人気度を示す）
-									'orderby' => 'meta_value_num', // カスタムフィールドの値で並べ替え
-									'order' => 'DESC', // 降順で並べ替え
-									'post_type' => 'post' // 投稿タイプ
-							));
-							// クエリが成功し、投稿がある場合
-							if ($popular_posts->have_posts()) : ?>
+						$popular_posts = get_popular_posts(3); // 人気記事を3件取得
+
+						if ($popular_posts->have_posts()) : ?>
 					<h2 class="side-popular__heading side-heading">人気記事</h2>
 					<ul class="side-popular__cards">
 						<?php while ($popular_posts->have_posts()) : $popular_posts->the_post(); ?>

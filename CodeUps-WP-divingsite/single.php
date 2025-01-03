@@ -49,24 +49,32 @@
 					</div>
 				</div>
 
-				<div class="single-blog__nav page-nav">
-					<div class="page-nav__arrows">
-						<?php
+
+				<?php
 							$prev = get_previous_post();
 							$next = get_next_post();
 							?>
+				<div class="single-blog__nav page-nav">
+					<div class="page-nav__arrows">
+						<?php if($prev): ?>
 						<div class="page-nav__arrow">
-							<?php if($prev): ?>
 							<a href="<?php echo get_permalink( $prev->ID ); ?>" class="previouspostlink">＜</a>
-							<?php endif; ?>
 						</div>
+						<?php endif; ?>
+						<?php if($next): ?>
 						<div class="page-nav__arrow">
-							<?php if($next): ?>
 							<a href="<?php echo get_permalink( $next->ID ); ?>" class="nextpostlink">＞</a>
-							<?php endif; ?>
 						</div>
+						<?php endif; ?>
 					</div>
 				</div>
+
+
+
+
+
+
+
 				<?php endwhile; endif; ?>
 			</div>
 			<?php get_sidebar(); ?>

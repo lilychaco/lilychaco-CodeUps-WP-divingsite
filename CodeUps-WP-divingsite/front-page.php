@@ -6,13 +6,15 @@
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
 					<?php
-        // グループフィールドを取得
-        $fvImage01 = get_field('fv_image_1');
+					// 設定ページのIDを指定
+					$page_id = 438;
+					// グループフィールドを取得
+					$fvImage01 = get_field('fv_image_1', $page_id);
 
-        // 各デバイス向けの画像フィールドを取得
-        $fvImage01PC = $fvImage01['fv_image_1_pc'] ?? ''; // PC用画像
-        $fvImage01SP = $fvImage01['fv_image_1_sp'] ?? ''; // SP用画像
-    ?>
+					// 各デバイス向けの画像フィールドを取得
+					$fvImage01PC = $fvImage01['fv_image_1_pc'] ?? ''; // PC用画像
+					$fvImage01SP = $fvImage01['fv_image_1_sp'] ?? ''; // SP用画像
+					?>
 					<figure class="fv__slider-img">
 						<picture>
 							<!-- PC用画像を設定 -->
@@ -26,8 +28,10 @@
 				</div>
 				<div class="swiper-slide">
 					<?php
-        // グループフィールドを取得
-        $fvImage02 = get_field('fv_image_2');
+					// 設定ページのIDを指定
+					$page_id = 438;
+					// グループフィールドを取得
+					$fvImage02 = get_field('fv_image_2', $page_id);
 
         // 各デバイス向けの画像フィールドを取得
         $fvImage02PC = $fvImage02['fv_image_2_pc'] ?? ''; // PC用画像
@@ -47,8 +51,10 @@
 
 				<div class="swiper-slide">
 					<?php
-        // グループフィールドを取得
-        $fvImage03 = get_field('fv_image_3');
+        // 設定ページのIDを指定
+					$page_id = 438;
+					// グループフィールドを取得
+					$fvImage03 = get_field('fv_image_3', $page_id);
 
         // 各デバイス向けの画像フィールドを取得
         $fvImage03PC = $fvImage03['fv_image_3_pc'] ?? ''; // PC用画像
@@ -68,8 +74,10 @@
 
 				<div class="swiper-slide">
 					<?php
-        // グループフィールドを取得
-        $fvImage04 = get_field('fv_image_4');
+					// 設定ページのIDを指定
+					$page_id = 438;
+					// グループフィールドを取得
+					$fvImage04 = get_field('fv_image_4', $page_id);
 
         // 各デバイス向けの画像フィールドを取得
         $fvImage04PC = $fvImage04['fv_image_4_pc'] ?? ''; // PC用画像
